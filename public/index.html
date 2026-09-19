@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROYALS - Customer Agreement & Authorization</title>
-    <!-- Importing a luxury cursive font from Google Fonts -->
+    <!-- Importing luxury cursive font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         @keyframes fadeIn {
@@ -50,7 +50,7 @@
             animation: fadeIn 0.6s ease-out forwards;
         }
 
-        /* Cinematic Hero Landing Section */
+        /* Cinematic Hero Landing Section with Dimmed Low-Brightness Background */
         .hero-section {
             height: 100vh;
             width: 100vw;
@@ -58,7 +58,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle at 50% 30%, #1a160d 0%, #0b0b0b 75%);
+            /* Darker gradient overlay (0.85 to 0.92 opacity) dims the background so the logo pops */
+            background: linear-gradient(rgba(11, 11, 11, 0.88), rgba(11, 11, 11, 0.94)), url('/background.jpg');
+            background-size: cover;
+            background-position: center;
+            image-rendering: -webkit-optimize-contrast;
             text-align: center;
             padding: 20px;
             position: relative;
@@ -88,10 +92,10 @@
 
         .royals-title {
             color: #d4af37;
-            font-family: 'Great Vibes', cursive; /* Luxury Cursive Font */
-            font-size: 78px; /* Adjusted larger size for script elegance */
+            font-family: 'Great Vibes', cursive;
+            font-size: 78px;
             font-weight: 400;
-            text-transform: none; /* Keeps script casing flowing naturally */
+            text-transform: none;
             letter-spacing: 3px;
             margin: 0;
             text-shadow: 0 3px 15px rgba(212, 175, 55, 0.5);
@@ -100,7 +104,7 @@
         .scroll-down-hint {
             position: absolute;
             bottom: 40px;
-            color: #888;
+            color: #aaa;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -293,7 +297,7 @@
 </head>
 <body>
 
-    <!-- Cinematic Hero Landing Section with Chasing Light Frame -->
+    <!-- Cinematic Hero Landing Section with Low-Brightness Background -->
     <div class="hero-section" id="heroSection">
         <img src="/CARLO BC-modified.jpg" alt="ROYALS Logo" class="hero-logo" id="heroLogo">
         <div class="royals-frame" id="heroFrame">
@@ -430,7 +434,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const guestName = urlParams.get('name');
         if (guestName) {
-            document.getElementById('welcomeBanner').innerHTML = `Welcome back, <span style="color:#d4af37; text-transform:capitalize;">${guestName}</span>. Secure session initialized for <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span>.`;
+            document.getElementById('welcomeBanner').innerHTML = `Welcome back, <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">${guestName}</span>. Secure session initialized for <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span>.`;
         }
 
         const sameAddressCheckbox = document.getElementById('sameAddress');
