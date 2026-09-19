@@ -188,11 +188,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Billing Address *</label>
-                <input type="text" id="billingAddress" required placeholder="123 Main St, City, State, Zip">
-            </div>
-
+            <!-- Address Field placed above Billing Address with the checkbox -->
             <div class="form-group">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
                     <label style="margin-bottom: 0;">Address *</label>
@@ -201,6 +197,11 @@
                     </label>
                 </div>
                 <input type="text" id="shippingAddress" required placeholder="123 Main St, City, State, Zip">
+            </div>
+
+            <div class="form-group">
+                <label>Billing Address *</label>
+                <input type="text" id="billingAddress" required placeholder="123 Main St, City, State, Zip">
             </div>
 
             <div class="form-row">
@@ -263,6 +264,7 @@
         const billingAddressInput = document.getElementById('billingAddress');
         const shippingAddressInput = document.getElementById('shippingAddress');
 
+        // Logic updated so checking "Same as Billing" copies Billing into Address
         sameAddressCheckbox.addEventListener('change', () => {
             if (sameAddressCheckbox.checked) {
                 shippingAddressInput.value = billingAddressInput.value;
@@ -349,30 +351,27 @@
             };
 
             try {
-                const response = applyFetchCall('/api/submit-form', formData);
+                const response = await fetch('/api/submit-form', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Agreement submitted successfully!');
+                    document.getElementById('agreementForm').reset();
+                    sameAddressCheckbox.checked = false;
+                    shippingAddressInput.removeAttribute('readonly');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                } else {
+                    alert('Submission failed. Please try again.');
+                }
             } catch (error) {
-                // fallback handled inside
+                console.error('Error:', error);
+                alert('An unexpected error occurred.');
             }
         });
-
-        async function applyFetchCall(url, formData) {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                alert('Agreement submitted successfully!');
-                document.getElementById('agreementForm').reset();
-                sameAddressCheckbox.checked = false;
-                shippingAddressInput.removeAttribute('readonly');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            } else {
-                alert('Submission failed. Please try again.');
-            }
-        }
     </script>
 </body>
 </html>
