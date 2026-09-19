@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROYALS - Customer Agreement & Authorization</title>
-    <!-- Importing luxury cursive font from Google Fonts -->
+    <!-- Importing luxury cursive font from Google Fonts (used only for the main logo title) -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         @keyframes fadeIn {
@@ -328,7 +328,7 @@
             transform: translateY(-3px);
         }
 
-        /* Crystal Clear Full-Screen Thank You View */
+        /* Clean, Modern, Non-Cursive Thank You View */
         #thankYouScreen {
             display: none;
             text-align: center;
@@ -337,17 +337,19 @@
         }
 
         #thankYouScreen h2 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 88px; /* Larger, striking script */
-            color: #ffe875; /* Brighter gold for absolute clarity */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean modern font */
+            font-size: 54px; /* Bold and prominent */
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #ffe875; /* Bright gold */
             margin-bottom: 25px;
-            text-shadow: 0 0 25px rgba(212, 175, 55, 0.6); /* Clean glowing sharpness */
-            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            letter-spacing: 4px;
         }
 
         #thankYouScreen p {
-            color: #f3f3f3; /* High-contrast crisp white text */
-            font-size: 19px; /* Highly readable */
+            color: #f3f3f3;
+            font-size: 18px;
             line-height: 1.8;
             max-width: 650px;
             margin: 0 auto 25px auto;
@@ -372,7 +374,8 @@
                 gap: 15px;
             }
             #thankYouScreen h2 {
-                font-size: 68px;
+                font-size: 38px;
+                letter-spacing: 2px;
             }
         }
     </style>
@@ -507,7 +510,7 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Crystal Clear Thank You Screen (Hidden initially, replaces form on submit) -->
+        <!-- Clean Modern Thank You Screen (Hidden initially, replaces form on submit) -->
         <div id="thankYouScreen">
             <h2>Thank You</h2>
             <p>Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
@@ -647,7 +650,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the crystal-clear thank you screen
+                    // Hide the form and display the clean, non-cursive thank you screen
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
