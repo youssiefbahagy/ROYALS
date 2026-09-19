@@ -34,10 +34,22 @@
             }
         }
 
-        /* Laser Dot Motion Along Each Letter Path */
-        @keyframes letterLaserMotion {
-            0% { offset-distance: 0%; }
-            100% { offset-distance: 100%; }
+        /* Floating Stars Upward Drift & Twinkle Animation */
+        @keyframes floatStar {
+            0% {
+                transform: translateY(20px) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-50px) scale(1.2) rotate(180deg);
+                opacity: 0;
+            }
         }
 
         * {
@@ -334,7 +346,7 @@
             transform: translateY(-3px);
         }
 
-        /* Thank You Screen with Multi-Letter Laser Tracing */
+        /* Floating Stars Thank You Screen */
         #thankYouScreen {
             display: none;
             text-align: center;
@@ -342,144 +354,41 @@
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .svg-title-container {
+        .floating-stars-container {
             position: relative;
-            width: 100%;
-            max-width: 580px;
-            height: 120px;
-            margin: 0 auto 25px auto;
+            display: inline-block;
+            margin-bottom: 25px;
+            padding: 10px 40px;
         }
 
-        .svg-title-container svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
-
-        .svg-letter-outline {
-            fill: none;
-            stroke: #d4af37;
-            stroke-width: 1.8px;
-            stroke-dasharray: 4 2;
-            opacity: 0.5;
-        }
-
-        .svg-rendered-text {
-            fill: #f7e6ad;
+        .lux-thankyou-title {
             font-family: 'Georgia', serif;
-            font-size: 58px;
+            font-size: 52px;
             font-weight: 400;
             text-transform: uppercase;
+            color: #f7e6ad;
+            margin: 0;
             letter-spacing: 6px;
-            text-anchor: middle;
-            dominant-baseline: middle;
-            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.35);
         }
 
-        /* Individual Chasing Laser Dots on Letter Outlines */
-        .laser-dot-1 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
+        /* Floating star particles */
+        .star {
             position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 40,60 L 40,20 M 20,20 L 60,20"); /* T */
-            animation: letterLaserMotion 2.5s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+            color: #ffe875;
+            font-size: 18px;
+            user-select: none;
+            pointer-events: none;
+            text-shadow: 0 0 10px #ffe875, 0 0 20px #d4af37;
+            animation: floatStar 3s ease-in-out infinite;
         }
 
-        .laser-dot-2 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 90,60 L 105,20 L 120,60 M 97,45 L 113,45"); /* H */
-            animation: letterLaserMotion 2.2s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
-        }
-
-        .laser-dot-3 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 150,20 L 150,60 L 175,60"); /* A */
-            animation: letterLaserMotion 2.8s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
-        }
-
-        .laser-dot-4 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 225,20 L 200,20 L 200,60 L 225,60 M 200,40 L 218,40"); /* N */
-            animation: letterLaserMotion 3s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
-        }
-
-        .laser-dot-5 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 275,20 L 250,20 L 250,60 L 275,60"); /* K */
-            animation: letterLaserMotion 2.6s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
-        }
-
-        .laser-dot-6 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 330,20 C 310,20 310,60 330,60 C 350,60 350,20 330,20"); /* Y */
-            animation: letterLaserMotion 2.4s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
-        }
-
-        .laser-dot-7 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 370,20 L 400,20 L 370,60 L 400,60"); /* O */
-            animation: letterLaserMotion 2.7s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
-        }
-
-        .laser-dot-8 {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            offset-path: path("M 420,20 L 445,20 L 445,60 L 420,60"); /* U */
-            animation: letterLaserMotion 2.5s linear infinite;
-            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
-        }
+        .star:nth-child(1) { top: -15px; left: 10%; animation-delay: 0s; font-size: 14px; }
+        .star:nth-child(2) { top: -25px; left: 35%; animation-delay: 0.8s; font-size: 20px; }
+        .star:nth-child(3) { top: -10px; left: 65%; animation-delay: 0.4s; font-size: 16px; }
+        .star:nth-child(4) { top: -20px; left: 88%; animation-delay: 1.5s; font-size: 22px; }
+        .star:nth-child(5) { bottom: -15px; left: 20%; animation-delay: 1.2s; font-size: 15px; }
+        .star:nth-child(6) { bottom: -20px; left: 75%; animation-delay: 0.6s; font-size: 18px; }
 
         .lux-thankyou-text {
             color: #dfdfdf;
@@ -518,11 +427,9 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            .svg-title-container {
-                height: 90px;
-            }
-            .svg-rendered-text {
-                font-size: 40px;
+            .lux-thankyou-title {
+                font-size: 34px;
+                letter-spacing: 3px;
             }
         }
     </style>
@@ -657,21 +564,16 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Thank You Screen with Multi-Letter Laser Dot Motion -->
+        <!-- Luxurious Thank You Screen with Floating Stars Animation -->
         <div id="thankYouScreen">
-            <div class="svg-title-container">
-                <svg viewBox="0 0 500 100">
-                    <text x="50%" y="55%" class="svg-rendered-text">THANK YOU</text>
-                </svg>
-                <!-- Glowing laser dots tracing individual character zones -->
-                <div class="laser-dot-1"></div>
-                <div class="laser-dot-2"></div>
-                <div class="laser-dot-3"></div>
-                <div class="laser-dot-4"></div>
-                <div class="laser-dot-5"></div>
-                <div class="laser-dot-6"></div>
-                <div class="laser-dot-7"></div>
-                <div class="laser-dot-8"></div>
+            <div class="floating-stars-container">
+                <span class="star">✦</span>
+                <span class="star">★</span>
+                <span class="star">✦</span>
+                <span class="star">★</span>
+                <span class="star">✦</span>
+                <span class="star">★</span>
+                <h2 class="lux-thankyou-title">Thank You</h2>
             </div>
             <p class="lux-thankyou-text">Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
             <p class="lux-thankyou-footer">You may now safely close this window.</p>
@@ -810,7 +712,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with multi-letter laser tracing
+                    // Hide the form and display the luxury thank you screen with floating stars
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
