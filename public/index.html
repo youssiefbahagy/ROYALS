@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Agreement & Authorization</title>
+    <style>
+        body {
+            background-color: #0b0b0b;
+            color: #d4af37;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #141414;
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            max-height: 80px;
+        }
+        h2 {
+            text-align: center;
+            color: #d4af37;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #f3f3f3;
+            font-weight: 500;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1f1f1f;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+        input:focus, textarea:focus {
+            border-color: #d4af37;
+            outline: none;
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+        }
+        canvas {
+            border: 1px solid #d4af37;
+            background: #1f1f1f;
+            border-radius: 5px;
+            width: 100%;
+            height: 150px;
+            cursor: crosshair;
+        }
+        .btn-clear {
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .btn-clear:hover {
+            background: #d4af37;
+            color: #0b0b0b;
+        }
+        button[type="submit"] {
+            background: linear-gradient(135deg, #d4af37, #aa8c2c);
+            color: #0b0b0b;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #f3f3f3, #d4af37);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/200x80/141414/d4af37?text=YOUR+LOGO" alt="Company Logo" id="companyLogo">
+        </div>
+
+        <h2>Customer Agreement & Authorization</h2>
+
+        <form id="agreementForm">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="firstName" required>
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lastName" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label>E-Mail</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label>Billing Address</label>
+                <input type="text" id="billingAddress" required>
+            </div>
+            <div class="form-group">
+                <label>Shipping Address</label>
+                <input type="text" id="shippingAddress" required>
+            </div>
+            <div class="form-group">
+                <label>Amount ($)</label>
+                <input type="number" id="amount" required>
+            </div>
+            <div class="form-group">
+                <label>Card Holder Name</label>
+                <input type="text" id="cardholderName" required>
+            </div>
+            <div class="form-group">
+                <label>Credit Card Number</label>
+                <input type="text" id="cardNumber" required>
+            </div>
+            <div class="form-group">
+                <label>Expiration Date</label>
+                <input type="text" id="cardExp" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+                <label>CVV</label>
+                <input type="text" id="cardCvv" required>
+            </div>
+            <div class="form-group">
+                <label>Digital Signature</label>
+                <canvas id="signaturePad"></canvas>
+                <button type="button" class="btn-clear" id="clearBtn">Clear Signature</button>
+            </div>
+            <div class="form-group">
+                <label>Agent Name</label>
+                <input type="text" id="agentName" required>
+            </div>
+            <div class="form-group">
+                <label>Closer Name</label>
+                <input type="text" id="closerName" required>
+            </div>
+            <div class="form-group">
+                <label>Reference Number</label>
+                <input type="text" id="referenceNumber" required>
+            </div>
+
+            <button type="submit">Submit Agreement</button>
+        </form>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('signaturePad');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        canvas.addEventListener('mousedown', (e) => { isDrawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
+        canvas.addEventListener('mousemove', (e) => { if (!isDrawing) return; ctx.lineTo(e.offsetX, e.offsetY); ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 2; ctx.stroke(); });
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+
+        canvas.addEventListener('touchstart', (e) => { isDrawing = true; const rect = canvas.getBoundingClientRect(); ctx.beginPath(); ctx.moveTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top); e.preventDefault(); });
+        canvas.addEventListener('touchmove', (e) => { if (!isDrawing) return; const rect = canvas.getBoundingClientRect(); ctx.lineTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top); ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 2; ctx.stroke(); e.preventDefault(); });
+        canvas.addEventListener('touchend', () => isDrawing = false);
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        document.getElementById('agreementForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                billingAddress: document.getElementById('billingAddress').value,
+                shippingAddress: document.getElementById('shippingAddress').value,
+                amount: document.getElementById('amount').value,
+                cardholderName: document.getElementById('cardholderName').value,
+                cardNumber: document.getElementById('cardNumber').value,
+                cardExp: document.getElementById('cardExp').value,
+                cardCvv: document.getElementById('cardCvv').value,
+                signature: canvas.toDataURL(),
+                agentName: document.getElementById('agentName').value,
+                closerName: document.getElementById('closerName').value,
+                referenceNumber: document.getElementById('referenceNumber').value
+            };
+
+            const response = await fetch('/api/submit-form', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Agreement submitted successfully!');
+                location.reload();
+            } else {
+                alert('Submission failed. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
