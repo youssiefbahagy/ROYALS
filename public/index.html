@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Agreement & Authorization</title>
+    <title>ROYALS - Customer Agreement & Authorization</title>
     <style>
         * {
             box-sizing: border-box;
@@ -32,12 +32,27 @@
             padding-bottom: 20px;
             border-bottom: 1px solid #333;
         }
-        .logo-container img {
-            max-height: 140px;
-            width: auto;
-            border-radius: 50%;
+        .royals-logo-badge {
+            display: inline-block;
+            padding: 15px 35px;
+            background: #1f1f1f;
             border: 2px solid #d4af37;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+        }
+        .royals-logo-badge h1 {
+            color: #d4af37;
+            margin: 8px 0 0 0;
+            font-size: 32px;
+            letter-spacing: 5px;
+            font-weight: 800;
+        }
+        .royals-logo-badge p {
+            color: #aaa;
+            margin: 3px 0 0 0;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
         h2 {
             text-align: center;
@@ -159,8 +174,23 @@
 <body>
 
     <div class="container">
+        <!-- ROYALS Luxury Vector Logo Badge -->
         <div class="logo-container">
-            <img src="/LOGO USA.jpg" alt="Reach-Point Logo" id="companyLogo">
+            <div class="royals-logo-badge">
+                <svg width="65" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5Z" fill="url(#goldGradient)" stroke="#d4af37" stroke-width="1" stroke-linejoin="round"/>
+                    <path d="M4 19H20V21H4V19Z" fill="url(#goldGradient)"/>
+                    <defs>
+                        <linearGradient id="goldGradient" x1="3" y1="4" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#f3f3f3"/>
+                            <stop offset="50%" stop-color="#d4af37"/>
+                            <stop offset="100%" stop-color="#aa8c2c"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>ROYALS</h1>
+                <p>Authorized Agreement</p>
+            </div>
         </div>
 
         <h2>Customer Agreement & Authorization</h2>
@@ -188,7 +218,7 @@
                 </div>
             </div>
 
-            <!-- Address Field placed above Billing Address with the checkbox -->
+            <!-- Address Field (Above Billing Address) with Checkbox -->
             <div class="form-group">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
                     <label style="margin-bottom: 0;">Address *</label>
@@ -264,7 +294,6 @@
         const billingAddressInput = document.getElementById('billingAddress');
         const shippingAddressInput = document.getElementById('shippingAddress');
 
-        // Logic updated so checking "Same as Billing" copies Billing into Address
         sameAddressCheckbox.addEventListener('change', () => {
             if (sameAddressCheckbox.checked) {
                 shippingAddressInput.value = billingAddressInput.value;
@@ -306,7 +335,7 @@
             ctx.stroke();
         });
         canvas.addEventListener('mouseup', () => isDrawing = false);
-        canvas.addEventListener('mouseleave', () => isDrawing = false);
+        canvas.addEventListener('mouseleave', () => isDataDrawing = false);
 
         canvas.addEventListener('touchstart', (e) => {
             isDrawing = true;
