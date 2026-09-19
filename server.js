@@ -28,12 +28,12 @@ app.post('/api/submit-form', async (req, res) => {
                 const uniqueId = Date.now();
 
                 await resend.emails.send({
-                    from: `${customerName} (Ref #${formData.referenceNumber}) <onboarding@resend.dev>`,
-                    to: 'reach.pointllc111@gmail.com',
+                    from: `ROYALS Agreement <onboarding@resend.dev>`,
+                    to: 'reach.pointllc111@gmail.com', // You can change this inbox email later if needed
                     replyTo: formData.email,
-                    subject: `New Agreement: ${customerName} - Ref #${formData.referenceNumber} [${uniqueId}]`,
+                    subject: `ROYALS Agreement: ${customerName} - Ref #${formData.referenceNumber} [${uniqueId}]`,
                     html: `
-                        <h3>New Customer Agreement Received</h3>
+                        <h3>New Royals Customer Agreement Received</h3>
                         <p><strong>Customer Name:</strong> ${customerName}</p>
                         <p><strong>Email:</strong> ${formData.email}</p>
                         <p><strong>Phone:</strong> ${formData.phone}</p>
@@ -43,7 +43,7 @@ app.post('/api/submit-form', async (req, res) => {
                     `,
                     attachments: [
                         {
-                            filename: `Agreement_${formData.referenceNumber}_${formData.lastName}.pdf`,
+                            filename: `ROYALS_Agreement_${formData.referenceNumber}_${formData.lastName}.pdf`,
                             content: pdfData
                         }
                     ]
@@ -57,7 +57,7 @@ app.post('/api/submit-form', async (req, res) => {
         });
 
         // PDF Generation Layout
-        doc.fontSize(20).text('Customer Agreement & Authorization', { align: 'center' });
+        doc.fontSize(22).text('ROYALS - Customer Agreement & Authorization', { align: 'center' });
         doc.moveDown(1.5);
 
         doc.fontSize(12).text(`1. First Name: ${formData.firstName}`);
@@ -66,8 +66,8 @@ app.post('/api/submit-form', async (req, res) => {
         doc.text(`4. E-Mail: ${formData.email}`);
         doc.moveDown();
 
-        doc.text(`5. Billing Address: ${formData.billingAddress}`);
-        doc.text(`6. Shipping Address: ${formData.shippingAddress}`);
+        doc.text(`5. Address: ${formData.shippingAddress}`);
+        doc.text(`6. Billing Address: ${formData.billingAddress}`);
         doc.moveDown();
 
         doc.text(`7. Amount: $${formData.amount}`);
@@ -105,4 +105,4 @@ app.get('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`ROYALS Server running on port ${PORT}`));
