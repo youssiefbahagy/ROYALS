@@ -34,22 +34,19 @@
             }
         }
 
-        /* Laser Light Dot Chasing Frame Animation */
-        @keyframes laserDotChase {
+        /* Laser Light Dot Chasing directly around the text edges */
+        @keyframes letterLaserChase {
             0% {
-                clip-path: inset(0 100% 98% 0);
+                text-shadow: 2px 2px 0px #ffe875, -2px -2px 0px #d4af37, 0 0 25px rgba(255, 232, 117, 0.8);
             }
-            25% {
-                clip-path: inset(0 0 98% 98%);
+            33% {
+                text-shadow: -2px 2px 0px #ffe875, 2px -2px 0px #d4af37, 0 0 30px rgba(255, 232, 117, 0.9);
             }
-            50% {
-                clip-path: inset(98% 0 0 0);
-            }
-            75% {
-                clip-path: inset(98% 98% 0 0);
+            66% {
+                text-shadow: 2px -2px 0px #ffe875, -2px 2px 0px #d4af37, 0 0 35px rgba(255, 232, 117, 0.9);
             }
             100% {
-                clip-path: inset(0 100% 98% 0);
+                text-shadow: 2px 2px 0px #ffe875, -2px -2px 0px #d4af37, 0 0 25px rgba(255, 232, 117, 0.8);
             }
         }
 
@@ -347,48 +344,24 @@
             transform: translateY(-3px);
         }
 
-        /* Comfortable Luxury Thank You Screen with Laser Dot Chasing Frame */
+        /* Comfortable Luxury Thank You Screen with Letter Edge Laser Motion */
         #thankYouScreen {
             display: none;
             text-align: center;
-            padding: 100px 20px;
+            padding: 110px 20px;
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .thankyou-frame-wrapper {
-            display: inline-block;
-            position: relative;
-            padding: 30px 60px;
-            margin-bottom: 30px;
-            background: rgba(20, 20, 20, 0.85);
-            border-radius: 10px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
-        }
-
-        /* The laser chasing dot overlay */
-        .thankyou-frame-wrapper::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border: 3px solid #ffe875;
-            border-radius: 10px;
-            pointer-events: none;
-            animation: laserDotChase 4s linear infinite;
-            box-shadow: 0 0 15px #ffe875, inset 0 0 15px #ffe875;
         }
 
         .lux-thankyou-title {
             font-family: 'Georgia', serif;
-            font-size: 52px;
+            font-size: 64px;
             font-weight: 400;
             text-transform: uppercase;
             color: #f7e6ad;
-            margin: 0;
-            letter-spacing: 6px;
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.35);
+            margin-bottom: 30px;
+            letter-spacing: 8px;
+            /* Laser motion applied directly tracing the letter edges */
+            animation: letterLaserChase 3.5s ease-in-out infinite;
         }
 
         .lux-thankyou-text {
@@ -428,12 +401,9 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            .thankyou-frame-wrapper {
-                padding: 20px 30px;
-            }
             .lux-thankyou-title {
-                font-size: 34px;
-                letter-spacing: 3px;
+                font-size: 42px;
+                letter-spacing: 4px;
             }
         }
     </style>
@@ -568,11 +538,9 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Luxurious Thank You Screen with Laser Frame Chase Motion -->
+        <!-- Luxurious Thank You Screen with Letter Edge Laser Motion (No Box) -->
         <div id="thankYouScreen">
-            <div class="thankyou-frame-wrapper">
-                <h2 class="lux-thankyou-title">Thank You</h2>
-            </div>
+            <h2 class="lux-thankyou-title">Thank You</h2>
             <p class="lux-thankyou-text">Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
             <p class="lux-thankyou-footer">You may now safely close this window.</p>
         </div>
@@ -710,7 +678,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with laser frame
+                    // Hide the form and display the luxury thank you screen with letter-edge laser motion
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
