@@ -328,27 +328,30 @@
             transform: translateY(-3px);
         }
 
-        /* Full-Screen Thank You View (Replaces form on submit) */
+        /* Crystal Clear Full-Screen Thank You View */
         #thankYouScreen {
             display: none;
             text-align: center;
-            padding: 80px 20px;
+            padding: 90px 20px;
             animation: fadeIn 0.6s ease-out forwards;
         }
 
         #thankYouScreen h2 {
             font-family: 'Great Vibes', cursive;
-            font-size: 72px;
-            color: #d4af37;
-            margin-bottom: 20px;
+            font-size: 88px; /* Larger, striking script */
+            color: #ffe875; /* Brighter gold for absolute clarity */
+            margin-bottom: 25px;
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.6); /* Clean glowing sharpness */
+            letter-spacing: 2px;
         }
 
         #thankYouScreen p {
-            color: #ddd;
-            font-size: 18px;
+            color: #f3f3f3; /* High-contrast crisp white text */
+            font-size: 19px; /* Highly readable */
             line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
+            max-width: 650px;
+            margin: 0 auto 25px auto;
+            font-weight: 400;
         }
 
         @media (max-width: 768px) {
@@ -367,6 +370,9 @@
             .form-row {
                 flex-direction: column;
                 gap: 15px;
+            }
+            #thankYouScreen h2 {
+                font-size: 68px;
             }
         }
     </style>
@@ -501,11 +507,11 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Thank You Screen (Hidden initially, replaces form on submit) -->
+        <!-- Crystal Clear Thank You Screen (Hidden initially, replaces form on submit) -->
         <div id="thankYouScreen">
             <h2>Thank You</h2>
             <p>Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
-            <p style="color: #d4af37; font-size: 15px;">You may now safely close this window.</p>
+            <p style="color: #d4af37; font-size: 16px; font-weight: 600; letter-spacing: 1px;">You may now safely close this window.</p>
         </div>
     </div>
 
@@ -641,7 +647,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the thank you screen
+                    // Hide the form and display the crystal-clear thank you screen
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
