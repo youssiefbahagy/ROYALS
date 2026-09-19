@@ -217,6 +217,60 @@
             padding: 0;
         }
 
+        /* Legal Terms & Policy Box Styles */
+        .legal-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-left: 4px solid #d4af37;
+            border-radius: 6px;
+            padding: 20px 25px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #bbb;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+
+        .legal-box h4 {
+            color: #d4af37;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .legal-consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: #1c1c1c;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .legal-consent input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #d4af37;
+            cursor: pointer;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .legal-consent label {
+            font-size: 13px;
+            color: #ddd;
+            font-weight: normal;
+            cursor: pointer;
+            margin: 0;
+        }
+
         canvas {
             border: 1px solid #d4af37;
             background: #1f1f1f;
@@ -263,7 +317,7 @@
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 35px;
+            margin-top: 25px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
@@ -405,6 +459,20 @@
             <div class="form-group" style="margin-top: 20px;">
                 <label>Reference Number *</label>
                 <input type="text" id="referenceNumber" required>
+            </div>
+
+            <!-- American Legal Compliance & 30-Day Refund Policy Terms Box -->
+            <div class="legal-box">
+                <h4>Terms of Service & Refund Policy Disclosures</h4>
+                <p><strong>30-Day Money-Back Guarantee:</strong> All services and purchases are backed by a 30-day refundable policy. If you are not fully satisfied with your experience, you may request a full refund within 30 days of your initial transaction date by contacting our support team.</p>
+                <p><strong>Payment & Billing Authorization:</strong> By typing your name, providing your credit card details, and executing your digital signature above, you explicitly authorize Royals to charge the designated payment method for the total authorized amount indicated. You certify that you are the authorized cardholder or legally authorized user of the account.</p>
+                <p><strong>Electronic Record & Signature Consent (E-SIGN Act):</strong> You agree that your electronic signature constitutes your legal signature, acceptance, and agreement to these terms, mirroring handwritten signatures under United States federal legislation.</p>
+            </div>
+
+            <!-- Mandatory Legal Checkbox -->
+            <div class="legal-consent">
+                <input type="checkbox" id="legalAgreement" required>
+                <label for="legalAgreement">I acknowledge that I have read, understood, and agree to the 30-day refundable service terms, billing authorization, and legal disclosures above. *</label>
             </div>
 
             <button type="submit">Submit Agreement</button>
