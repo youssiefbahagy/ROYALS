@@ -117,7 +117,7 @@
             margin-top: 8px;
         }
 
-        /* Form Container Section with Scroll Motion Effect */
+        /* Form Container Section */
         .container {
             width: 100%;
             min-height: 100vh;
@@ -328,6 +328,29 @@
             transform: translateY(-3px);
         }
 
+        /* Full-Screen Thank You View (Replaces form on submit) */
+        #thankYouScreen {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        #thankYouScreen h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 72px;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        #thankYouScreen p {
+            color: #ddd;
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -363,7 +386,7 @@
     </div>
 
     <!-- Main Agreement Form Section -->
-    <div class="container">
+    <div class="container" id="formContainer">
         <div class="welcome-banner" id="welcomeBanner">
             Welcome to the <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span> Secure Portal. Please complete your verification below.
         </div>
@@ -477,6 +500,13 @@
 
             <button type="submit">Submit Agreement</button>
         </form>
+
+        <!-- Thank You Screen (Hidden initially, replaces form on submit) -->
+        <div id="thankYouScreen">
+            <h2>Thank You</h2>
+            <p>Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
+            <p style="color: #d4af37; font-size: 15px;">You may now safely close this window.</p>
+        </div>
     </div>
 
     <script>
@@ -611,19 +641,19 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    alert('Agreement submitted successfully!');
-                    document.getElementById('agreementForm').reset();
-                    sameAddressCheckbox.checked = false;
-                    shippingAddressInput.removeAttribute('readonly');
-                    shippingAddressInput.style.opacity = '1';
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // Hide the form and display the thank you screen
+                    document.getElementById('agreementForm').style.display = 'none';
+                    document.querySelector('.welcome-banner').style.display = 'none';
+                    document.querySelector('h2').style.display = 'none';
+                    document.getElementById('thankYouScreen').style.display = 'block';
                 } else {
                     alert('Submission failed. Please try again.');
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.opacity = '1';
                 }
             } catch (error) {
                 console.error('Error:', error);
                 alert('An unexpected error occurred.');
-            } finally {
                 submitBtn.textContent = originalText;
                 submitBtn.style.opacity = '1';
             }
