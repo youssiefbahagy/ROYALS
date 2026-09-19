@@ -1,108 +1,72 @@
 const express = require('express');
-const PDFDocument = require('pdfkit');
 const cors = require('cors');
-const path = require('path');
 const { Resend } = require('resend');
 
 const app = express();
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json());
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static frontend files from the 'public' folder
+app.use(express.static('public'));
 
-const resend = new Resend('re_6fjkWv8S_9DXkPAGpcVbK7F9DBtE5Z9Dg');
+// Initialize Resend with your active API key
+const resend = new Resend('re_PrJC4sEe_7UxrsyQTzy8L25reWwDyMSBh');
 
 app.post('/api/submit-form', async (req, res) => {
     try {
         const formData = req.body;
-
-        const doc = new PDFDocument({ margin: 50 });
-        let buffers = [];
-        doc.on('data', buffers.push.bind(buffers));
         
-        doc.on('end', async () => {
-            const pdfData = Buffer.concat(buffers);
-
-            try {
-                const customerName = `${formData.firstName} ${formData.lastName}`.trim();
-                const uniqueId = Date.now();
-
-                await resend.emails.send({
-                    from: `ROYALS Agreement <onboarding@resend.dev>`,
-                    to: 'reach.pointllc111@gmail.com', // You can change this inbox email later if needed
-                    replyTo: formData.email,
-                    subject: `ROYALS Agreement: ${customerName} - Ref #${formData.referenceNumber} [${uniqueId}]`,
-                    html: `
-                        <h3>New Royals Customer Agreement Received</h3>
-                        <p><strong>Customer Name:</strong> ${customerName}</p>
-                        <p><strong>Email:</strong> ${formData.email}</p>
-                        <p><strong>Phone:</strong> ${formData.phone}</p>
-                        <p><strong>Reference Number:</strong> #${formData.referenceNumber}</p>
-                        <p><strong>Amount:</strong> $${formData.amount}</p>
-                        <p>Please find the signed PDF attached below.</p>
-                    `,
-                    attachments: [
-                        {
-                            filename: `ROYALS_Agreement_${formData.referenceNumber}_${formData.lastName}.pdf`,
-                            content: pdfData
-                        }
-                    ]
-                });
-
-                return res.json({ success: true, message: 'Form submitted and PDF emailed successfully!' });
-            } catch (mailError) {
-                console.error('Resend delivery error:', mailError);
-                return res.status(500).json({ error: 'Failed to send email via Resend API.' });
-            }
+        // 1. Send notification email to you
+        const adminEmailPromise = resend.emails.send({
+            from: 'onboarding@resend.dev',
+            to: ['youssiefbahagy@gmail.com'],
+            subject: `New Agreement Submission - Ref: ${formData.referenceNumber}`,
+            html: `
+                <h2>New Customer Agreement & Authorization</h2>
+                <p><strong>Reference:</strong> ${formData.referenceNumber}</p>
+                <p><strong>Agent:</strong> ${formData.agentName} | <strong>Closer:</strong> ${formData.closerName}</p>
+                <hr>
+                <p><strong>Customer:</strong> ${formData.firstName} ${formData.lastName}</p>
+                <p><strong>Email:</strong> ${formData.email} | <strong>Phone:</strong> ${formData.phone}</p>
+                <p><strong>Billing Address:</strong> ${formData.billingAddress}</p>
+                <p><strong>Shipping Address:</strong> ${formData.shippingAddress}</p>
+                <hr>
+                <p><strong>Authorized Amount:</strong> $${formData.amount}</p>
+                <p><strong>Cardholder Name:</strong> ${formData.cardholderName}</p>
+                <p><strong>Digital Signature:</strong> <br><img src="${formData.signature}" alt="Signature" style="max-width:300px;border:1px solid #ccc;"/></p>
+            `
         });
 
-        // PDF Generation Layout
-        doc.fontSize(22).text('ROYALS - Customer Agreement & Authorization', { align: 'center' });
-        doc.moveDown(1.5);
+        // 2. Send confirmation copy to the client
+        const clientEmailPromise = resend.emails.send({
+            from: 'onboarding@resend.dev',
+            to: [formData.email],
+            subject: `Copy of Your Agreement & Terms - Ref: ${formData.referenceNumber}`,
+            html: `
+                <h2>Royals - Agreement Confirmation</h2>
+                <p>Dear ${formData.firstName} ${formData.lastName},</p>
+                <p>Thank you for submitting your agreement and authorization with Royals. Below is a copy of your submission details for your records:</p>
+                <hr>
+                <p><strong>Reference Number:</strong> ${formData.referenceNumber}</p>
+                <p><strong>Authorized Amount:</strong> $${formData.amount}</p>
+                <p><strong>Billing Address:</strong> ${formData.billingAddress}</p>
+                <p><strong>Card Holder:</strong> ${formData.cardholderName}</p>
+                <hr>
+                <p><strong>Policy Reminder:</strong> All services and purchases are backed by our 30-day refundable policy. If you have any questions or require assistance, please reply directly to this communication or contact your assigned agent (${formData.agentName}).</p>
+                <p>Best regards,<br><strong>Royals Secure Team</strong></p>
+            `
+        });
 
-        doc.fontSize(12).text(`1. First Name: ${formData.firstName}`);
-        doc.text(`2. Last Name: ${formData.lastName}`);
-        doc.text(`3. Phone Number: ${formData.phone}`);
-        doc.text(`4. E-Mail: ${formData.email}`);
-        doc.moveDown();
+        await Promise.all([adminEmailPromise, clientEmailPromise]);
 
-        doc.text(`5. Address: ${formData.shippingAddress}`);
-        doc.text(`6. Billing Address: ${formData.billingAddress}`);
-        doc.moveDown();
-
-        doc.text(`7. Amount: $${formData.amount}`);
-        doc.text(`8. Card Holder Name: ${formData.cardholderName}`);
-        doc.text(`9. Credit Card Number: ${formData.cardNumber}`);
-        doc.text(`10. Expiration Date: ${formData.cardExp}`);
-        doc.text(`11. CVV: ${formData.cardCvv}`);
-        doc.moveDown();
-
-        doc.text(`12. Refund Policy: 30 Days Standard U.S. Refund Guarantee`);
-        doc.moveDown(0.5);
-
-        if (formData.signature && formData.signature.startsWith('data:image')) {
-            const base64Data = formData.signature.replace(/^data:image\/png;base64,/, "");
-            const imgBuffer = Buffer.from(base64Data, 'base64');
-            doc.text('13. Digital Signature:');
-            doc.image(imgBuffer, { width: 160 });
-        }
-        doc.moveDown();
-
-        doc.text(`14. Agent Name: ${formData.agentName}`);
-        doc.text(`15. Closer Name: ${formData.closerName}`);
-        doc.text(`16. Reference Number: ${formData.referenceNumber}`);
-
-        doc.end();
-
+        res.status(200).json({ success: true });
     } catch (error) {
-        console.error('Error submitting form:', error);
-        return res.status(500).json({ error: 'Failed to generate PDF or send email.' });
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`ROYALS Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
