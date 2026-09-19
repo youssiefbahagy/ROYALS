@@ -34,6 +34,25 @@
             }
         }
 
+        /* Laser Light Dot Chasing Frame Animation */
+        @keyframes laserDotChase {
+            0% {
+                clip-path: inset(0 100% 98% 0);
+            }
+            25% {
+                clip-path: inset(0 0 98% 98%);
+            }
+            50% {
+                clip-path: inset(98% 0 0 0);
+            }
+            75% {
+                clip-path: inset(98% 98% 0 0);
+            }
+            100% {
+                clip-path: inset(0 100% 98% 0);
+            }
+        }
+
         * {
             box-sizing: border-box;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -328,41 +347,66 @@
             transform: translateY(-3px);
         }
 
-        /* Completely New Comfortable Luxury Thank You Screen Styling */
+        /* Comfortable Luxury Thank You Screen with Laser Dot Chasing Frame */
         #thankYouScreen {
             display: none;
             text-align: center;
-            padding: 110px 20px;
+            padding: 100px 20px;
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        .thankyou-frame-wrapper {
+            display: inline-block;
+            position: relative;
+            padding: 30px 60px;
+            margin-bottom: 30px;
+            background: rgba(20, 20, 20, 0.85);
+            border-radius: 10px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* The laser chasing dot overlay */
+        .thankyou-frame-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 3px solid #ffe875;
+            border-radius: 10px;
+            pointer-events: none;
+            animation: laserDotChase 4s linear infinite;
+            box-shadow: 0 0 15px #ffe875, inset 0 0 15px #ffe875;
+        }
+
         .lux-thankyou-title {
-            font-family: 'Georgia', serif !important; /* Premium classic editorial font for ultimate clarity & luxury */
-            font-size: 52px !important;
-            font-weight: 400 !important;
+            font-family: 'Georgia', serif;
+            font-size: 52px;
+            font-weight: 400;
             text-transform: uppercase;
-            color: #f7e6ad !important; /* Soft warm gold, perfectly clear without being harsh */
-            margin-bottom: 25px;
-            letter-spacing: 6px !important;
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.35) !important;
+            color: #f7e6ad;
+            margin: 0;
+            letter-spacing: 6px;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.35);
         }
 
         .lux-thankyou-text {
-            color: #dfdfdf !important; /* Clean, comfortable off-white */
-            font-size: 18px !important;
-            line-height: 1.9 !important;
+            color: #dfdfdf;
+            font-size: 18px;
+            line-height: 1.9;
             max-width: 620px;
             margin: 0 auto 30px auto;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-            font-weight: 400 !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 400;
             letter-spacing: 0.4px;
         }
 
         .lux-thankyou-footer {
-            color: #d4af37 !important;
-            font-size: 15px !important;
-            font-weight: 600 !important;
-            letter-spacing: 2px !important;
+            color: #d4af37;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
             opacity: 0.95;
             text-transform: uppercase;
         }
@@ -384,9 +428,12 @@
                 flex-direction: column;
                 gap: 15px;
             }
+            .thankyou-frame-wrapper {
+                padding: 20px 30px;
+            }
             .lux-thankyou-title {
-                font-size: 36px !important;
-                letter-spacing: 3px !important;
+                font-size: 34px;
+                letter-spacing: 3px;
             }
         }
     </style>
@@ -521,9 +568,11 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Luxurious, Crystal-Clear Thank You Screen -->
+        <!-- Luxurious Thank You Screen with Laser Frame Chase Motion -->
         <div id="thankYouScreen">
-            <h2 class="lux-thankyou-title">Thank You</h2>
+            <div class="thankyou-frame-wrapper">
+                <h2 class="lux-thankyou-title">Thank You</h2>
+            </div>
             <p class="lux-thankyou-text">Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
             <p class="lux-thankyou-footer">You may now safely close this window.</p>
         </div>
@@ -661,7 +710,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen
+                    // Hide the form and display the luxury thank you screen with laser frame
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
