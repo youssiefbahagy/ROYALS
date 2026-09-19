@@ -78,19 +78,25 @@
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
         .checkbox-container {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
+            gap: 8px;
             cursor: pointer;
             font-size: 14px;
             color: #d4af37;
+            background: #1f1f1f;
+            padding: 6px 12px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            margin-bottom: 8px;
         }
         .checkbox-container input {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
             accent-color: #d4af37;
+            margin: 0;
+            padding: 0;
         }
         canvas {
             border: 1px solid #d4af37;
@@ -188,8 +194,8 @@
             </div>
 
             <div class="form-group">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <label style="margin-bottom: 0;">Shipping Address *</label>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <label style="margin-bottom: 0;">Address *</label>
                     <label class="checkbox-container">
                         <input type="checkbox" id="sameAddress"> Same as Billing Address
                     </label>
@@ -253,7 +259,6 @@
     </div>
 
     <script>
-        // Same as billing address functionality
         const sameAddressCheckbox = document.getElementById('sameAddress');
         const billingAddressInput = document.getElementById('billingAddress');
         const shippingAddressInput = document.getElementById('shippingAddress');
@@ -274,7 +279,6 @@
             }
         });
 
-        // Signature Pad
         const canvas = document.getElementById('signaturePad');
         const ctx = canvas.getContext('2d');
         let isDrawing = false;
@@ -345,27 +349,30 @@
             };
 
             try {
-                const response = await fetch('/api/submit-form', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                const result = await response.json();
-                if (result.success) {
-                    alert('Agreement submitted successfully!');
-                    document.getElementById('agreementForm').reset();
-                    sameAddressCheckbox.checked = false;
-                    shippingAddressInput.removeAttribute('readonly');
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                } else {
-                    alert('Submission failed. Please try again.');
-                }
+                const response = applyFetchCall('/api/submit-form', formData);
             } catch (error) {
-                console.error('Error:', error);
-                alert('An unexpected error occurred.');
+                // fallback handled inside
             }
         });
+
+        async function applyFetchCall(url, formData) {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Agreement submitted successfully!');
+                document.getElementById('agreementForm').reset();
+                sameAddressCheckbox.checked = false;
+                shippingAddressInput.removeAttribute('readonly');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            } else {
+                alert('Submission failed. Please try again.');
+            }
+        }
     </script>
 </body>
 </html>
