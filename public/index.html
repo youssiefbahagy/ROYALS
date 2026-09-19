@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROYALS - Customer Agreement & Authorization</title>
-    <!-- Importing luxury cursive font from Google Fonts (used only for the main logo title) -->
+    <!-- Importing luxury cursive font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         @keyframes fadeIn {
@@ -328,32 +328,43 @@
             transform: translateY(-3px);
         }
 
-        /* Clean, Modern, Non-Cursive Thank You View */
+        /* Completely New Comfortable Luxury Thank You Screen Styling */
         #thankYouScreen {
             display: none;
             text-align: center;
-            padding: 90px 20px;
-            animation: fadeIn 0.6s ease-out forwards;
+            padding: 110px 20px;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        #thankYouScreen h2 {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean modern font */
-            font-size: 54px; /* Bold and prominent */
-            font-weight: 800;
+        .lux-thankyou-title {
+            font-family: 'Georgia', serif !important; /* Premium classic editorial font for ultimate clarity & luxury */
+            font-size: 52px !important;
+            font-weight: 400 !important;
             text-transform: uppercase;
-            color: #ffe875; /* Bright gold */
+            color: #f7e6ad !important; /* Soft warm gold, perfectly clear without being harsh */
             margin-bottom: 25px;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            letter-spacing: 4px;
+            letter-spacing: 6px !important;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.35) !important;
         }
 
-        #thankYouScreen p {
-            color: #f3f3f3;
-            font-size: 18px;
-            line-height: 1.8;
-            max-width: 650px;
-            margin: 0 auto 25px auto;
-            font-weight: 400;
+        .lux-thankyou-text {
+            color: #dfdfdf !important; /* Clean, comfortable off-white */
+            font-size: 18px !important;
+            line-height: 1.9 !important;
+            max-width: 620px;
+            margin: 0 auto 30px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.4px;
+        }
+
+        .lux-thankyou-footer {
+            color: #d4af37 !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            letter-spacing: 2px !important;
+            opacity: 0.95;
+            text-transform: uppercase;
         }
 
         @media (max-width: 768px) {
@@ -373,9 +384,9 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            #thankYouScreen h2 {
-                font-size: 38px;
-                letter-spacing: 2px;
+            .lux-thankyou-title {
+                font-size: 36px !important;
+                letter-spacing: 3px !important;
             }
         }
     </style>
@@ -510,11 +521,11 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Clean Modern Thank You Screen (Hidden initially, replaces form on submit) -->
+        <!-- Luxurious, Crystal-Clear Thank You Screen -->
         <div id="thankYouScreen">
-            <h2>Thank You</h2>
-            <p>Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
-            <p style="color: #d4af37; font-size: 16px; font-weight: 600; letter-spacing: 1px;">You may now safely close this window.</p>
+            <h2 class="lux-thankyou-title">Thank You</h2>
+            <p class="lux-thankyou-text">Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
+            <p class="lux-thankyou-footer">You may now safely close this window.</p>
         </div>
     </div>
 
@@ -650,7 +661,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the clean, non-cursive thank you screen
+                    // Hide the form and display the luxury thank you screen
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
