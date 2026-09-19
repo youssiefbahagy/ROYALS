@@ -34,8 +34,8 @@
             }
         }
 
-        /* SVG Laser Dot Chasing Path Animation */
-        @keyframes laserDotMotion {
+        /* Laser Dot Motion Along Each Letter Path */
+        @keyframes letterLaserMotion {
             0% { offset-distance: 0%; }
             100% { offset-distance: 100%; }
         }
@@ -334,7 +334,7 @@
             transform: translateY(-3px);
         }
 
-        /* Thank You Screen with SVG Letter-Tracing Laser Dot */
+        /* Thank You Screen with Multi-Letter Laser Tracing */
         #thankYouScreen {
             display: none;
             text-align: center;
@@ -345,9 +345,9 @@
         .svg-title-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
-            height: 110px;
-            margin: 0 auto 20px auto;
+            max-width: 580px;
+            height: 120px;
+            margin: 0 auto 25px auto;
         }
 
         .svg-title-container svg {
@@ -356,28 +356,129 @@
             overflow: visible;
         }
 
-        .svg-text-path {
+        .svg-letter-outline {
             fill: none;
             stroke: #d4af37;
-            stroke-width: 1.5px;
-            font-family: 'Georgia', serif;
-            font-size: 68px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            stroke-width: 1.8px;
+            stroke-dasharray: 4 2;
+            opacity: 0.5;
         }
 
-        .laser-dot {
-            width: 10px;
-            height: 10px;
+        .svg-rendered-text {
+            fill: #f7e6ad;
+            font-family: 'Georgia', serif;
+            font-size: 58px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+        }
+
+        /* Individual Chasing Laser Dots on Letter Outlines */
+        .laser-dot-1 {
+            width: 8px;
+            height: 8px;
             background: #ffffff;
             border-radius: 50%;
             position: absolute;
             top: 0;
             left: 0;
-            offset-path: path("M 10,65 Q 40,10 70,65 T 130,65 T 190,65 T 250,65 T 310,65 T 370,65 T 430,65");
-            animation: laserDotMotion 3s linear infinite;
-            box-shadow: 0 0 12px #ffe875, 0 0 25px #ffcc00, 0 0 35px #ffffff;
+            offset-path: path("M 40,60 L 40,20 M 20,20 L 60,20"); /* T */
+            animation: letterLaserMotion 2.5s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+        }
+
+        .laser-dot-2 {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 90,60 L 105,20 L 120,60 M 97,45 L 113,45"); /* H */
+            animation: letterLaserMotion 2.2s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+        }
+
+        .laser-dot-3 {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 150,20 L 150,60 L 175,60"); /* A */
+            animation: letterLaserMotion 2.8s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+        }
+
+        .laser-dot-4 {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 225,20 L 200,20 L 200,60 L 225,60 M 200,40 L 218,40"); /* N */
+            animation: letterLaserMotion 3s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+        }
+
+        .laser-dot-5 {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 275,20 L 250,20 L 250,60 L 275,60"); /* K */
+            animation: letterLaserMotion 2.6s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+        }
+
+        .laser-dot-6 {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 330,20 C 310,20 310,60 330,60 C 350,60 350,20 330,20"); /* Y */
+            animation: letterLaserMotion 2.4s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+        }
+
+        .laser-dot-7 {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 370,20 L 400,20 L 370,60 L 400,60"); /* O */
+            animation: letterLaserMotion 2.7s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
+        }
+
+        .laser-dot-8 {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 420,20 L 445,20 L 445,60 L 420,60"); /* U */
+            animation: letterLaserMotion 2.5s linear infinite;
+            box-shadow: 0 0 10px #ffe875, 0 0 20px #ffffff;
         }
 
         .lux-thankyou-text {
@@ -418,10 +519,10 @@
                 gap: 15px;
             }
             .svg-title-container {
-                height: 80px;
+                height: 90px;
             }
-            .svg-text-path {
-                font-size: 46px;
+            .svg-rendered-text {
+                font-size: 40px;
             }
         }
     </style>
@@ -556,13 +657,21 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Thank You Screen with SVG Letter-Tracing Laser Dot -->
+        <!-- Thank You Screen with Multi-Letter Laser Dot Motion -->
         <div id="thankYouScreen">
             <div class="svg-title-container">
                 <svg viewBox="0 0 500 100">
-                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" class="svg-text-path">THANK YOU</text>
+                    <text x="50%" y="55%" class="svg-rendered-text">THANK YOU</text>
                 </svg>
-                <div class="laser-dot"></div>
+                <!-- Glowing laser dots tracing individual character zones -->
+                <div class="laser-dot-1"></div>
+                <div class="laser-dot-2"></div>
+                <div class="laser-dot-3"></div>
+                <div class="laser-dot-4"></div>
+                <div class="laser-dot-5"></div>
+                <div class="laser-dot-6"></div>
+                <div class="laser-dot-7"></div>
+                <div class="laser-dot-8"></div>
             </div>
             <p class="lux-thankyou-text">Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
             <p class="lux-thankyou-footer">You may now safely close this window.</p>
@@ -701,7 +810,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with laser dot tracking
+                    // Hide the form and display the luxury thank you screen with multi-letter laser tracing
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
