@@ -16,6 +16,22 @@
             100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.35); }
         }
 
+        /* Border Light Chase Animation */
+        @keyframes borderChase {
+            0% {
+                border-color: rgba(212, 175, 55, 0.3);
+                box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.1), 0 0 15px rgba(212, 175, 55, 0.2);
+            }
+            50% {
+                border-color: #ffe875;
+                box-shadow: inset 0 0 25px rgba(255, 232, 117, 0.4), 0 0 30px rgba(212, 175, 55, 0.6);
+            }
+            100% {
+                border-color: rgba(212, 175, 55, 0.3);
+                box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.1), 0 0 15px rgba(212, 175, 55, 0.2);
+            }
+        }
+
         * {
             box-sizing: border-box;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -28,43 +44,92 @@
             margin: 0;
             padding: 0;
             width: 100vw;
-            min-height: 100vh;
+            overflow-x: hidden;
             animation: fadeIn 0.6s ease-out forwards;
         }
 
+        /* Cinematic Hero Landing Section */
+        .hero-section {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at 50% 30%, #1a160d 0%, #0b0b0b 75%);
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-logo {
+            max-height: 150px;
+            width: auto;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
+            margin-bottom: 25px;
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+
+        /* ROYALS single-line frame with chasing light effect */
+        .royals-frame {
+            display: inline-block;
+            padding: 20px 50px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+            animation: borderChase 3s infinite ease-in-out;
+            margin-bottom: 25px;
+        }
+
+        .royals-title {
+            color: #d4af37;
+            font-size: 40px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin: 0;
+            text-shadow: 0 2px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        .scroll-down-hint {
+            position: absolute;
+            bottom: 40px;
+            color: #888;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s infinite alternate;
+        }
+
+        .scroll-down-hint span {
+            display: block;
+            font-size: 22px;
+            color: #d4af37;
+            margin-top: 5px;
+        }
+
+        /* Form Container Section with Scroll Motion Effect */
         .container {
             width: 100%;
             min-height: 100vh;
             margin: 0;
             background: #141414;
-            border: none;
-            border-radius: 0;
-            padding: 40px 60px;
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #333;
-        }
-
-        .logo-container img {
-            max-height: 150px;
-            width: auto;
-            border-radius: 50%;
-            border: 2px solid #d4af37;
-            animation: pulseGlow 4s infinite ease-in-out;
+            border-top: 2px solid #333;
+            padding: 60px 80px;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.8);
         }
 
         .welcome-banner {
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 15px;
+            margin-bottom: 30px;
+            font-size: 16px;
             color: #aaa;
             letter-spacing: 0.5px;
-            animation: fadeIn 1s ease-out forwards;
         }
 
         .welcome-banner span {
@@ -75,11 +140,10 @@
         h2 {
             text-align: center;
             color: #d4af37;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 28px;
-            animation: fadeIn 0.9s ease-out forwards;
         }
 
         .form-row {
@@ -204,13 +268,19 @@
             transform: translateY(-3px);
         }
 
-        button[type="submit"]:active {
-            transform: translateY(-1px);
-        }
-
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
+            }
+            .hero-logo {
+                max-height: 120px;
+            }
+            .royals-title {
+                font-size: 28px;
+                letter-spacing: 4px;
+            }
+            .royals-frame {
+                padding: 12px 25px;
             }
             .form-row {
                 flex-direction: column;
@@ -221,12 +291,20 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- Logo Container with breathing glow motion -->
-        <div class="logo-container">
-            <img src="/CARLO BC-modified.jpg" alt="ROYALS Logo" id="companyLogo">
+    <!-- Cinematic Hero Landing Section with Chasing Light Frame -->
+    <div class="hero-section" id="heroSection">
+        <img src="/CARLO BC-modified.jpg" alt="ROYALS Logo" class="hero-logo" id="heroLogo">
+        <div class="royals-frame" id="heroFrame">
+            <h1 class="royals-title">ROYALS</h1>
         </div>
+        <div class="scroll-down-hint">
+            Scroll down to begin agreement
+            <span>↓</span>
+        </div>
+    </div>
 
+    <!-- Main Agreement Form Section -->
+    <div class="container">
         <div class="welcome-banner" id="welcomeBanner">
             Welcome to the <span>ROYALS</span> Secure Portal. Please complete your verification below.
         </div>
@@ -245,7 +323,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class-="form-row">
                 <div class="form-group">
                     <label>Phone Number *</label>
                     <input type="tel" id="phone" required placeholder="(123) 456-7890">
@@ -257,7 +335,7 @@
             </div>
 
             <!-- Address Field -->
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px;">
                 <label>Address *</label>
                 <input type="text" id="shippingAddress" required placeholder="123 Main St, City, State, Zip">
             </div>
@@ -310,16 +388,16 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group">
+                <div class-="form-group" style="flex: 1; margin-right: 15px;">
                     <label>Agent Name *</label>
                     <input type="text" id="agentName" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="flex: 1;">
                     <label>Closer Name *</label>
                     <input type="text" id="closerName" required>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 20px;">
                 <label>Reference Number *</label>
                 <input type="text" id="referenceNumber" required>
             </div>
@@ -329,7 +407,25 @@
     </div>
 
     <script>
-        // Dynamic Personalization via URL query parameter (e.g. ?name=john)
+        // Smooth Scroll-Driven Hero Shrink and Fade Motion Effect
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroLogo = document.getElementById('heroLogo');
+            const heroFrame = document.getElementById('heroFrame');
+            const heroSection = document.getElementById('heroSection');
+
+            if (scrollY <= window.innerHeight) {
+                const progress = scrollY / window.innerHeight; // 0 to 1
+                const scale = Math.max(0.4, 1 - progress * 0.6);
+                const opacity = Math.max(0, 1 - progress * 1.3);
+
+                heroLogo.style.transform = `scale(${scale})`;
+                heroFrame.style.transform = `scale(${scale})`;
+                heroLogo.style.opacity = opacity;
+                heroFrame.style.opacity = opacity;
+            }
+        });
+
         const urlParams = new URLSearchParams(window.location.search);
         const guestName = urlParams.get('name');
         if (guestName) {
