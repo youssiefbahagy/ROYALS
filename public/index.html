@@ -34,20 +34,10 @@
             }
         }
 
-        /* Laser Light Dot Chasing directly around the text edges */
-        @keyframes letterLaserChase {
-            0% {
-                text-shadow: 2px 2px 0px #ffe875, -2px -2px 0px #d4af37, 0 0 25px rgba(255, 232, 117, 0.8);
-            }
-            33% {
-                text-shadow: -2px 2px 0px #ffe875, 2px -2px 0px #d4af37, 0 0 30px rgba(255, 232, 117, 0.9);
-            }
-            66% {
-                text-shadow: 2px -2px 0px #ffe875, -2px 2px 0px #d4af37, 0 0 35px rgba(255, 232, 117, 0.9);
-            }
-            100% {
-                text-shadow: 2px 2px 0px #ffe875, -2px -2px 0px #d4af37, 0 0 25px rgba(255, 232, 117, 0.8);
-            }
+        /* SVG Laser Dot Chasing Path Animation */
+        @keyframes laserDotMotion {
+            0% { offset-distance: 0%; }
+            100% { offset-distance: 100%; }
         }
 
         * {
@@ -344,24 +334,50 @@
             transform: translateY(-3px);
         }
 
-        /* Comfortable Luxury Thank You Screen with Letter Edge Laser Motion */
+        /* Thank You Screen with SVG Letter-Tracing Laser Dot */
         #thankYouScreen {
             display: none;
             text-align: center;
-            padding: 110px 20px;
+            padding: 100px 20px;
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .lux-thankyou-title {
+        .svg-title-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 110px;
+            margin: 0 auto 20px auto;
+        }
+
+        .svg-title-container svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .svg-text-path {
+            fill: none;
+            stroke: #d4af37;
+            stroke-width: 1.5px;
             font-family: 'Georgia', serif;
-            font-size: 64px;
+            font-size: 68px;
             font-weight: 400;
             text-transform: uppercase;
-            color: #f7e6ad;
-            margin-bottom: 30px;
-            letter-spacing: 8px;
-            /* Laser motion applied directly tracing the letter edges */
-            animation: letterLaserChase 3.5s ease-in-out infinite;
+            letter-spacing: 4px;
+        }
+
+        .laser-dot {
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            offset-path: path("M 10,65 Q 40,10 70,65 T 130,65 T 190,65 T 250,65 T 310,65 T 370,65 T 430,65");
+            animation: laserDotMotion 3s linear infinite;
+            box-shadow: 0 0 12px #ffe875, 0 0 25px #ffcc00, 0 0 35px #ffffff;
         }
 
         .lux-thankyou-text {
@@ -401,9 +417,11 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            .lux-thankyou-title {
-                font-size: 42px;
-                letter-spacing: 4px;
+            .svg-title-container {
+                height: 80px;
+            }
+            .svg-text-path {
+                font-size: 46px;
             }
         }
     </style>
@@ -538,9 +556,14 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Luxurious Thank You Screen with Letter Edge Laser Motion (No Box) -->
+        <!-- Thank You Screen with SVG Letter-Tracing Laser Dot -->
         <div id="thankYouScreen">
-            <h2 class="lux-thankyou-title">Thank You</h2>
+            <div class="svg-title-container">
+                <svg viewBox="0 0 500 100">
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" class="svg-text-path">THANK YOU</text>
+                </svg>
+                <div class="laser-dot"></div>
+            </div>
             <p class="lux-thankyou-text">Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
             <p class="lux-thankyou-footer">You may now safely close this window.</p>
         </div>
@@ -678,7 +701,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with letter-edge laser motion
+                    // Hide the form and display the luxury thank you screen with laser dot tracking
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
