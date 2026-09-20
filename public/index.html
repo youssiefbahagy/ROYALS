@@ -34,19 +34,19 @@
             }
         }
 
-        /* Cinematic Spotlight Sweep Animation */
-        @keyframes spotlightSweep {
+        /* Gentle Yellow Laser Spotlight Sweep */
+        @keyframes yellowLaserSweep {
             0% {
-                transform: translateX(-100%) rotate(-25deg);
-                opacity: 0.3;
+                transform: translateX(-40px) rotate(-15deg);
+                opacity: 0.25;
             }
             50% {
-                transform: translateX(100%) rotate(25deg);
-                opacity: 0.7;
+                transform: translateX(40px) rotate(15deg);
+                opacity: 0.5;
             }
             100% {
-                transform: translateX(-100%) rotate(-25deg);
-                opacity: 0.3;
+                transform: translateX(-40px) rotate(-15deg);
+                opacity: 0.25;
             }
         }
 
@@ -344,49 +344,50 @@
             transform: translateY(-3px);
         }
 
-        /* Thank You Screen with Cinematic Spotlights */
+        /* Thank You Screen */
         #thankYouScreen {
             display: none;
             text-align: center;
             padding: 110px 20px;
-            position: relative;
-            overflow: hidden;
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Cinematic Spotlight Cone Effects */
-        #thankYouScreen::before,
-        #thankYouScreen::after {
+        /* Title Wrapper sized precisely to "Thank You" with targeted yellow laser spotlights */
+        .cinematic-title-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+            padding: 15px 40px;
+            overflow: hidden;
+        }
+
+        /* Targeted Yellow Laser Beams framing only the title */
+        .cinematic-title-wrapper::before,
+        .cinematic-title-wrapper::after {
             content: '';
             position: absolute;
-            top: -50px;
-            width: 250px;
-            height: 350px;
-            background: linear-gradient(180deg, rgba(255, 232, 117, 0.35) 0%, rgba(212, 175, 55, 0.05) 60%, transparent 100%);
-            clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
+            top: -20px;
+            width: 70px;
+            height: 120px;
+            background: linear-gradient(180deg, rgba(255, 232, 117, 0.28) 0%, rgba(212, 175, 55, 0.04) 70%, transparent 100%);
+            clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
             pointer-events: none;
             z-index: 1;
         }
 
-        #thankYouScreen::before {
-            left: 15%;
-            animation: spotlightSweep 7s ease-in-out infinite alternate;
+        .cinematic-title-wrapper::before {
+            left: 5px;
+            animation: yellowLaserSweep 5s ease-in-out infinite alternate;
         }
 
-        #thankYouScreen::after {
-            right: 15%;
-            animation: spotlightSweep 6s ease-in-out infinite alternate-reverse;
-        }
-
-        .cinematic-title-wrapper {
-            position: relative;
-            z-index: 2;
-            display: inline-block;
-            margin-bottom: 25px;
-            padding: 10px 30px;
+        .cinematic-title-wrapper::after {
+            right: 5px;
+            animation: yellowLaserSweep 4.5s ease-in-out infinite alternate-reverse;
         }
 
         .lux-thankyou-title {
+            position: relative;
+            z-index: 2;
             font-family: 'Georgia', serif;
             font-size: 54px;
             font-weight: 400;
@@ -394,12 +395,10 @@
             color: #ffe875;
             margin: 0;
             letter-spacing: 7px;
-            text-shadow: 0 0 25px rgba(255, 232, 117, 0.6), 0 0 50px rgba(212, 175, 55, 0.4);
+            text-shadow: 0 0 15px rgba(255, 232, 117, 0.45);
         }
 
         .lux-thankyou-text {
-            position: relative;
-            z-index: 2;
             color: #dfdfdf;
             font-size: 18px;
             line-height: 1.9;
@@ -411,8 +410,6 @@
         }
 
         .lux-thankyou-footer {
-            position: relative;
-            z-index: 2;
             color: #d4af37;
             font-size: 15px;
             font-weight: 600;
@@ -575,7 +572,7 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Luxurious Thank You Screen with Cinematic Spotlights -->
+        <!-- Luxurious Thank You Screen with Targeted Yellow Laser Spotlights -->
         <div id="thankYouScreen">
             <div class="cinematic-title-wrapper">
                 <h2 class="lux-thankyou-title">Thank You</h2>
@@ -717,7 +714,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with cinematic spotlights
+                    // Hide the form and display the luxury thank you screen with tailored yellow laser spotlights
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
