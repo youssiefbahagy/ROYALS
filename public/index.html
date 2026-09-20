@@ -34,19 +34,19 @@
             }
         }
 
-        /* Pointy Cinematic Laser Beam Sweep */
-        @keyframes pointyLaserSweep {
+        /* Sharp, Pointy Laser Spotlight Aiming Animation */
+        @keyframes pointyLaserAim {
             0% {
-                transform: translateX(-80px) rotate(-30deg);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateX(80px) rotate(30deg);
+                transform: translateX(-35px) rotate(-22deg);
                 opacity: 0.6;
             }
+            50% {
+                transform: translateX(35px) rotate(22deg);
+                opacity: 0.9;
+            }
             100% {
-                transform: translateX(-80px) rotate(-30deg);
-                opacity: 0.3;
+                transform: translateX(-35px) rotate(-22deg);
+                opacity: 0.6;
             }
         }
 
@@ -352,51 +352,54 @@
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Title Wrapper sized precisely to span the whole "THANK YOU" width with pointed laser rays */
+        /* Title Wrapper sized strictly to the word "Thank You" with razor-sharp laser spotlight beams */
         .cinematic-title-wrapper {
             position: relative;
             display: inline-block;
             margin-bottom: 25px;
-            padding: 15px 50px;
+            padding: 15px 40px;
             overflow: visible;
         }
 
-        /* Pointy Laser Spotlight Beams spanning across the entire text */
+        /* Sharp, Pointy Laser Spotlight Beams focused exclusively on the word */
         .cinematic-title-wrapper::before,
         .cinematic-title-wrapper::after {
             content: '';
             position: absolute;
-            top: -40px;
-            width: 130px;
-            height: 180px;
-            background: linear-gradient(180deg, rgba(255, 232, 117, 0.35) 0%, rgba(212, 175, 55, 0.06) 70%, transparent 100%);
-            /* Sharp pointy triangle laser cone shape */
-            clip-path: polygon(48% 0%, 52% 0%, 100% 100%, 0% 100%);
+            top: -45px;
+            width: 90px;
+            height: 140px;
+            /* High-clarity clean yellow laser ray gradient with zero blurry haze */
+            background: linear-gradient(180deg, rgba(255, 235, 120, 0.8) 0%, rgba(212, 175, 55, 0.15) 80%, transparent 100%);
+            /* Razor-sharp pointy triangle beam shape aiming directly at the letters */
+            clip-path: polygon(49% 0%, 51% 0%, 100% 100%, 0% 100%);
             pointer-events: none;
             z-index: 1;
+            mix-blend-mode: screen;
         }
 
         .cinematic-title-wrapper::before {
-            left: -10px;
-            animation: pointyLaserSweep 5s ease-in-out infinite alternate;
+            left: -5px;
+            animation: pointyLaserAim 4s ease-in-out infinite alternate;
         }
 
         .cinematic-title-wrapper::after {
-            right: -10px;
-            animation: pointyLaserSweep 4.5s ease-in-out infinite alternate-reverse;
+            right: -5px;
+            animation: pointyLaserAim 3.5s ease-in-out infinite alternate-reverse;
         }
 
         .lux-thankyou-title {
             position: relative;
             z-index: 2;
             font-family: 'Georgia', serif;
-            font-size: 58px;
+            font-size: 54px;
             font-weight: 400;
             text-transform: uppercase;
             color: #ffe875;
             margin: 0;
-            letter-spacing: 8px;
-            text-shadow: 0 0 20px rgba(255, 232, 117, 0.5), 0 0 40px rgba(212, 175, 55, 0.3);
+            letter-spacing: 7px;
+            /* Clean, crisp text edge glow without blurring */
+            text-shadow: 0 0 10px rgba(255, 232, 117, 0.6), 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
         .lux-thankyou-text {
@@ -437,8 +440,8 @@
                 gap: 15px;
             }
             .lux-thankyou-title {
-                font-size: 38px;
-                letter-spacing: 4px;
+                font-size: 36px;
+                letter-spacing: 3px;
             }
         }
     </style>
@@ -573,7 +576,7 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Luxurious Thank You Screen with Full-Span Pointy Laser Spotlights -->
+        <!-- Luxurious Thank You Screen with Precise Pointy Lasers Aimed at the Word -->
         <div id="thankYouScreen">
             <div class="cinematic-title-wrapper">
                 <h2 class="lux-thankyou-title">Thank You</h2>
@@ -715,7 +718,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with full-span pointy laser spotlights
+                    // Hide the form and display the luxury thank you screen with sharp pointy lasers aiming at the word
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
