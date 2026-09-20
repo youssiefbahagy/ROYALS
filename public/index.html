@@ -34,20 +34,17 @@
             }
         }
 
-        /* Precise Edge-to-Edge Laser Sweep Animation */
-        @keyframes sentenceLaserSweep {
-            0% {
-                transform: translateX(-15px) rotate(-10deg);
-                opacity: 0.7;
-            }
-            50% {
-                transform: translateX(15px) rotate(10deg);
-                opacity: 0.95;
-            }
-            100% {
-                transform: translateX(-15px) rotate(-10deg);
-                opacity: 0.7;
-            }
+        /* Full Sentence Laser Beam Sweeps */
+        @keyframes leftLaserFullSweep {
+            0% { transform: translateX(0px) rotate(-8deg); opacity: 0.75; }
+            50% { transform: translateX(180px) rotate(22deg); opacity: 0.95; }
+            100% { transform: translateX(0px) rotate(-8deg); opacity: 0.75; }
+        }
+
+        @keyframes rightLaserFullSweep {
+            0% { transform: translateX(0px) rotate(8deg); opacity: 0.75; }
+            50% { transform: translateX(-180px) rotate(-22deg); opacity: 0.95; }
+            100% { transform: translateX(0px) rotate(8deg); opacity: 0.75; }
         }
 
         * {
@@ -352,24 +349,23 @@
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Title Wrapper tightly fitted to sentence bounds */
+        /* Title Wrapper sized precisely to span the entire "THANK YOU" sentence bounds */
         .cinematic-title-wrapper {
             position: relative;
             display: inline-block;
             margin-bottom: 25px;
-            padding: 10px 20px;
+            padding: 15px 30px;
             overflow: visible;
         }
 
-        /* Sharp, Pointy Laser Beams bounded exactly to the sentence edges */
+        /* Crisp, Pointy Laser Beams anchored to span the entire text length */
         .cinematic-title-wrapper::before,
         .cinematic-title-wrapper::after {
             content: '';
             position: absolute;
-            top: -40px;
-            width: 65px;
-            height: 120px;
-            /* Crisp high-clarity yellow laser cone with zero blur */
+            top: -45px;
+            width: 75px;
+            height: 140px;
             background: linear-gradient(180deg, rgba(255, 235, 120, 0.85) 0%, rgba(212, 175, 55, 0.18) 75%, transparent 100%);
             clip-path: polygon(48% 0%, 52% 0%, 100% 100%, 0% 100%);
             pointer-events: none;
@@ -377,16 +373,16 @@
             mix-blend-mode: screen;
         }
 
-        /* Left laser locked at the left boundary edge of "Thank" */
+        /* Left laser starts at the exact beginning of 'T' and sweeps across the sentence */
         .cinematic-title-wrapper::before {
-            left: 0px;
-            animation: sentenceLaserSweep 3.5s ease-in-out infinite alternate;
+            left: 5px;
+            animation: leftLaserFullSweep 4s ease-in-out infinite alternate;
         }
 
-        /* Right laser locked at the right boundary edge of "You" */
+        /* Right laser starts at the exact end of 'U' and sweeps across the sentence */
         .cinematic-title-wrapper::after {
-            right: 0px;
-            animation: sentenceLaserSweep 3.5s ease-in-out infinite alternate-reverse;
+            right: 5px;
+            animation: rightLaserFullSweep 4s ease-in-out infinite alternate;
         }
 
         .lux-thankyou-title {
@@ -576,7 +572,7 @@
             <button type="submit">Submit Agreement</button>
         </form>
 
-        <!-- Luxurious Thank You Screen with Edge-Bounded Pointy Laser Spotlights -->
+        <!-- Luxurious Thank You Screen with Full-Sentence Pointy Laser Spotlights -->
         <div id="thankYouScreen">
             <div class="cinematic-title-wrapper">
                 <h2 class="lux-thankyou-title">Thank You</h2>
@@ -718,7 +714,7 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with edge-bounded laser beams
+                    // Hide the form and display the luxury thank you screen with full sentence laser spotlights
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
