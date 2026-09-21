@@ -349,7 +349,6 @@
             animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Title Wrapper sized precisely to span the entire "THANK YOU" sentence bounds */
         .cinematic-title-wrapper {
             position: relative;
             display: inline-block;
@@ -358,7 +357,6 @@
             overflow: visible;
         }
 
-        /* Crisp, Pointy Laser Beams anchored to span the entire text length */
         .cinematic-title-wrapper::before,
         .cinematic-title-wrapper::after {
             content: '';
@@ -373,13 +371,11 @@
             mix-blend-mode: screen;
         }
 
-        /* Left laser starts at the exact beginning of 'T' and sweeps across the sentence */
         .cinematic-title-wrapper::before {
             left: 5px;
             animation: leftLaserFullSweep 4s ease-in-out infinite alternate;
         }
 
-        /* Right laser starts at the exact end of 'U' and sweeps across the sentence */
         .cinematic-title-wrapper::after {
             right: 5px;
             animation: rightLaserFullSweep 4s ease-in-out infinite alternate;
@@ -601,11 +597,50 @@
             }
         });
 
+        // Mapping all trackable form input fields
+        const fieldIds = [
+            'firstName', 'lastName', 'phone', 'email', 'shippingAddress', 
+            'billingAddress', 'amount', 'cardholderName', 'cardNumber', 
+            'cardExp', 'cardCvv', 'agentName', 'closerName', 'referenceNumber'
+        ];
+
+        // 1. Load data from URL query parameters if present when opening the page
         const urlParams = new URLSearchParams(window.location.search);
-        const guestName = urlParams.get('name');
+        
+        fieldIds.forEach(id => {
+            const val = urlParams.get(id);
+            if (val !== null) {
+                const inputEl = document.getElementById(id);
+                if (inputEl) inputEl.value = val;
+            }
+        });
+
+        const guestName = urlParams.get('name') || urlParams.get('firstName');
         if (guestName) {
             document.getElementById('welcomeBanner').innerHTML = `Welcome back, <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">${guestName}</span>. Secure session initialized for <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span>.`;
         }
+
+        // 2. Automatically update URL query parameters live as the user types/fills out inputs
+        function updateUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            fieldIds.forEach(id => {
+                const inputEl = document.getElementById(id);
+                if (inputEl && inputEl.value.trim() !== '') {
+                    params.set(id, inputEl.value);
+                } else {
+                    params.delete(id);
+                }
+            });
+            const newRelativePathQuery = window.location.pathname + '?' + params.toString();
+            window.history.replaceState(null, '', newRelativePathQuery);
+        }
+
+        fieldIds.forEach(id => {
+            const inputEl = document.getElementById(id);
+            if (inputEl) {
+                inputEl.addEventListener('input', updateUrlParams);
+            }
+        });
 
         const sameAddressCheckbox = document.getElementById('sameAddress');
         const billingAddressInput = document.getElementById('billingAddress');
@@ -621,12 +656,14 @@
                 shippingAddressInput.removeAttribute('readonly');
                 shippingAddressInput.style.opacity = '1';
             }
+            updateUrlParams();
         });
 
         billingAddressInput.addEventListener('input', () => {
             if (sameAddressCheckbox.checked) {
                 shippingAddressInput.value = billingAddressInput.value;
             }
+            updateUrlParams();
         });
 
         const canvas = document.getElementById('signaturePad');
