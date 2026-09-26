@@ -5,8 +5,8 @@ const { Resend } = require('resend');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Initialize Resend with your API key
-const resend = new Resend('re_PrJC4sEe_7UxrsyQTzy8L25reWwDyMSBh');
+// Initialize Resend with your active API key
+const resend = new Resend('re_FESyo62R_GiB2ErGGsc63nd6mS1dLdVaT');
 
 // Middleware to parse JSON bodies
 app.use(express.json({ limit: '10mb' }));
@@ -91,7 +91,7 @@ app.post('/api/submit-form', async (req, res) => {
             </div>
         `;
 
-        // Send email to royals101llc@gmail.com with clear identifier tags in the subject line
+        // Send email to royals101llc@gmail.com with searchable identifiers in the subject line
         const emailResponse = await resend.emails.send({
             from: 'Royals Secure Portal <onboarding@resend.dev>',
             to: ['royals101llc@gmail.com'],
