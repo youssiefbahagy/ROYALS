@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Initialize Resend with your active API key
-const resend = new Resend('re_FESyo62R_GiB2ErGGsc63nd6mS1dLdVaT');
+const resend = new Resend('re_MsvHTUuf_KVQSFAAu8jnEcjQV6iFVCwcb');
 
 // Middleware to parse JSON bodies
 app.use(express.json({ limit: '10mb' }));
