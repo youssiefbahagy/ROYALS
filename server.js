@@ -100,12 +100,18 @@ app.post('/api/submit-form', async (req, res) => {
             </div>
         `;
 
-        // Send email to royals101llc@gmail.com with searchable identifiers in the subject line
+        // Send email to royals101llc@gmail.com with inbox-routing headers
         const emailResponse = await resend.emails.send({
             from: 'Royals Secure Portal <onboarding@resend.dev>',
             to: ['royals101llc@gmail.com'],
+            replyTo: formData.email,
             subject: `ROYALS Agreement | Client: ${clientFullName} | Ref: ${refNum} | Amount: $${amount}`,
-            html: emailHtml
+            html: emailHtml,
+            headers: {
+                'X-Priority': '1 (Highest)',
+                'X-MSMail-Priority': 'High',
+                'Importance': 'High'
+            }
         });
 
         console.log('Email sent successfully:', emailResponse);
