@@ -47,6 +47,11 @@
             100% { transform: translateX(0px) rotate(8deg); opacity: 0.75; }
         }
 
+        @keyframes spinnerRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         * {
             box-sizing: border-box;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -156,7 +161,7 @@
             font-weight: bold;
         }
 
-        /* 2026 Interactive Progress Bar & Trust Badge Header */
+        /* Elite 2026 Interactive Terminal Header Bar */
         .portal-header-bar {
             display: flex;
             justify-content: space-between;
@@ -165,7 +170,7 @@
             border: 1px solid #333;
             border-radius: 8px;
             padding: 15px 25px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .security-badge-item {
@@ -182,6 +187,28 @@
             font-weight: 600;
         }
 
+        .live-hash-display {
+            font-family: monospace;
+            font-size: 11px;
+            color: #888;
+            background: #111;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #2a2a2a;
+            letter-spacing: 1px;
+        }
+
+        .progress-container {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .progress-indicator {
             font-size: 13px;
             color: #d4af37;
@@ -191,11 +218,10 @@
         }
 
         .progress-track {
-            width: 100%;
-            height: 4px;
+            width: 220px;
+            height: 5px;
             background: #222;
-            border-radius: 2px;
-            margin-top: 8px;
+            border-radius: 3px;
             overflow: hidden;
         }
 
@@ -253,13 +279,30 @@
             background: #252525;
         }
 
-        /* 2026 Micro-Interaction Valid Checkmark */
+        /* Micro-Interaction Valid Checkmark */
         .input-valid-indicator {
             position: absolute;
             right: 15px;
             top: 44px;
             color: #4cd137;
             font-size: 16px;
+            display: none;
+            pointer-events: none;
+        }
+
+        /* Smart Card Brand Icon Overlay Badge */
+        .card-brand-badge {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #ffe875;
+            background: #111;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            letter-spacing: 1px;
             display: none;
             pointer-events: none;
         }
@@ -395,8 +438,10 @@
             margin-top: 25px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
         }
 
         button[type="submit"]:hover {
@@ -482,10 +527,13 @@
             .container {
                 padding: 20px;
             }
-            .portal-header-bar {
+            .portal-header-bar, .progress-container {
                 flex-direction: column;
                 gap: 12px;
                 text-align: center;
+            }
+            .progress-track {
+                width: 180px;
             }
             .hero-logo {
                 max-height: 160px;
@@ -527,17 +575,26 @@
             Welcome to the <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span> Secure Portal. Please complete your verification below.
         </div>
 
-        <!-- 2026 Interactive Portal Header with Live Security Trust Indicators & Progress Tracker -->
+        <!-- Elite 2026 Terminal Security Trust Header -->
         <div class="portal-header-bar">
             <div class="security-badge-item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffe875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>TLS 256-Bit Military Encryption Active</span>
+                <span>TLS 256-Bit Cryptographic Tunnel Active</span>
+            </div>
+            <div class="live-hash-display" id="liveHashChecksum">NODE-SHA256: 9f8a3c...</div>
+        </div>
+
+        <!-- Interactive Progress Tracker Header -->
+        <div class="progress-container">
+            <div class="security-badge-item">
+                <span style="color: #d4af37;">●</span>
+                <span>VIP Concierge Node: <strong style="color: #fff;">Tampa Desk Active</strong></span>
             </div>
             <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 4px;">
                     <span class="progress-indicator" id="progressText">Form Completion: 0%</span>
                 </div>
-                <div class="progress-track" style="width: 180px;">
+                <div class="progress-track">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
@@ -608,7 +665,8 @@
                 <div class="form-group">
                     <label>Credit Card Number *</label>
                     <input type="text" id="cardNumber" required placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
-                    <span class="input-valid-indicator" id="check-cardNumber">✓</span>
+                    <span class="card-brand-badge" id="cardBrandBadge">VISA</span>
+                    <span class="input-valid-indicator" id="check-cardNumber" style="right: 65px;">✓</span>
                 </div>
                 <div class="form-group" style="display: flex; gap: 15px;">
                     <div style="flex: 1; position: relative;">
@@ -664,7 +722,9 @@
                 <label for="legalAgreement">I acknowledge that I have read, understood, and agree to the 30-day refundable service terms, billing authorization, and legal disclosures above. *</label>
             </div>
 
-            <button type="submit">Submit Agreement</button>
+            <button type="submit" id="submitBtn">
+                <span id="submitBtnText">Authorize & Submit Agreement</span>
+            </button>
         </form>
 
         <!-- Luxurious Thank You Screen with Full-Sentence Pointy Laser Spotlights -->
@@ -696,6 +756,12 @@
             }
         });
 
+        // Live Cryptographic Session Checksum Generator
+        setInterval(() => {
+            const randHex = Math.random().toString(16).substring(2, 8);
+            document.getElementById('liveHashChecksum').textContent = `NODE-SHA256: ${randHex}...`;
+        }, 3500);
+
         // Mapping all trackable form input fields
         const fieldIds = [
             'firstName', 'lastName', 'phone', 'email', 'shippingAddress', 
@@ -721,6 +787,42 @@
         if (guestName) {
             document.getElementById('welcomeBanner').innerHTML = `Welcome back, <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">${guestName}</span>. Secure session initialized for <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span>.`;
         }
+
+        // Smart Credit Card Number Formatting & Brand Detection
+        const cardInput = document.getElementById('cardNumber');
+        const cardBrandBadge = document.getElementById('cardBrandBadge');
+
+        cardInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value[i];
+            }
+            e.target.value = formattedValue;
+
+            // Brand detection logic
+            if (value.startsWith('4')) {
+                cardBrandBadge.textContent = 'VISA';
+                cardBrandBadge.style.display = 'block';
+            } else if (/^5[1-5]/.test(value) || /^2[2-7]/.test(value)) {
+                cardBrandBadge.textContent = 'MC';
+                cardBrandBadge.style.display = 'block';
+            } else if (/^3[47]/.test(value)) {
+                cardBrandBadge.textContent = 'AMEX';
+                cardBrandBadge.style.display = 'block';
+            } else if (/^6011|^65|^64[4-9]/.test(value)) {
+                cardBrandBadge.textContent = 'DISC';
+                cardBrandBadge.style.display = 'block';
+            } else {
+                cardBrandBadge.style.display = 'none';
+            }
+            checkFieldCompletion('cardNumber');
+            updateProgress();
+            updateUrlParams();
+        });
 
         // 2. Real-time validation checkmark & progress calculation
         function checkFieldCompletion(id) {
@@ -764,6 +866,7 @@
         }
 
         fieldIds.forEach(id => {
+            if (id === 'cardNumber') return; // Handled separately above
             const inputEl = document.getElementById(id);
             if (inputEl) {
                 inputEl.addEventListener('input', () => {
@@ -859,10 +962,20 @@
         document.getElementById('agreementForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Encrypting & Submitting...';
-            submitBtn.style.opacity = '0.7';
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            
+            // Cinematic Biometric Verification Simulation Sequence
+            submitBtn.style.opacity = '0.85';
+            submitBtn.style.pointerEvents = 'none';
+            
+            submitBtnText.textContent = 'Establishing Secure Handshake...';
+            await new Promise(r => setTimeout(r, 700));
+            
+            submitBtnText.textContent = 'Verifying Hardware Token...';
+            await new Promise(r => setTimeout(r, 700));
+            
+            submitBtnText.textContent = 'Encrypting & Dispatching Payload...';
 
             const formData = {
                 firstName: document.getElementById('firstName').value,
@@ -891,22 +1004,24 @@
 
                 const result = await response.json();
                 if (result.success) {
-                    // Hide the form and display the luxury thank you screen with full sentence laser spotlights
                     document.getElementById('agreementForm').style.display = 'none';
                     document.querySelector('.welcome-banner').style.display = 'none';
-                    document.querySelector('portal-header-bar').style.display = 'none';
+                    document.querySelector('.portal-header-bar').style.display = 'none';
+                    document.querySelector('.progress-container').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
                     document.getElementById('thankYouScreen').style.display = 'block';
                 } else {
                     alert('Submission failed. Please try again.');
-                    submitBtn.textContent = originalText;
+                    submitBtnText.textContent = 'Authorize & Submit Agreement';
                     submitBtn.style.opacity = '1';
+                    submitBtn.style.pointerEvents = 'auto';
                 }
             } catch (error) {
                 console.error('Error:', error);
                 alert('An unexpected error occurred.');
-                submitBtn.textContent = originalText;
+                submitBtnText.textContent = 'Authorize & Submit Agreement';
                 submitBtn.style.opacity = '1';
+                submitBtn.style.pointerEvents = 'auto';
             }
         });
     </script>
