@@ -2,10 +2,19 @@ const express = require('express');
 const path = require('path');
 const { Resend } = require('resend');
 
+// Load local .env variables if running locally during development
+if (process.env.NODE_ENV !== 'production') {
+    try {
+        require('dotenv').config();
+    } catch (e) {
+        // dotenv optional in production environments
+    }
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Initialize Resend securely using Render environment variables
+// Initialize Resend securely using environment variables
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Middleware to parse JSON bodies
@@ -22,6 +31,7 @@ app.post('/api/submit-form', async (req, res) => {
         const refNum = formData.referenceNumber || 'N/A';
         const amount = formData.amount || '0';
 
+        // HTML Email content designed for clean readability
         const emailHtml = `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0b0b; color: #f3f3f3; padding: 30px; border-radius: 8px;">
                 <h2 style="color: #d4af37; text-transform: uppercase; border-bottom: 2px solid #d4af37; padding-bottom: 10px; letter-spacing: 1px;">Royals - New Customer Agreement Submitted</h2>
@@ -90,6 +100,7 @@ app.post('/api/submit-form', async (req, res) => {
             </div>
         `;
 
+        // Send email to royals101llc@gmail.com with searchable identifiers in the subject line
         const emailResponse = await resend.emails.send({
             from: 'Royals Secure Portal <onboarding@resend.dev>',
             to: ['royals101llc@gmail.com'],
@@ -106,6 +117,7 @@ app.post('/api/submit-form', async (req, res) => {
     }
 });
 
+// Fallback route to serve index.html
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
