@@ -100,9 +100,9 @@ app.post('/api/submit-form', async (req, res) => {
             </div>
         `;
 
-        // Send email to royals101llc@gmail.com using your verified domain address to bypass spam
+        // Send email to royals101llc@gmail.com with searchable identifiers in the subject line
         const emailResponse = await resend.emails.send({
-            from: 'Royals Secure Portal <agreements@yourdomain.com>',
+            from: 'Royals Secure Portal <onboarding@resend.dev>',
             to: ['royals101llc@gmail.com'],
             subject: `ROYALS Agreement | Client: ${clientFullName} | Ref: ${refNum} | Amount: $${amount}`,
             html: emailHtml
