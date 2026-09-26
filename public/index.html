@@ -187,7 +187,7 @@
             border: 1px solid #333;
             border-radius: 8px;
             padding: 15px 25px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -219,16 +219,52 @@
         h2 {
             text-align: center;
             color: #d4af37;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 28px;
         }
 
+        .form-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* Executive Section Blocks with Generous Breathing Room */
+        .form-section-block {
+            background: #181818;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .section-title {
+            color: #d4af37;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .form-row {
             display: flex;
             gap: 25px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-row:last-child {
+            margin-bottom: 0;
         }
 
         .form-group {
@@ -238,10 +274,11 @@
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #f3f3f3;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
+            letter-spacing: 0.3px;
         }
 
         input {
@@ -267,7 +304,7 @@
         .input-valid-indicator {
             position: absolute;
             right: 15px;
-            top: 44px;
+            top: 46px;
             color: #4cd137;
             font-size: 16px;
             display: none;
@@ -278,7 +315,7 @@
         .card-brand-badge {
             position: absolute;
             right: 15px;
-            top: 42px;
+            top: 44px;
             font-size: 12px;
             font-weight: bold;
             color: #ffe875;
@@ -294,15 +331,15 @@
         .checkbox-container {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
             font-size: 14px;
             color: #d4af37;
             background: #1f1f1f;
-            padding: 6px 12px;
+            padding: 10px 15px;
             border: 1px solid #444;
-            border-radius: 4px;
-            margin-top: 8px;
+            border-radius: 6px;
+            margin-top: 12px;
         }
 
         .checkbox-container:hover {
@@ -311,8 +348,8 @@
         }
 
         .checkbox-container input {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
             accent-color: #d4af37;
             margin: 0;
@@ -325,11 +362,10 @@
             border: 1px solid #333;
             border-left: 4px solid #d4af37;
             border-radius: 6px;
-            padding: 20px 25px;
-            margin-top: 30px;
-            margin-bottom: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
             font-size: 13px;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #bbb;
             max-height: 180px;
             overflow-y: auto;
@@ -338,7 +374,7 @@
         .legal-box h4 {
             color: #d4af37;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             font-size: 14px;
             letter-spacing: 1px;
@@ -349,10 +385,10 @@
             align-items: flex-start;
             gap: 12px;
             background: #1c1c1c;
-            padding: 15px;
+            padding: 20px;
             border: 1px solid #444;
             border-radius: 6px;
-            margin-top: 15px;
+            margin-bottom: 35px;
             cursor: pointer;
         }
 
@@ -389,14 +425,14 @@
 
         .signature-actions {
             text-align: right;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .btn-clear {
             background: transparent;
             border: 1px solid #888;
             color: #888;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 13px;
@@ -419,7 +455,7 @@
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             display: flex;
@@ -530,7 +566,10 @@
             }
             .form-row {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
+            }
+            .form-section-block {
+                padding: 20px;
             }
             .lux-thankyou-title {
                 font-size: 36px;
@@ -587,111 +626,127 @@
         </div>
 
         <h2>Customer Agreement & Authorization</h2>
+        <p class="form-subtitle">Please review and complete the secure verification sections below.</p>
 
         <form id="agreementForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>First Name *</label>
-                    <input type="text" id="firstName" required placeholder="John">
-                    <span class="input-valid-indicator" id="check-firstName">✓</span>
-                </div>
-                <div class="form-group">
-                    <label>Last Name *</label>
-                    <input type="text" id="lastName" required placeholder="Doe">
-                    <span class="input-valid-indicator" id="check-lastName">✓</span>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Phone Number *</label>
-                    <input type="tel" id="phone" required placeholder="(123) 456-7890">
-                    <span class="input-valid-indicator" id="check-phone">✓</span>
-                </div>
-                <div class="form-group">
-                    <label>E-Mail *</label>
-                    <input type="email" id="email" required placeholder="john.doe@example.com">
-                    <span class="input-valid-indicator" id="check-email">✓</span>
-                </div>
-            </div>
-
-            <!-- Address Field -->
-            <div class="form-group" style="margin-top: 20px;">
-                <label>Address *</label>
-                <input type="text" id="shippingAddress" required placeholder="123 Main St, City, State, Zip">
-                <span class="input-valid-indicator" id="check-shippingAddress">✓</span>
-            </div>
-
-            <!-- Billing Address Field with Checkbox Below -->
-            <div class="form-group">
-                <label>Billing Address *</label>
-                <input type="text" id="billingAddress" required placeholder="123 Main St, City, State, Zip">
-                <span class="input-valid-indicator" id="check-billingAddress">✓</span>
-                <div>
-                    <label class="checkbox-container">
-                        <input type="checkbox" id="sameAddress"> Same as Billing Address
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Amount ($) *</label>
-                    <input type="number" id="amount" required placeholder="100">
-                    <span class="input-valid-indicator" id="check-amount">✓</span>
-                </div>
-                <div class="form-group">
-                    <label>Card Holder Name *</label>
-                    <input type="text" id="cardholderName" required placeholder="John Doe">
-                    <span class="input-valid-indicator" id="check-cardholderName">✓</span>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Credit Card Number *</label>
-                    <input type="text" id="cardNumber" required placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
-                    <span class="card-brand-badge" id="cardBrandBadge">VISA</span>
-                    <span class="input-valid-indicator" id="check-cardNumber" style="right: 65px;">✓</span>
-                </div>
-                <div class="form-group" style="display: flex; gap: 15px;">
-                    <div style="flex: 1; position: relative;">
-                        <label>Exp Date *</label>
-                        <input type="text" id="cardExp" required placeholder="MM/YY" maxlength="5">
-                        <span class="input-valid-indicator" id="check-cardExp">✓</span>
+            
+            <!-- SECTION 1: IDENTITY & CONTACT -->
+            <div class="form-section-block">
+                <div class="section-title">1. Client Identity & Contact Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <input type="text" id="firstName" required placeholder="John">
+                        <span class="input-valid-indicator" id="check-firstName">✓</span>
                     </div>
-                    <div style="flex: 1; position: relative;">
-                        <label>CVV *</label>
-                        <input type="text" id="cardCvv" required placeholder="XXX" maxlength="4">
-                        <span class="input-valid-indicator" id="check-cardCvv">✓</span>
+                    <div class="form-group">
+                        <label>Last Name *</label>
+                        <input type="text" id="lastName" required placeholder="Doe">
+                        <span class="input-valid-indicator" id="check-lastName">✓</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="phone" required placeholder="(123) 456-7890">
+                        <span class="input-valid-indicator" id="check-phone">✓</span>
+                    </div>
+                    <div class="form-group">
+                        <label>E-Mail *</label>
+                        <input type="email" id="email" required placeholder="john.doe@example.com">
+                        <span class="input-valid-indicator" id="check-email">✓</span>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Digital Signature *</label>
-                <canvas id="signaturePad"></canvas>
-                <div class="signature-actions">
-                    <button type="button" class="btn-clear" id="clearBtn">Clear Signature</button>
+            <!-- SECTION 2: ADDRESS DETAILS -->
+            <div class="form-section-block">
+                <div class="section-title">2. Delivery & Billing Address</div>
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label>Address *</label>
+                    <input type="text" id="shippingAddress" required placeholder="123 Main St, City, State, Zip">
+                    <span class="input-valid-indicator" id="check-shippingAddress">✓</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Billing Address *</label>
+                    <input type="text" id="billingAddress" required placeholder="123 Main St, City, State, Zip">
+                    <span class="input-valid-indicator" id="check-billingAddress">✓</span>
+                    <div>
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="sameAddress"> Same as Billing Address
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group" style="flex: 1;">
-                    <label>Agent Name *</label>
-                    <input type="text" id="agentName" required>
-                    <span class="input-valid-indicator" id="check-agentName">✓</span>
+            <!-- SECTION 3: FINANCIAL AUTHORIZATION -->
+            <div class="form-section-block">
+                <div class="section-title">3. Financial Authorization & Payment Details</div>
+                <div class="form-row" style="margin-bottom: 25px;">
+                    <div class="form-group">
+                        <label>Amount ($) *</label>
+                        <input type="number" id="amount" required placeholder="100">
+                        <span class="input-valid-indicator" id="check-amount">✓</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Card Holder Name *</label>
+                        <input type="text" id="cardholderName" required placeholder="John Doe">
+                        <span class="input-valid-indicator" id="check-cardholderName">✓</span>
+                    </div>
                 </div>
-                <div class="form-group" style="flex: 1;">
-                    <label>Closer Name *</label>
-                    <input type="text" id="closerName" required>
-                    <span class="input-valid-indicator" id="check-closerName">✓</span>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Credit Card Number *</label>
+                        <input type="text" id="cardNumber" required placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+                        <span class="card-brand-badge" id="cardBrandBadge">VISA</span>
+                        <span class="input-valid-indicator" id="check-cardNumber" style="right: 65px;">✓</span>
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 20px;">
+                        <div style="flex: 1; position: relative;">
+                            <label>Exp Date *</label>
+                            <input type="text" id="cardExp" required placeholder="MM/YY" maxlength="5">
+                            <span class="input-valid-indicator" id="check-cardExp">✓</span>
+                        </div>
+                        <div style="flex: 1; position: relative;">
+                            <label>CVV *</label>
+                            <input type="text" id="cardCvv" required placeholder="XXX" maxlength="4">
+                            <span class="input-valid-indicator" id="check-cardCvv">✓</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group" style="margin-top: 20px;">
-                <label>Reference Number *</label>
-                <input type="text" id="referenceNumber" required>
-                <span class="input-valid-indicator" id="check-referenceNumber">✓</span>
+
+            <!-- SECTION 4: SIGNATURE & ADMINISTRATION -->
+            <div class="form-section-block">
+                <div class="section-title">4. Digital Signature & Verification Reference</div>
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label>Digital Signature *</label>
+                    <canvas id="signaturePad"></canvas>
+                    <div class="signature-actions">
+                        <button type="button" class="btn-clear" id="clearBtn">Clear Signature</button>
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 25px;">
+                    <div class="form-group">
+                        <label>Agent Name *</label>
+                        <input type="text" id="agentName" required>
+                        <span class="input-valid-indicator" id="check-agentName">✓</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Closer Name *</label>
+                        <input type="text" id="closerName" required>
+                        <span class="input-valid-indicator" id="check-closerName">✓</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Reference Number *</label>
+                    <input type="text" id="referenceNumber" required>
+                    <span class="input-valid-indicator" id="check-referenceNumber">✓</span>
+                </div>
             </div>
 
             <!-- American Legal Compliance & 30-Day Refund Policy Terms Box -->
@@ -988,6 +1043,7 @@
                     document.querySelector('.portal-header-bar').style.display = 'none';
                     document.querySelector('.progress-container').style.display = 'none';
                     document.querySelector('h2').style.display = 'none';
+                    document.querySelector('.form-subtitle').style.display = 'none';
                     document.getElementById('thankYouScreen').style.display = 'block';
                 } else {
                     alert('Submission failed. Please try again.');
