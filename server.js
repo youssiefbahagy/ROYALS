@@ -24,11 +24,11 @@ app.use(express.json({ limit: '15mb' }));
 // Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Helper function to generate a beautifully spaced, full-page printable PDF buffer (without IP address)
+// Helper function to generate an executive-grade, luxury corporate PDF
 function generatePdfBuffer(formData, clientFullName, refNum, amount, submissionTimestamp) {
     return new Promise((resolve, reject) => {
         try {
-            const doc = new PDFDocument({ margin: 50, size: 'A4' });
+            const doc = new PDFDocument({ margin: 40, size: 'A4' });
             const buffers = [];
 
             doc.on('data', buffers.push.bind(buffers));
@@ -37,24 +37,28 @@ function generatePdfBuffer(formData, clientFullName, refNum, amount, submissionT
                 resolve(pdfBuffer);
             });
 
-            // --- HEADER SECTION ---
-            doc.fontSize(22).fillColor('#111111').font('Helvetica-Bold').text('ROYALS', { align: 'center' });
-            doc.fontSize(10).fillColor('#d4af37').font('Helvetica').text('SECURE CLIENT VERIFICATION & PAYMENT AUTHORIZATION', { align: 'center' });
-            doc.moveDown(1.5);
+            // --- LUXURY PAGE BORDER FRAME ---
+            doc.rect(25, 25, 545, 792).strokeColor('#d4af37').lineWidth(1.5).stroke();
+            doc.rect(29, 29, 537, 784).strokeColor('#1a1a1a').lineWidth(0.5).stroke();
 
-            // --- TRANSACTION META BOX ---
-            doc.rect(50, doc.y, 495, 35).fillAndStroke('#f9f9f9', '#dddddd');
-            const boxY = doc.y + 11;
-            doc.fontSize(9).fillColor('#444444').font('Helvetica-Bold');
-            doc.text(`Reference No:`, 65, boxY, { continued: true }).font('Helvetica').text(` ${refNum}`);
-            doc.font('Helvetica-Bold').text(`Timestamp:`, 300, boxY, { continued: true }).font('Helvetica').text(` ${submissionTimestamp}`);
-            
-            doc.y = boxY + 35;
-            doc.moveDown(1.5);
+            // --- HEADER BRANDING ---
+            doc.moveDown(0.8);
+            doc.fontSize(24).fillColor('#1a1a1a').font('Helvetica-Bold').text('ROYALS LLC', { align: 'center', letterSpacing: 2 });
+            doc.fontSize(9).fillColor('#d4af37').font('Helvetica-Bold').text('OFFICIAL CUSTOMER AGREEMENT & PAYMENT AUTHORIZATION', { align: 'center', letterSpacing: 1.5 });
+            doc.moveDown(1);
 
-            // --- SECTION 1: CLIENT & TRANSACTION DETAILS ---
-            doc.fontSize(13).fillColor('#d4af37').font('Helvetica-Bold').text('1. CLIENT & TRANSACTION PROFILE');
-            doc.moveDown(0.6);
+            // --- TRANSACTION META BAR ---
+            doc.rect(45, doc.y, 507, 32).fillAndStroke('#fcfcfc', '#e0e0e0');
+            const metaY = doc.y + 10;
+            doc.fontSize(8.5).fillColor('#333333').font('Helvetica-Bold');
+            doc.text(`REFERENCE NO:`, 55, metaY, { continued: true }).font('Helvetica').text(` ${refNum}`);
+            doc.font('Helvetica-Bold').text(`TIMESTAMP:`, 310, metaY, { continued: true }).font('Helvetica').text(` ${submissionTimestamp}`);
+            doc.y = metaY + 25;
+            doc.moveDown(1);
+
+            // --- SECTION 1: CLIENT & TRANSACTION PROFILE ---
+            doc.fontSize(11).fillColor('#d4af37').font('Helvetica-Bold').text('CLIENT & FINANCIAL PROFILE');
+            doc.moveDown(0.4);
 
             const details = [
                 ['Client Full Name:', clientFullName],
@@ -70,38 +74,54 @@ function generatePdfBuffer(formData, clientFullName, refNum, amount, submissionT
                 ['Closing Specialist:', formData.closerName || 'N/A']
             ];
 
+            let rowCount = 0;
             details.forEach(([label, value]) => {
                 const currentY = doc.y;
-                doc.fontSize(10).fillColor('#555555').font('Helvetica-Bold').text(label, 50, currentY, { width: 150 });
-                doc.fillColor('#222222').font('Helvetica').text(value, 200, currentY, { width: 345 });
-                doc.moveDown(0.7);
+                // Alternating row background for luxury corporate look
+                if (rowCount % 2 === 0) {
+                    doc.rect(45, currentY - 3, 507, 18).fill('#f9f9f9');
+                }
+                doc.fontSize(9).fillColor('#555555').font('Helvetica-Bold').text(label, 55, currentY, { width: 150 });
+                doc.fillColor('#111111').font('Helvetica').text(value, 210, currentY, { width: 330 });
+                doc.moveDown(0.8);
+                rowCount++;
             });
+
+            doc.moveDown(0.5);
+
+            // --- SECTION 2: LEGAL AUTHORIZATION CLAUSE ---
+            doc.fontSize(11).fillColor('#d4af37').font('Helvetica-Bold').text('TERMS & AUTHORIZATION ACKNOWLEDGEMENT');
+            doc.moveDown(0.4);
+            doc.fontSize(8.5).fillColor('#444444').font('Helvetica').text(
+                'By executing this agreement digitally, the cardholder and client formally acknowledge and authorize Royals LLC to process the specified payment amount. All transactions are backed by our secure compliance protocols and standard merchant agreement terms.',
+                { width: 507, lineGap: 3 }
+            );
 
             doc.moveDown(1);
 
-            // --- SECTION 2: DIGITAL SIGNATURE ---
+            // --- SECTION 3: DIGITAL SIGNATURE BLOCK ---
             if (formData.signature) {
-                if (doc.y > 650) doc.addPage();
+                if (doc.y > 640) doc.addPage();
 
-                doc.fontSize(13).fillColor('#d4af37').font('Helvetica-Bold').text('2. CLIENT E-SIGNATURE VERIFICATION');
-                doc.moveDown(0.6);
+                doc.fontSize(11).fillColor('#d4af37').font('Helvetica-Bold').text('CLIENT ELECTRONIC SIGNATURE');
+                doc.moveDown(0.4);
 
                 try {
                     const base64Data = formData.signature.replace(/^data:image\/png;base64,/, '');
                     const signatureBuffer = Buffer.from(base64Data, 'base64');
                     
-                    doc.rect(50, doc.y, 250, 90).stroke('#cccccc');
-                    doc.image(signatureBuffer, 60, doc.y + 5, { width: 230, height: 80, align: 'center', valign: 'center' });
-                    doc.y += 105;
+                    doc.rect(45, doc.y, 240, 80).fillAndStroke('#ffffff', '#cccccc');
+                    doc.image(signatureBuffer, 50, doc.y + 5, { width: 230, height: 70, align: 'center', valign: 'center' });
+                    doc.y += 90;
                 } catch (sigErr) {
-                    doc.fontSize(10).fillColor('#666666').font('Helvetica-Oblique').text('[Digital Signature Captured & Cryptographically Bound]');
+                    doc.fontSize(9).fillColor('#666666').font('Helvetica-Oblique').text('[Cryptographic Signature Bound]');
                     doc.moveDown(1);
                 }
             }
 
-            // --- FOOTER NOTE ---
+            // --- FOOTER BRANDING ---
             doc.moveDown(1.5);
-            doc.fontSize(8).fillColor('#888888').font('Helvetica').text('This document is an electronically generated digital verification record stored securely by Royals LLC.', { align: 'center' });
+            doc.fontSize(7.5).fillColor('#888888').font('Helvetica').text('ROYALS LLC • SECURE EXECUTIVE VERIFICATION TERMINAL • CONFIDENTIAL RECORD', { align: 'center' });
 
             doc.end();
         } catch (err) {
@@ -110,7 +130,7 @@ function generatePdfBuffer(formData, clientFullName, refNum, amount, submissionT
     });
 }
 
-// API endpoint to handle form submission & clean PDF attachment
+// API endpoint to handle form submission & luxury PDF attachment
 app.post('/api/submit-form', async (req, res) => {
     try {
         const formData = req.body;
@@ -120,13 +140,13 @@ app.post('/api/submit-form', async (req, res) => {
         
         const submissionTimestamp = new Date().toUTCString();
 
-        // Generate the clean physical PDF buffer (without IP)
+        // Generate the luxury PDF buffer
         const pdfBuffer = await generatePdfBuffer(formData, clientFullName, refNum, amount, submissionTimestamp);
 
-        // HTML Email content for Management (IP address removed)
+        // HTML Email content for Management
         const managementEmailHtml = `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0b0b; color: #f3f3f3; padding: 35px; border-radius: 10px; border: 1px solid #333;">
-                <h2 style="color: #d4af37; text-transform: uppercase; border-bottom: 2px solid #d4af37; padding-bottom: 10px; letter-spacing: 1px;">Royals - New Customer Agreement Submitted</h2>
+                <h2 style="color: #d4af37; text-transform: uppercase; border-bottom: 2px solid #d4af37; padding-bottom: 10px; letter-spacing: 1px;">Royals LLC - New Customer Agreement Submitted</h2>
                 
                 <p style="font-size: 16px; color: #ffe875; margin-bottom: 20px;"><strong>Client:</strong> ${clientFullName}</p>
                 
@@ -188,16 +208,16 @@ app.post('/api/submit-form', async (req, res) => {
                     </div>
                 ` : ''}
 
-                <p style="color: #666; font-size: 12px; text-align: center; margin-top: 30px;">ROYALS Secure Client Verification Terminal • 2026 (Organized PDF Attached)</p>
+                <p style="color: #666; font-size: 12px; text-align: center; margin-top: 30px;">ROYALS LLC Secure Client Verification Terminal • 2026 (Luxury PDF Attached)</p>
             </div>
         `;
 
-        // Send email to royals101llc@gmail.com with clean PDF attached
+        // Send email with the executive PDF attached
         const emailResponse = await resend.emails.send({
             from: 'Royals Secure Portal <onboarding@resend.dev>',
             to: ['royals101llc@gmail.com'],
             replyTo: formData.email,
-            subject: `ROYALS Agreement | Client: ${clientFullName} | Ref: ${refNum} | Amount: $${amount}`,
+            subject: `ROYALS LLC Agreement | Client: ${clientFullName} | Ref: ${refNum} | Amount: $${amount}`,
             html: managementEmailHtml,
             attachments: [
                 {
@@ -212,8 +232,8 @@ app.post('/api/submit-form', async (req, res) => {
             }
         });
 
-        console.log('Email sent successfully with clean PDF:', emailResponse);
-        res.json({ success: true, message: 'Agreement submitted and organized PDF attached successfully.' });
+        console.log('Email sent successfully with luxury PDF:', emailResponse);
+        res.json({ success: true, message: 'Agreement submitted and luxury PDF attached successfully.' });
 
     } catch (error) {
         console.error('Error handling form submission:', error);
@@ -227,5 +247,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Royals server running on port ${PORT}`);
+    console.log(`Royals LLC server running on port ${PORT}`);
 });
