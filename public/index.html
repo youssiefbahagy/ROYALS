@@ -1,1064 +1,3128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROYALS - Customer Agreement & Authorization</title>
-    <!-- Importing luxury cursive font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
-            50% { box-shadow: 0 0 50px rgba(212, 175, 55, 0.7); }
-            100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
-        }
+<title>ROYALS - Customer Agreement & Authorization</title>
 
-        /* Border Light Chase Animation */
-        @keyframes borderChase {
-            0% {
-                border-color: rgba(212, 175, 55, 0.4);
-                box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.15), 0 0 20px rgba(212, 175, 55, 0.3);
-            }
-            50% {
-                border-color: #ffe875;
-                box-shadow: inset 0 0 35px rgba(255, 232, 117, 0.5), 0 0 45px rgba(212, 175, 55, 0.7);
-            }
-            100% {
-                border-color: rgba(212, 175, 55, 0.4);
-                box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.15), 0 0 20px rgba(212, 175, 55, 0.3);
-            }
-        }
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
-        /* Full Sentence Laser Beam Sweeps */
-        @keyframes leftLaserFullSweep {
-            0% { transform: translateX(0px) rotate(-8deg); opacity: 0.75; }
-            50% { transform: translateX(180px) rotate(22deg); opacity: 0.95; }
-            100% { transform: translateX(0px) rotate(-8deg); opacity: 0.75; }
-        }
+<style>
 
-        @keyframes rightLaserFullSweep {
-            0% { transform: translateX(0px) rotate(8deg); opacity: 0.75; }
-            50% { transform: translateX(-180px) rotate(-22deg); opacity: 0.95; }
-            100% { transform: translateX(0px) rotate(8deg); opacity: 0.75; }
-        }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        * {
-            box-sizing: border-box;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 30px rgba(212,175,55,.4);
+    }
+    50% {
+        box-shadow: 0 0 50px rgba(212,175,55,.7);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(212,175,55,.4);
+    }
+}
 
-        body {
-            background-color: #0b0b0b;
-            color: #d4af37;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            overflow-x: hidden;
-            animation: fadeIn 0.6s ease-out forwards;
-        }
+@keyframes borderChase {
+    0% {
+        border-color: rgba(212,175,55,.4);
+        box-shadow:
+            inset 0 0 20px rgba(212,175,55,.15),
+            0 0 20px rgba(212,175,55,.3);
+    }
 
-        /* Cinematic Hero Landing Section with Dimmed Low-Brightness Background */
-        .hero-section {
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(rgba(11, 11, 11, 0.88), rgba(11, 11, 11, 0.94)), url('/background.jpg');
-            background-size: cover;
-            background-position: center;
-            image-rendering: -webkit-optimize-contrast;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
-        }
+    50% {
+        border-color: #ffe875;
+        box-shadow:
+            inset 0 0 35px rgba(255,232,117,.5),
+            0 0 45px rgba(212,175,55,.7);
+    }
 
-        .hero-logo {
-            max-height: 240px;
-            width: auto;
-            border-radius: 50%;
-            border: 3px solid #d4af37;
-            margin-bottom: 35px;
-            animation: pulseGlow 4s infinite ease-in-out;
-        }
+    100% {
+        border-color: rgba(212,175,55,.4);
+        box-shadow:
+            inset 0 0 20px rgba(212,175,55,.15),
+            0 0 20px rgba(212,175,55,.3);
+    }
+}
 
-        /* ROYALS single-line frame with chasing light effect */
-        .royals-frame {
-            display: inline-block;
-            padding: 25px 65px;
-            border: 3px solid #d4af37;
-            border-radius: 10px;
-            background: rgba(20, 20, 20, 0.85);
-            backdrop-filter: blur(10px);
-            animation: borderChase 3s infinite ease-in-out;
-            margin-bottom: 30px;
-        }
+@keyframes leftLaserFullSweep {
+    0% {
+        transform: translateX(0) rotate(-8deg);
+        opacity: .75;
+    }
 
-        .royals-title {
-            color: #d4af37;
-            font-family: 'Great Vibes', cursive;
-            font-size: 78px;
-            font-weight: 400;
-            text-transform: none;
-            letter-spacing: 3px;
-            margin: 0;
-            text-shadow: 0 3px 15px rgba(212, 175, 55, 0.5);
-        }
+    50% {
+        transform: translateX(180px) rotate(22deg);
+        opacity: .95;
+    }
 
-        .scroll-down-hint {
-            position: absolute;
-            bottom: 40px;
-            color: #aaa;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: fadeIn 1.5s infinite alternate;
-        }
+    100% {
+        transform: translateX(0) rotate(-8deg);
+        opacity: .75;
+    }
+}
 
-        .scroll-down-hint span {
-            display: block;
-            font-size: 24px;
-            color: #d4af37;
-            margin-top: 8px;
-        }
+@keyframes rightLaserFullSweep {
+    0% {
+        transform: translateX(0) rotate(8deg);
+        opacity: .75;
+    }
 
-        /* Form Container Section */
-        .container {
-            width: 100%;
-            min-height: 100vh;
-            margin: 0;
-            background: #141414;
-            border-top: 2px solid #333;
-            padding: 60px 80px;
-            position: relative;
-            z-index: 5;
-            box-shadow: 0 -20px 40px rgba(0,0,0,0.8);
-        }
+    50% {
+        transform: translateX(-180px) rotate(-22deg);
+        opacity: .95;
+    }
 
-        .welcome-banner {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 16px;
-            color: #aaa;
-            letter-spacing: 0.5px;
-        }
+    100% {
+        transform: translateX(0) rotate(8deg);
+        opacity: .75;
+    }
+}
 
-        .welcome-banner span {
-            color: #d4af37;
-            font-weight: bold;
-        }
+* {
+    box-sizing: border-box;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
 
-        /* Clean Corporate Executive Header Bar */
-        .portal-header-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px 25px;
-            margin-bottom: 25px;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .security-badge-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: #aaa;
-            letter-spacing: 0.5px;
-        }
+body {
+    background:#0b0b0b;
+    color:#d4af37;
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+    margin:0;
+    padding:0;
+    width:100%;
+    overflow-x:hidden;
+    animation:fadeIn .6s ease-out forwards;
+}
 
-        .security-badge-item span {
-            color: #ffe875;
-            font-weight: 600;
-        }
+/* HERO */
 
-        .progress-container {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px 25px;
-            margin-bottom: 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.hero-section {
+    height:100vh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 
-        .progress-indicator {
-            font-size: 13px;
-            color: #d4af37;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
+    background:
+        linear-gradient(
+            rgba(11,11,11,.88),
+            rgba(11,11,11,.94)
+        ),
+        url("/background.jpg");
 
-        .progress-track {
-            width: 220px;
-            height: 5px;
-            background: #222;
-            border-radius: 3px;
-            overflow: hidden;
-        }
+    background-size:cover;
+    background-position:center;
 
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #aa8c2c, #ffe875);
-            transition: width 0.4s ease;
-        }
+    text-align:center;
+    padding:20px;
 
-        h2 {
-            text-align: center;
-            color: #d4af37;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 28px;
-        }
+    position:relative;
+    z-index:10;
+}
 
-        .form-subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-        }
+.hero-logo {
+    max-height:240px;
+    width:auto;
 
-        /* Executive Section Blocks with Generous Breathing Room */
-        .form-section-block {
-            background: #181818;
-            border: 1px solid #2a2a2a;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 35px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-        }
+    border-radius:50%;
+    border:3px solid #d4af37;
 
-        .section-title {
-            color: #d4af37;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 0;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    margin-bottom:35px;
 
-        .form-row {
-            display: flex;
-            gap: 25px;
-            margin-bottom: 25px;
-        }
+    animation:pulseGlow 4s infinite ease-in-out;
+}
 
-        .form-row:last-child {
-            margin-bottom: 0;
-        }
+.royals-frame {
+    display:inline-block;
 
-        .form-group {
-            flex: 1;
-            position: relative;
-        }
+    padding:25px 65px;
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #f3f3f3;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.3px;
-        }
+    border:3px solid #d4af37;
+    border-radius:10px;
 
-        input {
-            width: 100%;
-            padding: 16px;
-            background: #1f1f1f;
-            border: 1px solid #444;
-            border-radius: 6px;
-            color: #fff;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
+    background:rgba(20,20,20,.85);
 
-        input:focus {
-            border-color: #d4af37;
-            outline: none;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.45);
-            transform: translateY(-2px);
-            background: #252525;
-        }
+    backdrop-filter:blur(10px);
 
-        /* Micro-Interaction Valid Checkmark */
-        .input-valid-indicator {
-            position: absolute;
-            right: 15px;
-            top: 46px;
-            color: #4cd137;
-            font-size: 16px;
-            display: none;
-            pointer-events: none;
-        }
+    animation:borderChase 3s infinite ease-in-out;
 
-        /* Smart Card Brand Icon Overlay Badge */
-        .card-brand-badge {
-            position: absolute;
-            right: 15px;
-            top: 44px;
-            font-size: 12px;
-            font-weight: bold;
-            color: #ffe875;
-            background: #111;
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #444;
-            letter-spacing: 1px;
-            display: none;
-            pointer-events: none;
-        }
+    margin-bottom:30px;
+}
 
-        .checkbox-container {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #d4af37;
-            background: #1f1f1f;
-            padding: 10px 15px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            margin-top: 12px;
-        }
+.royals-title {
+    color:#d4af37;
 
-        .checkbox-container:hover {
-            border-color: #d4af37;
-            transform: scale(1.01);
-        }
+    font-family:"Great Vibes",cursive;
 
-        .checkbox-container input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #d4af37;
-            margin: 0;
-            padding: 0;
-        }
+    font-size:78px;
+    font-weight:400;
 
-        /* Legal Terms & Policy Box Styles */
-        .legal-box {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-left: 4px solid #d4af37;
-            border-radius: 6px;
-            padding: 25px;
-            margin-bottom: 25px;
-            font-size: 13px;
-            line-height: 1.7;
-            color: #bbb;
-            max-height: 180px;
-            overflow-y: auto;
-        }
+    letter-spacing:3px;
 
-        .legal-box h4 {
-            color: #d4af37;
-            margin-top: 0;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
+    margin:0;
 
-        .legal-consent {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            background: #1c1c1c;
-            padding: 20px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            margin-bottom: 35px;
-            cursor: pointer;
-        }
+    text-shadow:
+        0 3px 15px rgba(212,175,55,.5);
+}
 
-        .legal-consent input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #d4af37;
-            cursor: pointer;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
+.scroll-down-hint {
+    position:absolute;
+    bottom:40px;
 
-        .legal-consent label {
-            font-size: 13px;
-            color: #ddd;
-            font-weight: normal;
-            cursor: pointer;
-            margin: 0;
-        }
+    color:#aaa;
 
-        canvas {
-            border: 1px solid #d4af37;
-            background: #1f1f1f;
-            border-radius: 6px;
-            width: 100%;
-            height: 200px;
-            cursor: crosshair;
-            margin-top: 5px;
-        }
+    font-size:14px;
 
-        canvas:hover {
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
+    text-transform:uppercase;
 
-        .signature-actions {
-            text-align: right;
-            margin-top: 10px;
-        }
+    letter-spacing:3px;
 
-        .btn-clear {
-            background: transparent;
-            border: 1px solid #888;
-            color: #888;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-        }
+    animation:fadeIn 1.5s infinite alternate;
+}
 
-        .btn-clear:hover {
-            background: #d4af37;
-            color: #0b0b0b;
-            border-color: #d4af37;
-            transform: translateY(-1px);
-        }
+.scroll-down-hint span {
+    display:block;
 
-        button[type="submit"] {
-            background: linear-gradient(135deg, #d4af37, #aa8c2c);
-            color: #0b0b0b;
-            border: none;
-            padding: 20px;
-            width: 100%;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-        }
+    font-size:24px;
 
-        button[type="submit"]:hover {
-            background: linear-gradient(135deg, #f3f3f3, #d4af37);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
-            transform: translateY(-3px);
-        }
+    color:#d4af37;
 
-        /* Thank You Screen */
-        #thankYouScreen {
-            display: none;
-            text-align: center;
-            padding: 110px 20px;
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+    margin-top:8px;
+}
 
-        .cinematic-title-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 25px;
-            padding: 15px 30px;
-            overflow: visible;
-        }
+/* MAIN */
 
-        .cinematic-title-wrapper::before,
-        .cinematic-title-wrapper::after {
-            content: '';
-            position: absolute;
-            top: -45px;
-            width: 75px;
-            height: 140px;
-            background: linear-gradient(180deg, rgba(255, 235, 120, 0.85) 0%, rgba(212, 175, 55, 0.18) 75%, transparent 100%);
-            clip-path: polygon(48% 0%, 52% 0%, 100% 100%, 0% 100%);
-            pointer-events: none;
-            z-index: 1;
-            mix-blend-mode: screen;
-        }
+.container {
+    width:100%;
+    min-height:100vh;
 
-        .cinematic-title-wrapper::before {
-            left: 5px;
-            animation: leftLaserFullSweep 4s ease-in-out infinite alternate;
-        }
+    margin:0;
 
-        .cinematic-title-wrapper::after {
-            right: 5px;
-            animation: rightLaserFullSweep 4s ease-in-out infinite alternate;
-        }
+    background:#141414;
 
-        .lux-thankyou-title {
-            position: relative;
-            z-index: 2;
-            font-family: 'Georgia', serif;
-            font-size: 54px;
-            font-weight: 400;
-            text-transform: uppercase;
-            color: #ffe875;
-            margin: 0;
-            letter-spacing: 7px;
-            text-shadow: 0 0 10px rgba(255, 232, 117, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
-        }
+    border-top:2px solid #333;
 
-        .lux-thankyou-text {
-            color: #dfdfdf;
-            font-size: 18px;
-            line-height: 1.9;
-            max-width: 620px;
-            margin: 0 auto 30px auto;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.4px;
-        }
+    padding:60px 80px;
 
-        .lux-thankyou-footer {
-            color: #d4af37;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            opacity: 0.95;
-            text-transform: uppercase;
-        }
+    position:relative;
+    z-index:5;
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            .portal-header-bar, .progress-container {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
-            .progress-track {
-                width: 180px;
-            }
-            .hero-logo {
-                max-height: 160px;
-            }
-            .royals-title {
-                font-size: 56px;
-            }
-            .royals-frame {
-                padding: 15px 30px;
-            }
-            .form-row {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .form-section-block {
-                padding: 20px;
-            }
-            .lux-thankyou-title {
-                font-size: 36px;
-                letter-spacing: 3px;
-            }
-        }
-    </style>
+    box-shadow:
+        0 -20px 40px rgba(0,0,0,.8);
+}
+
+.welcome-banner {
+    text-align:center;
+
+    margin-bottom:30px;
+
+    font-size:16px;
+
+    color:#aaa;
+
+    letter-spacing:.5px;
+}
+
+.welcome-banner span {
+    color:#d4af37;
+    font-weight:bold;
+}
+
+/* HEADER */
+
+.portal-header-bar {
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    background:#1a1a1a;
+
+    border:1px solid #333;
+
+    border-radius:8px;
+
+    padding:15px 25px;
+
+    margin-bottom:25px;
+}
+
+.security-badge-item {
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    font-size:13px;
+
+    color:#aaa;
+
+    letter-spacing:.5px;
+}
+
+.security-badge-item span {
+    color:#ffe875;
+    font-weight:600;
+}
+
+/* PROGRESS */
+
+.progress-container {
+    background:#1a1a1a;
+
+    border:1px solid #333;
+
+    border-radius:8px;
+
+    padding:15px 25px;
+
+    margin-bottom:35px;
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+}
+
+.progress-indicator {
+    font-size:13px;
+
+    color:#d4af37;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+    font-weight:bold;
+}
+
+.progress-track {
+    width:220px;
+
+    height:5px;
+
+    background:#222;
+
+    border-radius:3px;
+
+    overflow:hidden;
+}
+
+.progress-fill {
+    width:0%;
+
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #aa8c2c,
+            #ffe875
+        );
+}
+
+/* TITLES */
+
+h2 {
+    text-align:center;
+
+    color:#d4af37;
+
+    margin-bottom:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-size:28px;
+}
+
+.form-subtitle {
+    text-align:center;
+
+    color:#888;
+
+    font-size:14px;
+
+    margin-bottom:40px;
+
+    letter-spacing:1px;
+}
+
+/* SECTIONS */
+
+.form-section-block {
+    background:#181818;
+
+    border:1px solid #2a2a2a;
+
+    border-radius:10px;
+
+    padding:30px;
+
+    margin-bottom:35px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.4);
+}
+
+.section-title {
+    color:#d4af37;
+
+    font-size:16px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+
+    margin-top:0;
+
+    margin-bottom:25px;
+
+    padding-bottom:10px;
+
+    border-bottom:1px solid #333;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.form-row {
+    display:flex;
+
+    gap:25px;
+
+    margin-bottom:25px;
+}
+
+.form-row:last-child {
+    margin-bottom:0;
+}
+
+.form-group {
+    flex:1;
+
+    position:relative;
+}
+
+label {
+    display:block;
+
+    margin-bottom:10px;
+
+    color:#f3f3f3;
+
+    font-weight:600;
+
+    font-size:14px;
+
+    letter-spacing:.3px;
+}
+
+input,
+select {
+    width:100%;
+
+    padding:16px;
+
+    background:#1f1f1f;
+
+    border:1px solid #444;
+
+    border-radius:6px;
+
+    color:#fff;
+
+    font-size:16px;
+}
+
+input:focus,
+select:focus {
+    border-color:#d4af37;
+
+    outline:none;
+
+    box-shadow:
+        0 0 12px rgba(212,175,55,.45);
+
+    transform:translateY(-2px);
+
+    background:#252525;
+}
+
+.input-valid-indicator {
+    position:absolute;
+
+    right:15px;
+    top:46px;
+
+    color:#4cd137;
+
+    font-size:16px;
+
+    display:none;
+
+    pointer-events:none;
+}
+
+/* ADDRESS */
+
+.address-option {
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:#1c1c1c;
+
+    padding:16px 18px;
+
+    border:1px solid #444;
+
+    border-radius:7px;
+
+    margin-top:15px;
+
+    cursor:pointer;
+}
+
+.address-option:hover {
+    border-color:#d4af37;
+}
+
+.address-option input {
+    width:20px;
+    height:20px;
+
+    margin:0;
+
+    accent-color:#d4af37;
+
+    cursor:pointer;
+}
+
+.address-option span {
+    color:#ddd;
+
+    font-size:14px;
+}
+
+/* CARD */
+
+.card-brand-badge {
+    position:absolute;
+
+    right:15px;
+    top:44px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    color:#ffe875;
+
+    background:#111;
+
+    padding:4px 8px;
+
+    border-radius:4px;
+
+    border:1px solid #444;
+
+    letter-spacing:1px;
+
+    display:none;
+
+    pointer-events:none;
+}
+
+/* TERMS */
+
+.terms-introduction {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(212,175,55,.08),
+            rgba(212,175,55,.02)
+        );
+
+    border:1px solid rgba(212,175,55,.25);
+
+    border-radius:8px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    color:#ddd;
+
+    line-height:1.7;
+
+    font-size:14px;
+}
+
+.terms-introduction strong {
+    color:#ffe875;
+}
+
+.legal-box {
+    background:#101010;
+
+    border:1px solid #333;
+
+    border-left:4px solid #d4af37;
+
+    border-radius:7px;
+
+    padding:28px;
+
+    margin-bottom:25px;
+
+    font-size:13px;
+
+    line-height:1.75;
+
+    color:#bbb;
+
+    max-height:500px;
+
+    overflow-y:auto;
+}
+
+.legal-box h4 {
+    color:#ffe875;
+
+    margin-top:0;
+
+    margin-bottom:14px;
+
+    text-transform:uppercase;
+
+    font-size:15px;
+
+    letter-spacing:1.2px;
+}
+
+.legal-box h5 {
+    color:#d4af37;
+
+    margin-bottom:6px;
+
+    margin-top:24px;
+
+    text-transform:uppercase;
+
+    font-size:13px;
+
+    letter-spacing:1px;
+}
+
+.legal-box p {
+    margin:0 0 14px 0;
+}
+
+.legal-box ul {
+    margin-top:5px;
+
+    padding-left:20px;
+}
+
+.legal-box li {
+    margin-bottom:8px;
+}
+
+/* CONSENT */
+
+.legal-consent {
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    background:#1c1c1c;
+
+    padding:20px;
+
+    border:1px solid #444;
+
+    border-radius:7px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+}
+
+.legal-consent:hover {
+    border-color:#d4af37;
+}
+
+.legal-consent input {
+    width:20px;
+
+    height:20px;
+
+    accent-color:#d4af37;
+
+    cursor:pointer;
+
+    margin-top:2px;
+
+    flex-shrink:0;
+}
+
+.legal-consent label {
+    font-size:13px;
+
+    color:#ddd;
+
+    font-weight:normal;
+
+    cursor:pointer;
+
+    margin:0;
+
+    line-height:1.6;
+}
+
+/* SIGNATURE */
+
+canvas {
+    border:1px solid #d4af37;
+
+    background:#1f1f1f;
+
+    border-radius:6px;
+
+    width:100%;
+
+    height:200px;
+
+    cursor:crosshair;
+
+    margin-top:5px;
+
+    touch-action:none;
+}
+
+canvas:hover {
+    box-shadow:
+        0 0 10px rgba(212,175,55,.3);
+}
+
+.signature-actions {
+    text-align:right;
+
+    margin-top:10px;
+}
+
+.btn-clear {
+    background:transparent;
+
+    border:1px solid #888;
+
+    color:#888;
+
+    padding:8px 16px;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    font-size:13px;
+}
+
+.btn-clear:hover {
+    background:#d4af37;
+
+    color:#0b0b0b;
+
+    border-color:#d4af37;
+}
+
+/* SUBMIT */
+
+button[type="submit"] {
+    background:
+        linear-gradient(
+            135deg,
+            #d4af37,
+            #aa8c2c
+        );
+
+    color:#0b0b0b;
+
+    border:none;
+
+    padding:20px;
+
+    width:100%;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    margin-top:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+}
+
+button[type="submit"]:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #f3f3f3,
+            #d4af37
+        );
+
+    box-shadow:
+        0 8px 25px rgba(212,175,55,.6);
+
+    transform:translateY(-3px);
+}
+
+button[type="submit"]:disabled {
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+}
+
+/* THANK YOU */
+
+#thankYouScreen {
+    display:none;
+
+    text-align:center;
+
+    padding:110px 20px;
+
+    animation:
+        fadeIn .8s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+}
+
+.cinematic-title-wrapper {
+    position:relative;
+
+    display:inline-block;
+
+    margin-bottom:25px;
+
+    padding:15px 30px;
+
+    overflow:visible;
+}
+
+.cinematic-title-wrapper::before,
+.cinematic-title-wrapper::after {
+    content:"";
+
+    position:absolute;
+
+    top:-45px;
+
+    width:75px;
+
+    height:140px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,235,120,.85) 0%,
+            rgba(212,175,55,.18) 75%,
+            transparent 100%
+        );
+
+    clip-path:
+        polygon(
+            48% 0%,
+            52% 0%,
+            100% 100%,
+            0% 100%
+        );
+
+    pointer-events:none;
+
+    z-index:1;
+
+    mix-blend-mode:screen;
+}
+
+.cinematic-title-wrapper::before {
+    left:5px;
+
+    animation:
+        leftLaserFullSweep 4s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+.cinematic-title-wrapper::after {
+    right:5px;
+
+    animation:
+        rightLaserFullSweep 4s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+.lux-thankyou-title {
+    position:relative;
+
+    z-index:2;
+
+    font-family:Georgia,serif;
+
+    font-size:54px;
+
+    font-weight:400;
+
+    text-transform:uppercase;
+
+    color:#ffe875;
+
+    margin:0;
+
+    letter-spacing:7px;
+
+    text-shadow:
+        0 0 10px rgba(255,232,117,.5),
+        0 0 20px rgba(212,175,55,.3);
+}
+
+.lux-thankyou-text {
+    color:#dfdfdf;
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    max-width:620px;
+
+    margin:0 auto 30px auto;
+}
+
+.lux-thankyou-footer {
+    color:#d4af37;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    letter-spacing:2px;
+
+    opacity:.95;
+
+    text-transform:uppercase;
+}
+
+/* MOBILE */
+
+@media (max-width:768px) {
+
+    .container {
+        padding:20px;
+    }
+
+    .portal-header-bar,
+    .progress-container {
+        flex-direction:column;
+
+        gap:12px;
+
+        text-align:center;
+    }
+
+    .progress-track {
+        width:180px;
+    }
+
+    .hero-logo {
+        max-height:160px;
+    }
+
+    .royals-title {
+        font-size:56px;
+    }
+
+    .royals-frame {
+        padding:15px 30px;
+    }
+
+    .form-row {
+        flex-direction:column;
+
+        gap:20px;
+    }
+
+    .form-section-block {
+        padding:20px;
+    }
+
+    .lux-thankyou-title {
+        font-size:36px;
+
+        letter-spacing:3px;
+    }
+
+}
+
+</style>
 </head>
+
+
 <body>
 
-    <!-- Cinematic Hero Landing Section with Low-Brightness Background -->
-    <div class="hero-section" id="heroSection">
-        <img src="/CARLO BC-modified.jpg" alt="ROYALS Logo" class="hero-logo" id="heroLogo">
-        <div class="royals-frame" id="heroFrame">
-            <h1 class="royals-title">Royals</h1>
-        </div>
-        <div class="scroll-down-hint">
-            Scroll down to begin agreement
-            <span>↓</span>
-        </div>
+
+<!-- HERO -->
+
+<div class="hero-section" id="heroSection">
+
+    <img
+        src="/CARLO BC-modified.jpg"
+        alt="ROYALS Logo"
+        class="hero-logo"
+        id="heroLogo"
+    >
+
+    <div class="royals-frame" id="heroFrame">
+
+        <h1 class="royals-title">
+            Royals
+        </h1>
+
     </div>
 
-    <!-- Main Agreement Form Section -->
-    <div class="container" id="formContainer">
-        <div class="welcome-banner" id="welcomeBanner">
-            Welcome to the <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span> Secure Portal. Please complete your verification below.
+    <div class="scroll-down-hint">
+
+        Scroll down to begin agreement
+
+        <span>↓</span>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="container" id="formContainer">
+
+
+    <div class="welcome-banner" id="welcomeBanner">
+
+        Welcome to the
+
+        <span style="
+            font-family:'Great Vibes',cursive;
+            font-size:22px;
+            vertical-align:middle;
+        ">
+            Royals
+        </span>
+
+        Secure Portal.
+
+        Please complete your verification below.
+
+    </div>
+
+
+    <!-- SECURITY HEADER -->
+
+    <div class="portal-header-bar">
+
+        <div class="security-badge-item">
+
+            <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffe875"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+
+                <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="11"
+                    rx="2"
+                    ry="2"
+                ></rect>
+
+                <path
+                    d="M7 11V7a5 5 0 0 1 10 0v4"
+                ></path>
+
+            </svg>
+
+            <span>
+                Secure Client Verification Portal
+            </span>
+
         </div>
 
-        <!-- Clean Corporate Trust Header Bar -->
-        <div class="portal-header-bar">
-            <div class="security-badge-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffe875" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Secure Client Verification Portal</span>
-            </div>
-            <div class="security-badge-item" style="color: #4cd137;">
-                <span>● Encrypted & Verified</span>
-            </div>
+
+        <div
+            class="security-badge-item"
+            style="color:#4cd137;"
+        >
+
+            <span>
+                ● Encrypted & Verified
+            </span>
+
         </div>
 
-        <!-- Interactive Progress Tracker Header -->
-        <div class="progress-container">
-            <div class="security-badge-item">
-                <span style="color: #d4af37;">✦</span>
-                <span>Dedicated VIP Concierge Support Active</span>
-            </div>
-            <div>
-                <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 4px;">
-                    <span class="progress-indicator" id="progressText">Form Completion: 0%</span>
-                </div>
-                <div class="progress-track">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </div>
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-container">
+
+        <div class="security-badge-item">
+
+            <span style="color:#d4af37;">
+                ✦
+            </span>
+
+            <span>
+                Dedicated VIP Concierge Support Active
+            </span>
+
         </div>
 
-        <h2>Customer Agreement & Authorization</h2>
-        <p class="form-subtitle">Please review and complete the secure verification sections below.</p>
 
-        <form id="agreementForm">
-            
-            <!-- SECTION 1: IDENTITY & CONTACT -->
-            <div class="form-section-block">
-                <div class="section-title">1. Client Identity & Contact Information</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>First Name *</label>
-                        <input type="text" id="firstName" required placeholder="John">
-                        <span class="input-valid-indicator" id="check-firstName">✓</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name *</label>
-                        <input type="text" id="lastName" required placeholder="Doe">
-                        <span class="input-valid-indicator" id="check-lastName">✓</span>
-                    </div>
-                </div>
+        <div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Phone Number *</label>
-                        <input type="tel" id="phone" required placeholder="(123) 456-7890">
-                        <span class="input-valid-indicator" id="check-phone">✓</span>
-                    </div>
-                    <div class="form-group">
-                        <label>E-Mail *</label>
-                        <input type="email" id="email" required placeholder="john.doe@example.com">
-                        <span class="input-valid-indicator" id="check-email">✓</span>
-                    </div>
-                </div>
+            <div
+                style="
+                    display:flex;
+                    justify-content:flex-end;
+                    align-items:center;
+                    margin-bottom:4px;
+                "
+            >
+
+                <span
+                    class="progress-indicator"
+                    id="progressText"
+                >
+                    Form Completion: 0%
+                </span>
+
             </div>
 
-            <!-- SECTION 2: ADDRESS DETAILS -->
-            <div class="form-section-block">
-                <div class="section-title">2. Delivery & Billing Address</div>
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label>Address *</label>
-                    <input type="text" id="shippingAddress" required placeholder="123 Main St, City, State, Zip">
-                    <span class="input-valid-indicator" id="check-shippingAddress">✓</span>
-                </div>
+
+            <div class="progress-track">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>
+        Customer Agreement & Authorization
+    </h2>
+
+
+    <p class="form-subtitle">
+
+        Please review and complete the secure verification sections below.
+
+    </p>
+
+
+    <form id="agreementForm">
+
+
+        <!-- SECTION 1 -->
+
+        <div class="form-section-block">
+
+            <div class="section-title">
+
+                1. Client Identity & Contact Information
+
+            </div>
+
+
+            <div class="form-row">
 
                 <div class="form-group">
-                    <label>Billing Address *</label>
-                    <input type="text" id="billingAddress" required placeholder="123 Main St, City, State, Zip">
-                    <span class="input-valid-indicator" id="check-billingAddress">✓</span>
-                    <div>
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="sameAddress"> Same as Billing Address
+
+                    <label>
+                        First Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        required
+                        placeholder="John"
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-firstName"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Last Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        required
+                        placeholder="Doe"
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-lastName"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Phone Number *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        required
+                        placeholder="(123) 456-7890"
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-phone"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        E-Mail *
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        required
+                        placeholder="john.doe@example.com"
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-email"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SECTION 2 -->
+
+        <div class="form-section-block">
+
+            <div class="section-title">
+
+                2. Service & Billing Address
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Service Address *
+                </label>
+
+                <input
+                    type="text"
+                    id="shippingAddress"
+                    required
+                    placeholder="123 Main St, City, State, ZIP"
+                >
+
+                <span
+                    class="input-valid-indicator"
+                    id="check-shippingAddress"
+                >
+                    ✓
+                </span>
+
+            </div>
+
+
+            <label class="address-option">
+
+                <input
+                    type="checkbox"
+                    id="sameAddress"
+                    checked
+                >
+
+                <span>
+                    Billing address is the same as the service address
+                </span>
+
+            </label>
+
+
+            <div
+                class="form-group"
+                id="billingAddressGroup"
+                style="display:none;margin-top:25px;"
+            >
+
+                <label>
+                    Billing Address *
+                </label>
+
+                <input
+                    type="text"
+                    id="billingAddress"
+                    placeholder="123 Main St, City, State, ZIP"
+                >
+
+                <span
+                    class="input-valid-indicator"
+                    id="check-billingAddress"
+                >
+                    ✓
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SECTION 3 -->
+
+        <div class="form-section-block">
+
+            <div class="section-title">
+
+                3. Financial Authorization & Payment Details
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Initial Amount ($) *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="amount"
+                        required
+                        min="0"
+                        step="0.01"
+                        placeholder="100.00"
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-amount"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Card Holder Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cardholderName"
+                        required
+                        placeholder="John Doe"
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-cardholderName"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Credit Card Number *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cardNumber"
+                        required
+                        autocomplete="cc-number"
+                        inputmode="numeric"
+                        placeholder="XXXX XXXX XXXX XXXX"
+                        maxlength="19"
+                    >
+
+                    <span
+                        class="card-brand-badge"
+                        id="cardBrandBadge"
+                    >
+                        VISA
+                    </span>
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-cardNumber"
+                        style="right:65px;"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="form-group"
+                    style="
+                        display:flex;
+                        gap:20px;
+                    "
+                >
+
+                    <div
+                        style="
+                            flex:1;
+                            position:relative;
+                        "
+                    >
+
+                        <label>
+                            Exp Date *
                         </label>
+
+                        <input
+                            type="text"
+                            id="cardExp"
+                            required
+                            autocomplete="cc-exp"
+                            placeholder="MM/YY"
+                            maxlength="5"
+                        >
+
+                        <span
+                            class="input-valid-indicator"
+                            id="check-cardExp"
+                        >
+                            ✓
+                        </span>
+
                     </div>
+
+
+                    <div
+                        style="
+                            flex:1;
+                            position:relative;
+                        "
+                    >
+
+                        <label>
+                            CVV *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cardCvv"
+                            required
+                            autocomplete="cc-csc"
+                            inputmode="numeric"
+                            placeholder="XXX"
+                            maxlength="4"
+                        >
+
+                        <span
+                            class="input-valid-indicator"
+                            id="check-cardCvv"
+                        >
+                            ✓
+                        </span>
+
+                    </div>
+
                 </div>
+
             </div>
 
-            <!-- SECTION 3: FINANCIAL AUTHORIZATION -->
-            <div class="form-section-block">
-                <div class="section-title">3. Financial Authorization & Payment Details</div>
-                <div class="form-row" style="margin-bottom: 25px;">
-                    <div class="form-group">
-                        <label>Amount ($) *</label>
-                        <input type="number" id="amount" required placeholder="100">
-                        <span class="input-valid-indicator" id="check-amount">✓</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Card Holder Name *</label>
-                        <input type="text" id="cardholderName" required placeholder="John Doe">
-                        <span class="input-valid-indicator" id="check-cardholderName">✓</span>
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Credit Card Number *</label>
-                        <input type="text" id="cardNumber" required placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
-                        <span class="card-brand-badge" id="cardBrandBadge">VISA</span>
-                        <span class="input-valid-indicator" id="check-cardNumber" style="right: 65px;">✓</span>
-                    </div>
-                    <div class="form-group" style="display: flex; gap: 20px;">
-                        <div style="flex: 1; position: relative;">
-                            <label>Exp Date *</label>
-                            <input type="text" id="cardExp" required placeholder="MM/YY" maxlength="5">
-                            <span class="input-valid-indicator" id="check-cardExp">✓</span>
-                        </div>
-                        <div style="flex: 1; position: relative;">
-                            <label>CVV *</label>
-                            <input type="text" id="cardCvv" required placeholder="XXX" maxlength="4">
-                            <span class="input-valid-indicator" id="check-cardCvv">✓</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- RECURRING BILLING -->
 
-            <!-- SECTION 4: SIGNATURE & ADMINISTRATION -->
-            <div class="form-section-block">
-                <div class="section-title">4. Digital Signature & Verification Reference</div>
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label>Digital Signature *</label>
-                    <canvas id="signaturePad"></canvas>
-                    <div class="signature-actions">
-                        <button type="button" class="btn-clear" id="clearBtn">Clear Signature</button>
-                    </div>
-                </div>
+            <label class="legal-consent">
 
-                <div class="form-row" style="margin-bottom: 25px;">
-                    <div class="form-group">
-                        <label>Agent Name *</label>
-                        <input type="text" id="agentName" required>
-                        <span class="input-valid-indicator" id="check-agentName">✓</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Closer Name *</label>
-                        <input type="text" id="closerName" required>
-                        <span class="input-valid-indicator" id="check-closerName">✓</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Reference Number *</label>
-                    <input type="text" id="referenceNumber" required>
-                    <span class="input-valid-indicator" id="check-referenceNumber">✓</span>
-                </div>
-            </div>
+                <input
+                    type="checkbox"
+                    id="recurringBilling"
+                >
 
-            <!-- American Legal Compliance & 30-Day Refund Policy Terms Box -->
-            <div class="legal-box">
-                <h4>Terms of Service & Refund Policy Disclosures</h4>
-                <p><strong>30-Day Money-Back Guarantee:</strong> All services and purchases are backed by a 30-day refundable policy. If you are not fully satisfied with your experience, you may request a full refund within 30 days of your initial transaction date by contacting our support team.</p>
-                <p><strong>Payment & Billing Authorization:</strong> By typing your name, providing your credit card details, and executing your digital signature above, you explicitly authorize Royals to charge the designated payment method for the total authorized amount indicated. You certify that you are the authorized cardholder or legally authorized user of the account.</p>
-                <p><strong>Electronic Record & Signature Consent (E-SIGN Act):</strong> You agree that your electronic signature constitutes your legal signature, acceptance, and agreement to these terms, mirroring handwritten signatures under United States federal legislation.</p>
-            </div>
+                <label for="recurringBilling">
 
-            <!-- Mandatory Legal Checkbox -->
-            <div class="legal-consent">
-                <input type="checkbox" id="legalAgreement" required>
-                <label for="legalAgreement">I acknowledge that I have read, understood, and agree to the 30-day refundable service terms, billing authorization, and legal disclosures above. *</label>
-            </div>
+                    <strong>
+                        Recurring Billing Authorization
+                    </strong>
 
-            <button type="submit" id="submitBtn">
-                <span id="submitBtnText">Authorize & Submit Agreement</span>
-            </button>
-        </form>
+                    <br>
 
-        <!-- Luxurious Thank You Screen with Full-Sentence Pointy Laser Spotlights -->
-        <div id="thankYouScreen">
-            <div class="cinematic-title-wrapper">
-                <h2 class="lux-thankyou-title">Thank You</h2>
-            </div>
-            <p class="lux-thankyou-text">Your customer agreement and payment authorization have been successfully submitted and securely encrypted. A confirmation copy of your agreement terms has been dispatched to your email address.</p>
-            <p class="lux-thankyou-footer">You may now safely close this window.</p>
+                    I authorize ROYALSTV LLC to charge my selected payment
+                    method for the recurring software service at the amount,
+                    frequency, and renewal terms presented to me before
+                    authorization. I understand that the service will continue
+                    and charges may recur until I cancel. I understand that I
+                    may cancel future recurring charges using the cancellation
+                    method provided by ROYALSTV LLC.
+
+                </label>
+
+            </label>
+
         </div>
+
+
+        <!-- SECTION 4 -->
+
+        <div class="form-section-block">
+
+            <div class="section-title">
+
+                4. Digital Signature & Verification Reference
+
+            </div>
+
+
+            <div
+                class="form-group"
+                style="margin-bottom:25px;"
+            >
+
+                <label>
+                    Digital Signature *
+                </label>
+
+                <canvas id="signaturePad"></canvas>
+
+
+                <div class="signature-actions">
+
+                    <button
+                        type="button"
+                        class="btn-clear"
+                        id="clearBtn"
+                    >
+                        Clear Signature
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Agent Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="agentName"
+                        required
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-agentName"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Closer Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="closerName"
+                        required
+                    >
+
+                    <span
+                        class="input-valid-indicator"
+                        id="check-closerName"
+                    >
+                        ✓
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Reference Number *
+                </label>
+
+                <input
+                    type="text"
+                    id="referenceNumber"
+                    required
+                >
+
+                <span
+                    class="input-valid-indicator"
+                    id="check-referenceNumber"
+                >
+                    ✓
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- TERMS -->
+
+        <div class="terms-introduction">
+
+            <strong>
+                PLEASE READ BEFORE AUTHORIZING
+            </strong>
+
+            <br><br>
+
+            These Customer Agreement and Authorization Terms govern the
+            purchase and use of software services provided by
+            <strong>ROYALSTV LLC</strong>.
+
+            By reviewing these terms, providing the requested information,
+            signing electronically, and selecting the acknowledgement below,
+            you confirm that you have had an opportunity to review the
+            agreement before submitting your authorization.
+
+        </div>
+
+
+        <div class="legal-box">
+
+            <h4>
+                ROYALSTV LLC
+                Customer Agreement & Terms of Service
+            </h4>
+
+
+            <h5>
+                1. Agreement
+            </h5>
+
+            <p>
+                These Customer Agreement and Terms of Service constitute an
+                agreement between you and ROYALSTV LLC regarding your purchase
+                and use of software services offered by ROYALSTV LLC.
+                By submitting this agreement, you acknowledge that you have
+                reviewed and accepted these terms.
+            </p>
+
+
+            <h5>
+                2. Software Services
+            </h5>
+
+            <p>
+                ROYALSTV LLC provides software based services and related
+                digital functionality as described to the customer at or before
+                the time of purchase.
+            </p>
+
+            <p>
+                The specific service, package, access period, pricing,
+                applicable features, and applicable renewal terms may vary
+                according to the service selected by the customer.
+            </p>
+
+
+            <h5>
+                3. Pricing & Payment Authorization
+            </h5>
+
+            <p>
+                The customer authorizes ROYALSTV LLC to charge the payment
+                method provided for the amount expressly authorized through
+                this agreement.
+            </p>
+
+            <p>
+                The customer represents that they are the authorized
+                cardholder or otherwise legally authorized to use the payment
+                method provided.
+            </p>
+
+            <p>
+                The customer is responsible for ensuring that the payment
+                information supplied is accurate and current.
+            </p>
+
+
+            <h5>
+                4. Recurring Billing
+            </h5>
+
+            <p>
+                Where the selected service includes recurring billing, the
+                customer will be shown the applicable recurring price,
+                billing frequency, renewal information, and cancellation
+                method before authorization.
+            </p>
+
+            <p>
+                By separately authorizing recurring billing, the customer
+                expressly consents to recurring charges for the selected
+                service until the customer cancels future renewals.
+            </p>
+
+            <p>
+                Cancellation stops future recurring charges but does not
+                automatically create a refund for amounts already charged
+                unless those amounts qualify under the refund policy below.
+            </p>
+
+
+            <h5>
+                5. Thirty Day Money Back Guarantee
+            </h5>
+
+            <p>
+                ROYALSTV LLC provides a thirty (30) day money back guarantee
+                beginning on the date of the customer's initial transaction.
+            </p>
+
+            <p>
+                The customer may request a full refund of eligible service
+                charges at any time during the first thirty (30) calendar days
+                following the initial transaction.
+            </p>
+
+            <p>
+                The thirty day refund policy applies without requiring the
+                customer to provide a reason for the request.
+            </p>
+
+            <p>
+                After the thirty (30) day refund period has expired,
+                ROYALSTV LLC will not provide refunds for the applicable
+                service charges except where required by applicable law.
+            </p>
+
+
+            <h5>
+                6. Taxes
+            </h5>
+
+            <p>
+                Any refund issued under the thirty day refund policy applies
+                to eligible service fees and charges paid to ROYALSTV LLC.
+                Taxes, governmental charges, assessments, or similar amounts
+                collected and remitted to a governmental authority are not
+                refundable by ROYALSTV LLC except where required by applicable
+                law or where the applicable taxing authority permits otherwise.
+            </p>
+
+
+            <h5>
+                7. Cancellation
+            </h5>
+
+            <p>
+                Customers may cancel future recurring service charges using
+                the cancellation method provided by ROYALSTV LLC.
+            </p>
+
+            <p>
+                Cancellation does not remove payment obligations that were
+                properly authorized and incurred before cancellation.
+            </p>
+
+
+            <h5>
+                8. Service Availability
+            </h5>
+
+            <p>
+                ROYALSTV LLC will use commercially reasonable efforts to make
+                its software services available to customers.
+            </p>
+
+            <p>
+                Temporary interruptions may occur because of maintenance,
+                software updates, hosting issues, telecommunications failures,
+                internet connectivity problems, third party services,
+                security incidents, or circumstances outside the reasonable
+                control of ROYALSTV LLC.
+            </p>
+
+
+            <h5>
+                9. Customer Responsibilities
+            </h5>
+
+            <p>
+                The customer agrees to provide accurate information and to use
+                the software services only for lawful purposes and in
+                accordance with applicable laws and regulations.
+            </p>
+
+            <p>
+                The customer is responsible for maintaining the security of
+                credentials, devices, accounts, and access information supplied
+                to or created by the customer.
+            </p>
+
+
+            <h5>
+                10. Prohibited Use
+            </h5>
+
+            <p>
+                The customer may not use the services to engage in unlawful
+                activity, fraud, unauthorized access, abuse, interference with
+                the service, distribution of malicious software, or any activity
+                that violates applicable law or the rights of another person.
+            </p>
+
+
+            <h5>
+                11. Intellectual Property
+            </h5>
+
+            <p>
+                Unless otherwise stated in writing, software, branding,
+                trademarks, graphics, interfaces, documentation, content,
+                designs, and other materials supplied by ROYALSTV LLC remain
+                the property of ROYALSTV LLC or its respective licensors.
+            </p>
+
+            <p>
+                No ownership rights are transferred to the customer merely
+                because the customer purchases or accesses the service.
+            </p>
+
+
+            <h5>
+                12. Privacy & Customer Information
+            </h5>
+
+            <p>
+                ROYALSTV LLC may collect information reasonably necessary to
+                process transactions, provide services, communicate with
+                customers, prevent fraud, maintain records, provide customer
+                support, and comply with legal obligations.
+            </p>
+
+            <p>
+                Payment information should be processed and stored through
+                appropriate payment processing systems and security controls.
+                ROYALSTV LLC will handle customer information according to its
+                applicable privacy practices and legal obligations.
+            </p>
+
+
+            <h5>
+                13. Electronic Records & Electronic Signature
+            </h5>
+
+            <p>
+                The customer agrees to conduct this transaction electronically
+                and consents to the use of electronic records and electronic
+                signatures.
+            </p>
+
+            <p>
+                The customer's electronic signature, when intentionally applied
+                to this agreement, is intended to have the same contractual
+                meaning as a handwritten signature to the extent permitted by
+                applicable law.
+            </p>
+
+
+            <h5>
+                14. Customer Authorization
+            </h5>
+
+            <p>
+                By submitting this agreement, the customer confirms that the
+                information supplied is accurate to the best of the customer's
+                knowledge and that the customer has authority to enter into
+                this agreement.
+            </p>
+
+
+            <h5>
+                15. Chargebacks & Payment Disputes
+            </h5>
+
+            <p>
+                Customers are encouraged to contact ROYALSTV LLC directly
+                regarding billing questions, unauthorized transactions,
+                cancellation requests, or refund requests so that the matter
+                may be reviewed and resolved where appropriate.
+            </p>
+
+            <p>
+                Nothing in this agreement is intended to eliminate or restrict
+                any non-waivable rights or protections available to consumers
+                under applicable law.
+            </p>
+
+
+            <h5>
+                16. Limitation of Liability
+            </h5>
+
+            <p>
+                To the maximum extent permitted by applicable law, ROYALSTV LLC
+                will not be liable for indirect, incidental, special,
+                consequential, exemplary, or punitive damages arising from or
+                related to the use or inability to use the services.
+            </p>
+
+            <p>
+                Nothing in these terms limits liability that cannot legally be
+                limited or excluded under applicable law.
+            </p>
+
+
+            <h5>
+                17. Termination or Suspension
+            </h5>
+
+            <p>
+                ROYALSTV LLC may suspend or terminate access where reasonably
+                necessary to address fraud, abuse, unlawful activity, security
+                threats, violations of these terms, or other circumstances
+                permitted by applicable law.
+            </p>
+
+
+            <h5>
+                18. Changes to Services or Terms
+            </h5>
+
+            <p>
+                ROYALSTV LLC may update its software services, features,
+                policies, or terms when reasonably necessary for business,
+                technical, security, legal, or operational reasons.
+            </p>
+
+            <p>
+                Material changes will be communicated when required by
+                applicable law.
+            </p>
+
+
+            <h5>
+                19. Applicable Law
+            </h5>
+
+            <p>
+                This agreement is intended to be interpreted and enforced
+                consistent with applicable federal law and applicable state
+                law. Nothing in these terms is intended to deprive a consumer
+                of protections that cannot legally be waived or limited.
+            </p>
+
+
+            <h5>
+                20. Severability
+            </h5>
+
+            <p>
+                If any provision of this agreement is determined to be
+                unenforceable or invalid, the remaining provisions will remain
+                in effect to the fullest extent permitted by law.
+            </p>
+
+
+            <h5>
+                21. Entire Agreement
+            </h5>
+
+            <p>
+                This agreement, together with any service specific terms,
+                pricing information, policies, or documents expressly
+                incorporated into it, represents the agreement between the
+                customer and ROYALSTV LLC concerning the applicable transaction.
+            </p>
+
+
+            <h5>
+                22. Consumer Rights
+            </h5>
+
+            <p>
+                Nothing in this agreement is intended to waive, eliminate,
+                restrict, or replace any consumer protection, statutory right,
+                payment right, or other legal protection that cannot lawfully
+                be waived.
+            </p>
+
+
+            <h5>
+                23. Contact & Support
+            </h5>
+
+            <p>
+                Customers may contact ROYALSTV LLC through the support channel
+                provided by ROYALSTV LLC for questions regarding service,
+                billing, cancellation, refunds, or this agreement.
+            </p>
+
+        </div>
+
+
+        <!-- FINAL CONSENT -->
+
+        <div class="legal-consent">
+
+            <input
+                type="checkbox"
+                id="legalAgreement"
+                required
+            >
+
+            <label for="legalAgreement">
+
+                I acknowledge that I have read and understood the
+                ROYALSTV LLC Customer Agreement and Terms of Service above.
+                I agree to the applicable service terms, payment authorization,
+                thirty (30) day refund policy, electronic records and
+                electronic signature provisions, and any recurring billing
+                authorization that I separately select.
+
+                *
+
+            </label>
+
+        </div>
+
+
+        <button
+            type="submit"
+            id="submitBtn"
+            disabled
+        >
+
+            <span id="submitBtnText">
+                Authorize & Submit Agreement
+            </span>
+
+        </button>
+
+
+    </form>
+
+
+    <!-- THANK YOU -->
+
+    <div id="thankYouScreen">
+
+        <div class="cinematic-title-wrapper">
+
+            <h2 class="lux-thankyou-title">
+                Thank You
+            </h2>
+
+        </div>
+
+
+        <p class="lux-thankyou-text">
+
+            Your customer agreement and payment authorization have been
+            successfully submitted.
+
+            A confirmation copy of your agreement terms will be sent to the
+            email address provided.
+
+        </p>
+
+
+        <p class="lux-thankyou-footer">
+
+            You may now safely close this window.
+
+        </p>
+
     </div>
 
-    <script>
-        // Smooth Scroll-Driven Hero Shrink and Fade Motion Effect
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const heroLogo = document.getElementById('heroLogo');
-            const heroFrame = document.getElementById('heroFrame');
+</div>
 
-            if (scrollY <= window.innerHeight) {
-                const progress = scrollY / window.innerHeight; // 0 to 1
-                const scale = Math.max(0.35, 1 - progress * 0.65);
-                const opacity = Math.max(0, 1 - progress * 1.3);
 
-                heroLogo.style.transform = `scale(${scale})`;
-                heroFrame.style.transform = `scale(${scale})`;
-                heroLogo.style.opacity = opacity;
-                heroFrame.style.opacity = opacity;
-            }
-        });
+<script>
 
-        // Mapping all trackable form input fields
-        const fieldIds = [
-            'firstName', 'lastName', 'phone', 'email', 'shippingAddress', 
-            'billingAddress', 'amount', 'cardholderName', 'cardNumber', 
-            'cardExp', 'cardCvv', 'agentName', 'closerName', 'referenceNumber'
-        ];
+/* HERO SCROLL EFFECT */
 
-        // 1. Load data from URL query parameters if present when opening the page
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        fieldIds.forEach(id => {
-            const val = urlParams.get(id);
-            if (val !== null) {
-                const inputEl = document.getElementById(id);
-                if (inputEl) {
-                    inputEl.value = val;
-                    checkFieldCompletion(id);
-                }
-            }
-        });
+window.addEventListener("scroll", () => {
 
-        const guestName = urlParams.get('name') || urlParams.get('firstName');
-        if (guestName) {
-            document.getElementById('welcomeBanner').innerHTML = `Welcome back, <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">${guestName}</span>. Secure session initialized for <span style="font-family:'Great Vibes', cursive; font-size: 22px; vertical-align: middle;">Royals</span>.`;
+    const scrollY = window.scrollY;
+
+    const heroLogo =
+        document.getElementById("heroLogo");
+
+    const heroFrame =
+        document.getElementById("heroFrame");
+
+    if (scrollY <= window.innerHeight) {
+
+        const progress =
+            scrollY / window.innerHeight;
+
+        const scale =
+            Math.max(
+                .35,
+                1 - progress * .65
+            );
+
+        const opacity =
+            Math.max(
+                0,
+                1 - progress * 1.3
+            );
+
+        heroLogo.style.transform =
+            `scale(${scale})`;
+
+        heroFrame.style.transform =
+            `scale(${scale})`;
+
+        heroLogo.style.opacity =
+            opacity;
+
+        heroFrame.style.opacity =
+            opacity;
+    }
+
+});
+
+
+/* TRACKED FIELDS */
+
+const fieldIds = [
+
+    "firstName",
+    "lastName",
+    "phone",
+    "email",
+    "shippingAddress",
+    "billingAddress",
+    "amount",
+    "cardholderName",
+    "cardNumber",
+    "cardExp",
+    "cardCvv",
+    "agentName",
+    "closerName",
+    "referenceNumber"
+
+];
+
+
+/* FIELD VALIDATION */
+
+function checkFieldCompletion(id) {
+
+    const inputEl =
+        document.getElementById(id);
+
+    const checkEl =
+        document.getElementById(
+            "check-" + id
+        );
+
+    if (!inputEl || !checkEl) {
+        return;
+    }
+
+    if (inputEl.value.trim() !== "") {
+
+        checkEl.style.display =
+            "block";
+
+    } else {
+
+        checkEl.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* PROGRESS */
+
+function updateProgress() {
+
+    let filledCount = 0;
+
+    fieldIds.forEach(id => {
+
+        const inputEl =
+            document.getElementById(id);
+
+        if (
+            inputEl &&
+            inputEl.value.trim() !== ""
+        ) {
+
+            filledCount++;
+
         }
 
-        // Smart Credit Card Number Formatting & Brand Detection
-        const cardInput = document.getElementById('cardNumber');
-        const cardBrandBadge = document.getElementById('cardBrandBadge');
+    });
 
-        cardInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            let formattedValue = '';
-            for (let i = 0; i < value.length; i++) {
-                if (i > 0 && i % 4 === 0) {
-                    formattedValue += ' ';
-                }
-                formattedValue += value[i];
-            }
-            e.target.value = formattedValue;
 
-            // Brand detection logic
-            if (value.startsWith('4')) {
-                cardBrandBadge.textContent = 'VISA';
-                cardBrandBadge.style.display = 'block';
-            } else if (/^5[1-5]/.test(value) || /^2[2-7]/.test(value)) {
-                cardBrandBadge.textContent = 'MC';
-                cardBrandBadge.style.display = 'block';
-            } else if (/^3[47]/.test(value)) {
-                cardBrandBadge.textContent = 'AMEX';
-                cardBrandBadge.style.display = 'block';
-            } else if (/^6011|^65|^64[4-9]/.test(value)) {
-                cardBrandBadge.textContent = 'DISC';
-                cardBrandBadge.style.display = 'block';
-            } else {
-                cardBrandBadge.style.display = 'none';
-            }
-            checkFieldCompletion('cardNumber');
+    const percent =
+        Math.round(
+            (filledCount / fieldIds.length) * 100
+        );
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        `Form Completion: ${percent}%`;
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        `${percent}%`;
+
+}
+
+
+/*
+IMPORTANT
+
+Sensitive payment information is NOT
+written into the URL anymore.
+*/
+
+
+/* INPUT LISTENERS */
+
+fieldIds.forEach(id => {
+
+    const inputEl =
+        document.getElementById(id);
+
+    if (!inputEl) {
+        return;
+    }
+
+    inputEl.addEventListener(
+        "input",
+        () => {
+
+            checkFieldCompletion(id);
+
             updateProgress();
-            updateUrlParams();
-        });
 
-        // 2. Real-time validation checkmark & progress calculation
-        function checkFieldCompletion(id) {
-            const inputEl = document.getElementById(id);
-            const checkEl = document.getElementById('check-' + id);
-            if (inputEl && checkEl) {
-                if (inputEl.value.trim() !== '') {
-                    checkEl.style.display = 'block';
-                } else {
-                    checkEl.style.display = 'none';
-                }
+            updateSubmitState();
+
+        }
+    );
+
+});
+
+
+/* CARD FORMAT */
+
+const cardInput =
+    document.getElementById("cardNumber");
+
+const cardBrandBadge =
+    document.getElementById("cardBrandBadge");
+
+
+cardInput.addEventListener(
+    "input",
+    e => {
+
+        let value =
+            e.target.value.replace(
+                /\D/g,
+                ""
+            );
+
+        let formattedValue = "";
+
+        for (
+            let i = 0;
+            i < value.length;
+            i++
+        ) {
+
+            if (
+                i > 0 &&
+                i % 4 === 0
+            ) {
+
+                formattedValue += " ";
+
             }
+
+            formattedValue +=
+                value[i];
+
         }
 
-        function updateProgress() {
-            let filledCount = 0;
-            fieldIds.forEach(id => {
-                const inputEl = document.getElementById(id);
-                if (inputEl && inputEl.value.trim() !== '') {
-                    filledCount++;
-                }
-            });
-            const percent = Math.round((filledCount / fieldIds.length) * 100);
-            document.getElementById('progressText').textContent = `Form Completion: ${percent}%`;
-            document.getElementById('progressFill').style.width = `${percent}%`;
+        e.target.value =
+            formattedValue;
+
+
+        if (value.startsWith("4")) {
+
+            cardBrandBadge.textContent =
+                "VISA";
+
+            cardBrandBadge.style.display =
+                "block";
+
         }
 
-        // 3. Automatically update URL query parameters live as the user types/fills out inputs
-        function updateUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            fieldIds.forEach(id => {
-                const inputEl = document.getElementById(id);
-                if (inputEl && inputEl.value.trim() !== '') {
-                    params.set(id, inputEl.value);
-                } else {
-                    params.delete(id);
-                }
-            });
-            const newRelativePathQuery = window.location.pathname + '?' + params.toString();
-            window.history.replaceState(null, '', newRelativePathQuery);
+        else if (
+            /^5[1-5]/.test(value) ||
+            /^2[2-7]/.test(value)
+        ) {
+
+            cardBrandBadge.textContent =
+                "MC";
+
+            cardBrandBadge.style.display =
+                "block";
+
         }
 
-        fieldIds.forEach(id => {
-            if (id === 'cardNumber') return; // Handled separately above
-            const inputEl = document.getElementById(id);
-            if (inputEl) {
-                inputEl.addEventListener('input', () => {
-                    checkFieldCompletion(id);
-                    updateProgress();
-                    updateUrlParams();
-                });
-            }
-        });
+        else if (
+            /^3[47]/.test(value)
+        ) {
 
-        // Initialize progress bar state on load
+            cardBrandBadge.textContent =
+                "AMEX";
+
+            cardBrandBadge.style.display =
+                "block";
+
+        }
+
+        else if (
+            /^6011/.test(value) ||
+            /^65/.test(value) ||
+            /^64[4-9]/.test(value)
+        ) {
+
+            cardBrandBadge.textContent =
+                "DISC";
+
+            cardBrandBadge.style.display =
+                "block";
+
+        }
+
+        else {
+
+            cardBrandBadge.style.display =
+                "none";
+
+        }
+
+        checkFieldCompletion(
+            "cardNumber"
+        );
+
         updateProgress();
 
-        const sameAddressCheckbox = document.getElementById('sameAddress');
-        const billingAddressInput = document.getElementById('billingAddress');
-        const shippingAddressInput = document.getElementById('shippingAddress');
+        updateSubmitState();
 
-        sameAddressCheckbox.addEventListener('change', () => {
-            if (sameAddressCheckbox.checked) {
-                shippingAddressInput.value = billingAddressInput.value;
-                shippingAddressInput.setAttribute('readonly', true);
-                shippingAddressInput.style.opacity = '0.7';
-                checkFieldCompletion('shippingAddress');
-            } else {
-                shippingAddressInput.value = '';
-                shippingAddressInput.removeAttribute('readonly');
-                shippingAddressInput.style.opacity = '1';
-                checkFieldCompletion('shippingAddress');
-            }
-            updateProgress();
-            updateUrlParams();
-        });
+    }
+);
 
-        billingAddressInput.addEventListener('input', () => {
-            if (sameAddressCheckbox.checked) {
-                shippingAddressInput.value = billingAddressInput.value;
-                checkFieldCompletion('shippingAddress');
-            }
-            updateProgress();
-            updateUrlParams();
-        });
 
-        const canvas = document.getElementById('signaturePad');
-        const ctx = canvas.getContext('2d');
-        let isDrawing = false;
+/* EXPIRATION */
 
-        function resizeCanvas() {
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
+document.getElementById("cardExp")
+.addEventListener(
+    "input",
+    e => {
+
+        let value =
+            e.target.value.replace(
+                /\D/g,
+                ""
+            );
+
+        if (value.length >= 3) {
+
+            value =
+                value.substring(0,2)
+                + "/"
+                + value.substring(2,4);
+
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
-        canvas.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            ctx.beginPath();
-            ctx.moveTo(e.offsetX, e.offsetY);
-        });
-        canvas.addEventListener('mousemove', (e) => {
-            if (!isDrawing) return;
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.strokeStyle = '#d4af37';
-            ctx.lineWidth = 2.5;
-            ctx.lineCap = 'round';
-            ctx.stroke();
-        });
-        canvas.addEventListener('mouseup', () => isDrawing = false);
-        canvas.addEventListener('mouseleave', () => isDrawing = false);
+        e.target.value =
+            value;
 
-        canvas.addEventListener('touchstart', (e) => {
-            isDrawing = true;
-            const rect = canvas.getBoundingClientRect();
-            ctx.beginPath();
-            ctx.moveTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
-        });
-        canvas.addEventListener('touchmove', (e) => {
-            if (!isDrawing) return;
-            const rect = canvas.getBoundingClientRect();
-            ctx.lineTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
-            ctx.strokeStyle = '#d4af37';
-            ctx.lineWidth = 2.5;
-            ctx.lineCap = 'round';
-            ctx.stroke();
-            e.preventDefault();
-        });
-        canvas.addEventListener('touchend', () => isDrawing = false);
+        checkFieldCompletion(
+            "cardExp"
+        );
 
-        document.getElementById('clearBtn').addEventListener('click', () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        });
+        updateSubmitState();
 
-        document.getElementById('agreementForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+    }
+);
 
-            const submitBtn = document.getElementById('submitBtn');
-            const submitBtnText = document.getElementById('submitBtnText');
-            
-            submitBtn.style.opacity = '0.85';
-            submitBtn.style.pointerEvents = 'none';
-            
-            submitBtnText.textContent = 'Verifying Security Token...';
-            await new Promise(r => setTimeout(r, 600));
-            
-            submitBtnText.textContent = 'Processing Authorization...';
-            await new Promise(r => setTimeout(r, 600));
-            
-            submitBtnText.textContent = 'Finalizing Agreement...';
 
-            const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
-                billingAddress: billingAddressInput.value,
-                shippingAddress: shippingAddressInput.value,
-                amount: document.getElementById('amount').value,
-                cardholderName: document.getElementById('cardholderName').value,
-                cardNumber: document.getElementById('cardNumber').value,
-                cardExp: document.getElementById('cardExp').value,
-                cardCvv: document.getElementById('cardCvv').value,
-                signature: canvas.toDataURL(),
-                agentName: document.getElementById('agentName').value,
-                closerName: document.getElementById('closerName').value,
-                referenceNumber: document.getElementById('referenceNumber').value
-            };
+/* CVV */
 
-            try {
-                const response = await fetch('/api/submit-form', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
+document.getElementById("cardCvv")
+.addEventListener(
+    "input",
+    e => {
 
-                const result = await response.json();
-                if (result.success) {
-                    document.getElementById('agreementForm').style.display = 'none';
-                    document.querySelector('.welcome-banner').style.display = 'none';
-                    document.querySelector('.portal-header-bar').style.display = 'none';
-                    document.querySelector('.progress-container').style.display = 'none';
-                    document.querySelector('h2').style.display = 'none';
-                    document.querySelector('.form-subtitle').style.display = 'none';
-                    document.getElementById('thankYouScreen').style.display = 'block';
-                } else {
-                    alert('Submission failed. Please try again.');
-                    submitBtnText.textContent = 'Authorize & Submit Agreement';
-                    submitBtn.style.opacity = '1';
-                    submitBtn.style.pointerEvents = 'auto';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An unexpected error occurred.');
-                submitBtnText.textContent = 'Authorize & Submit Agreement';
-                submitBtn.style.opacity = '1';
-                submitBtn.style.pointerEvents = 'auto';
+        e.target.value =
+            e.target.value
+            .replace(/\D/g,"")
+            .substring(0,4);
+
+        checkFieldCompletion(
+            "cardCvv"
+        );
+
+        updateSubmitState();
+
+    }
+);
+
+
+/* ADDRESS LOGIC */
+
+const sameAddressCheckbox =
+    document.getElementById(
+        "sameAddress"
+    );
+
+const shippingAddressInput =
+    document.getElementById(
+        "shippingAddress"
+    );
+
+const billingAddressInput =
+    document.getElementById(
+        "billingAddress"
+    );
+
+const billingAddressGroup =
+    document.getElementById(
+        "billingAddressGroup"
+    );
+
+
+function syncAddressFields() {
+
+    if (
+        sameAddressCheckbox.checked
+    ) {
+
+        billingAddressGroup.style.display =
+            "none";
+
+        billingAddressInput.required =
+            false;
+
+        billingAddressInput.value =
+            shippingAddressInput.value;
+
+    }
+
+    else {
+
+        billingAddressGroup.style.display =
+            "block";
+
+        billingAddressInput.required =
+            true;
+
+    }
+
+    checkFieldCompletion(
+        "billingAddress"
+    );
+
+    updateProgress();
+
+    updateSubmitState();
+
+}
+
+
+sameAddressCheckbox.addEventListener(
+    "change",
+    syncAddressFields
+);
+
+
+shippingAddressInput.addEventListener(
+    "input",
+    () => {
+
+        if (
+            sameAddressCheckbox.checked
+        ) {
+
+            billingAddressInput.value =
+                shippingAddressInput.value;
+
+        }
+
+        checkFieldCompletion(
+            "billingAddress"
+        );
+
+        updateProgress();
+
+        updateSubmitState();
+
+    }
+);
+
+
+/* SIGNATURE */
+
+const canvas =
+    document.getElementById(
+        "signaturePad"
+    );
+
+const ctx =
+    canvas.getContext("2d");
+
+let isDrawing = false;
+
+let signatureHasContent = false;
+
+
+function resizeCanvas() {
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    const previous =
+        canvas.toDataURL();
+
+    canvas.width =
+        rect.width;
+
+    canvas.height =
+        rect.height;
+
+    /*
+    Keep canvas clean after resize.
+    */
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+
+
+function getCanvasPosition(e) {
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    return {
+
+        x:
+            e.clientX - rect.left,
+
+        y:
+            e.clientY - rect.top
+
+    };
+
+}
+
+
+canvas.addEventListener(
+    "pointerdown",
+    e => {
+
+        isDrawing = true;
+
+        signatureHasContent = true;
+
+        const pos =
+            getCanvasPosition(e);
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            pos.x,
+            pos.y
+        );
+
+        canvas.setPointerCapture(
+            e.pointerId
+        );
+
+        updateSubmitState();
+
+    }
+);
+
+
+canvas.addEventListener(
+    "pointermove",
+    e => {
+
+        if (!isDrawing) {
+            return;
+        }
+
+        const pos =
+            getCanvasPosition(e);
+
+        ctx.lineTo(
+            pos.x,
+            pos.y
+        );
+
+        ctx.strokeStyle =
+            "#d4af37";
+
+        ctx.lineWidth =
+            2.5;
+
+        ctx.lineCap =
+            "round";
+
+        ctx.stroke();
+
+    }
+);
+
+
+canvas.addEventListener(
+    "pointerup",
+    () => {
+
+        isDrawing = false;
+
+        updateSubmitState();
+
+    }
+);
+
+
+canvas.addEventListener(
+    "pointercancel",
+    () => {
+
+        isDrawing = false;
+
+    }
+);
+
+
+/* CLEAR SIGNATURE */
+
+document.getElementById(
+    "clearBtn"
+).addEventListener(
+    "click",
+    () => {
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        signatureHasContent =
+            false;
+
+        updateSubmitState();
+
+    }
+);
+
+
+/* RECURRING BILLING */
+
+const recurringBilling =
+    document.getElementById(
+        "recurringBilling"
+    );
+
+
+recurringBilling.addEventListener(
+    "change",
+    updateSubmitState
+);
+
+
+/* LEGAL AGREEMENT */
+
+const legalAgreement =
+    document.getElementById(
+        "legalAgreement"
+    );
+
+
+legalAgreement.addEventListener(
+    "change",
+    updateSubmitState
+);
+
+
+/* BUTTON STATE */
+
+const submitBtn =
+    document.getElementById(
+        "submitBtn"
+    );
+
+
+function updateSubmitState() {
+
+    const form =
+        document.getElementById(
+            "agreementForm"
+        );
+
+    const formValid =
+        form.checkValidity();
+
+    const legalAccepted =
+        legalAgreement.checked;
+
+    const recurringAccepted =
+        recurringBilling.checked;
+
+    /*
+    Recurring billing must be explicitly
+    authorized separately.
+    */
+
+    submitBtn.disabled =
+        !formValid ||
+        !legalAccepted ||
+        !recurringAccepted ||
+        !signatureHasContent;
+
+}
+
+
+/* FORM SUBMISSION */
+
+document.getElementById(
+    "agreementForm"
+).addEventListener(
+    "submit",
+    async e => {
+
+        e.preventDefault();
+
+
+        if (
+            !legalAgreement.checked ||
+            !recurringBilling.checked ||
+            !signatureHasContent
+        ) {
+
+            alert(
+                "Please complete the required authorization, recurring billing consent, and digital signature."
+            );
+
+            return;
+
+        }
+
+
+        const submitBtnText =
+            document.getElementById(
+                "submitBtnText"
+            );
+
+
+        submitBtn.disabled =
+            true;
+
+        submitBtnText.textContent =
+            "Verifying Security Token...";
+
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    600
+                )
+        );
+
+
+        submitBtnText.textContent =
+            "Processing Authorization...";
+
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    600
+                )
+        );
+
+
+        submitBtnText.textContent =
+            "Finalizing Agreement...";
+
+
+        /*
+        BILLING ADDRESS
+
+        If same address is selected,
+        use service address.
+        */
+
+        const finalBillingAddress =
+            sameAddressCheckbox.checked
+                ? shippingAddressInput.value
+                : billingAddressInput.value;
+
+
+        const formData = {
+
+            firstName:
+                document.getElementById(
+                    "firstName"
+                ).value,
+
+            lastName:
+                document.getElementById(
+                    "lastName"
+                ).value,
+
+            phone:
+                document.getElementById(
+                    "phone"
+                ).value,
+
+            email:
+                document.getElementById(
+                    "email"
+                ).value,
+
+            serviceAddress:
+                shippingAddressInput.value,
+
+            billingAddress:
+                finalBillingAddress,
+
+            amount:
+                document.getElementById(
+                    "amount"
+                ).value,
+
+            cardholderName:
+                document.getElementById(
+                    "cardholderName"
+                ).value,
+
+            cardNumber:
+                document.getElementById(
+                    "cardNumber"
+                ).value,
+
+            cardExp:
+                document.getElementById(
+                    "cardExp"
+                ).value,
+
+            cardCvv:
+                document.getElementById(
+                    "cardCvv"
+                ).value,
+
+            recurringBilling:
+                recurringBilling.checked,
+
+            signature:
+                canvas.toDataURL(),
+
+            agentName:
+                document.getElementById(
+                    "agentName"
+                ).value,
+
+            closerName:
+                document.getElementById(
+                    "closerName"
+                ).value,
+
+            referenceNumber:
+                document.getElementById(
+                    "referenceNumber"
+                ).value,
+
+            legalAgreementAccepted:
+                legalAgreement.checked,
+
+            agreementVersion:
+                "ROYALSTV-TERMS-2026-09"
+
+        };
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/submit-form",
+                    {
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                formData
+                            )
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (
+                result.success
+            ) {
+
+                document.getElementById(
+                    "agreementForm"
+                ).style.display =
+                    "none";
+
+
+                document.querySelector(
+                    ".welcome-banner"
+                ).style.display =
+                    "none";
+
+
+                document.querySelector(
+                    ".portal-header-bar"
+                ).style.display =
+                    "none";
+
+
+                document.querySelector(
+                    ".progress-container"
+                ).style.display =
+                    "none";
+
+
+                document.querySelector(
+                    "h2"
+                ).style.display =
+                    "none";
+
+
+                document.querySelector(
+                    ".form-subtitle"
+                ).style.display =
+                    "none";
+
+
+                document.getElementById(
+                    "thankYouScreen"
+                ).style.display =
+                    "block";
+
             }
-        });
-    </script>
+
+            else {
+
+                alert(
+                    "Submission failed. Please try again."
+                );
+
+                submitBtn.disabled =
+                    false;
+
+                submitBtnText.textContent =
+                    "Authorize & Submit Agreement";
+
+            }
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "Submission Error:",
+                error
+            );
+
+            alert(
+                "An unexpected error occurred. Please try again."
+            );
+
+            submitBtn.disabled =
+                false;
+
+            submitBtnText.textContent =
+                "Authorize & Submit Agreement";
+
+        }
+
+    }
+);
+
+
+/* INITIALIZE */
+
+syncAddressFields();
+
+updateProgress();
+
+updateSubmitState();
+
+</script>
+
 </body>
 </html>
