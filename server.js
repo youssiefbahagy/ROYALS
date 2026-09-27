@@ -24,8 +24,8 @@ app.use(express.json({ limit: '15mb' }));
 // Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Helper function to generate a beautifully spaced, full-page printable PDF buffer
-function generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, submissionTimestamp) {
+// Helper function to generate a beautifully spaced, full-page printable PDF buffer (without IP address)
+function generatePdfBuffer(formData, clientFullName, refNum, amount, submissionTimestamp) {
     return new Promise((resolve, reject) => {
         try {
             const doc = new PDFDocument({ margin: 50, size: 'A4' });
@@ -43,14 +43,13 @@ function generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, s
             doc.moveDown(1.5);
 
             // --- TRANSACTION META BOX ---
-            doc.rect(50, doc.y, 495, 45).fillAndStroke('#f9f9f9', '#dddddd');
-            const boxY = doc.y + 12;
+            doc.rect(50, doc.y, 495, 35).fillAndStroke('#f9f9f9', '#dddddd');
+            const boxY = doc.y + 11;
             doc.fontSize(9).fillColor('#444444').font('Helvetica-Bold');
             doc.text(`Reference No:`, 65, boxY, { continued: true }).font('Helvetica').text(` ${refNum}`);
             doc.font('Helvetica-Bold').text(`Timestamp:`, 300, boxY, { continued: true }).font('Helvetica').text(` ${submissionTimestamp}`);
-            doc.font('Helvetica-Bold').text(`Origin IP:`, 65, boxY + 16, { continued: true }).font('Helvetica').text(` ${clientIp}`);
             
-            doc.y = boxY + 45;
+            doc.y = boxY + 35;
             doc.moveDown(1.5);
 
             // --- SECTION 1: CLIENT & TRANSACTION DETAILS ---
@@ -82,7 +81,7 @@ function generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, s
 
             // --- SECTION 2: DIGITAL SIGNATURE ---
             if (formData.signature) {
-                if (doc.y > 650) doc.addPage(); // Prevent signature from getting clipped if page is full
+                if (doc.y > 650) doc.addPage();
 
                 doc.fontSize(13).fillColor('#d4af37').font('Helvetica-Bold').text('2. CLIENT E-SIGNATURE VERIFICATION');
                 doc.moveDown(0.6);
@@ -91,7 +90,6 @@ function generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, s
                     const base64Data = formData.signature.replace(/^data:image\/png;base64,/, '');
                     const signatureBuffer = Buffer.from(base64Data, 'base64');
                     
-                    // Draw a signature container box
                     doc.rect(50, doc.y, 250, 90).stroke('#cccccc');
                     doc.image(signatureBuffer, 60, doc.y + 5, { width: 230, height: 80, align: 'center', valign: 'center' });
                     doc.y += 105;
@@ -112,7 +110,7 @@ function generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, s
     });
 }
 
-// API endpoint to handle form submission & PDF attachment
+// API endpoint to handle form submission & clean PDF attachment
 app.post('/api/submit-form', async (req, res) => {
     try {
         const formData = req.body;
@@ -120,13 +118,12 @@ app.post('/api/submit-form', async (req, res) => {
         const refNum = formData.referenceNumber || 'N/A';
         const amount = formData.amount || '0';
         
-        const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'Secure Node';
         const submissionTimestamp = new Date().toUTCString();
 
-        // Generate the formatted physical PDF buffer
-        const pdfBuffer = await generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, submissionTimestamp);
+        // Generate the clean physical PDF buffer (without IP)
+        const pdfBuffer = await generatePdfBuffer(formData, clientFullName, refNum, amount, submissionTimestamp);
 
-        // HTML Email content for Management (keeps your exact layout)
+        // HTML Email content for Management (IP address removed)
         const managementEmailHtml = `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0b0b; color: #f3f3f3; padding: 35px; border-radius: 10px; border: 1px solid #333;">
                 <h2 style="color: #d4af37; text-transform: uppercase; border-bottom: 2px solid #d4af37; padding-bottom: 10px; letter-spacing: 1px;">Royals - New Customer Agreement Submitted</h2>
@@ -195,7 +192,7 @@ app.post('/api/submit-form', async (req, res) => {
             </div>
         `;
 
-        // Send email to royals101llc@gmail.com with PDF attached
+        // Send email to royals101llc@gmail.com with clean PDF attached
         const emailResponse = await resend.emails.send({
             from: 'Royals Secure Portal <onboarding@resend.dev>',
             to: ['royals101llc@gmail.com'],
@@ -215,7 +212,7 @@ app.post('/api/submit-form', async (req, res) => {
             }
         });
 
-        console.log('Email sent successfully with structured PDF:', emailResponse);
+        console.log('Email sent successfully with clean PDF:', emailResponse);
         res.json({ success: true, message: 'Agreement submitted and organized PDF attached successfully.' });
 
     } catch (error) {
