@@ -2171,7 +2171,9 @@ button[type="submit"]:disabled {
 
 <script>
 
-/* HERO SCROLL EFFECT */
+/* =========================================================
+   HERO SCROLL EFFECT
+========================================================= */
 
 window.addEventListener("scroll", () => {
 
@@ -2211,12 +2213,160 @@ window.addEventListener("scroll", () => {
 
         heroFrame.style.opacity =
             opacity;
+
     }
 
 });
 
 
-/* TRACKED FIELDS */
+/* =========================================================
+   URL NAME MEMORY
+=========================================================
+
+   ONLY firstName + lastName are saved.
+
+   Example:
+
+   yoursite.com/form?firstName=John&lastName=Doe
+
+   NOTHING ELSE is stored in the URL.
+
+   No:
+   - card number
+   - CVV
+   - expiration
+   - email
+   - phone
+   - address
+   - signature
+========================================================= */
+
+const firstNameField =
+    document.getElementById("firstName");
+
+const lastNameField =
+    document.getElementById("lastName");
+
+
+/*
+   Read first + last name from the URL
+   when the page loads.
+*/
+
+const initialURLParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const savedFirstName =
+    initialURLParams.get("firstName");
+
+const savedLastName =
+    initialURLParams.get("lastName");
+
+
+if (savedFirstName !== null) {
+
+    firstNameField.value =
+        savedFirstName;
+
+}
+
+
+if (savedLastName !== null) {
+
+    lastNameField.value =
+        savedLastName;
+
+}
+
+
+/*
+   Update ONLY first + last name
+   in the URL.
+
+   replaceState means:
+   - URL changes immediately
+   - page does NOT reload
+   - browser history does NOT get
+     filled with every keystroke
+*/
+
+function updateNameURL() {
+
+    const firstName =
+        firstNameField.value.trim();
+
+    const lastName =
+        lastNameField.value.trim();
+
+
+    const params =
+        new URLSearchParams();
+
+
+    if (firstName !== "") {
+
+        params.set(
+            "firstName",
+            firstName
+        );
+
+    }
+
+
+    if (lastName !== "") {
+
+        params.set(
+            "lastName",
+            lastName
+        );
+
+    }
+
+
+    const query =
+        params.toString();
+
+
+    const newURL =
+        window.location.pathname +
+        (
+            query
+                ? "?" + query
+                : ""
+        );
+
+
+    window.history.replaceState(
+        null,
+        "",
+        newURL
+    );
+
+}
+
+
+/*
+   Save while customer types.
+*/
+
+firstNameField.addEventListener(
+    "input",
+    updateNameURL
+);
+
+
+lastNameField.addEventListener(
+    "input",
+    updateNameURL
+);
+
+
+/* =========================================================
+   TRACKED FIELDS
+========================================================= */
 
 const fieldIds = [
 
@@ -2238,7 +2388,9 @@ const fieldIds = [
 ];
 
 
-/* FIELD VALIDATION */
+/* =========================================================
+   FIELD VALIDATION
+========================================================= */
 
 function checkFieldCompletion(id) {
 
@@ -2253,6 +2405,7 @@ function checkFieldCompletion(id) {
     if (!inputEl || !checkEl) {
         return;
     }
+
 
     if (inputEl.value.trim() !== "") {
 
@@ -2269,16 +2422,20 @@ function checkFieldCompletion(id) {
 }
 
 
-/* PROGRESS */
+/* =========================================================
+   PROGRESS
+========================================================= */
 
 function updateProgress() {
 
     let filledCount = 0;
 
+
     fieldIds.forEach(id => {
 
         const inputEl =
             document.getElementById(id);
+
 
         if (
             inputEl &&
@@ -2312,24 +2469,20 @@ function updateProgress() {
 }
 
 
-/*
-IMPORTANT
-
-Sensitive payment information is NOT
-written into the URL anymore.
-*/
-
-
-/* INPUT LISTENERS */
+/* =========================================================
+   INPUT LISTENERS
+========================================================= */
 
 fieldIds.forEach(id => {
 
     const inputEl =
         document.getElementById(id);
 
+
     if (!inputEl) {
         return;
     }
+
 
     inputEl.addEventListener(
         "input",
@@ -2347,13 +2500,19 @@ fieldIds.forEach(id => {
 });
 
 
-/* CARD FORMAT */
+/* =========================================================
+   CARD FORMAT
+========================================================= */
 
 const cardInput =
-    document.getElementById("cardNumber");
+    document.getElementById(
+        "cardNumber"
+    );
 
 const cardBrandBadge =
-    document.getElementById("cardBrandBadge");
+    document.getElementById(
+        "cardBrandBadge"
+    );
 
 
 cardInput.addEventListener(
@@ -2366,7 +2525,9 @@ cardInput.addEventListener(
                 ""
             );
 
+
         let formattedValue = "";
+
 
         for (
             let i = 0;
@@ -2383,10 +2544,12 @@ cardInput.addEventListener(
 
             }
 
+
             formattedValue +=
                 value[i];
 
         }
+
 
         e.target.value =
             formattedValue;
@@ -2448,6 +2611,7 @@ cardInput.addEventListener(
 
         }
 
+
         checkFieldCompletion(
             "cardNumber"
         );
@@ -2460,9 +2624,13 @@ cardInput.addEventListener(
 );
 
 
-/* EXPIRATION */
+/* =========================================================
+   EXPIRATION
+========================================================= */
 
-document.getElementById("cardExp")
+document.getElementById(
+    "cardExp"
+)
 .addEventListener(
     "input",
     e => {
@@ -2473,6 +2641,7 @@ document.getElementById("cardExp")
                 ""
             );
 
+
         if (value.length >= 3) {
 
             value =
@@ -2482,8 +2651,10 @@ document.getElementById("cardExp")
 
         }
 
+
         e.target.value =
             value;
+
 
         checkFieldCompletion(
             "cardExp"
@@ -2495,9 +2666,13 @@ document.getElementById("cardExp")
 );
 
 
-/* CVV */
+/* =========================================================
+   CVV
+========================================================= */
 
-document.getElementById("cardCvv")
+document.getElementById(
+    "cardCvv"
+)
 .addEventListener(
     "input",
     e => {
@@ -2506,6 +2681,7 @@ document.getElementById("cardCvv")
             e.target.value
             .replace(/\D/g,"")
             .substring(0,4);
+
 
         checkFieldCompletion(
             "cardCvv"
@@ -2517,22 +2693,27 @@ document.getElementById("cardCvv")
 );
 
 
-/* ADDRESS LOGIC */
+/* =========================================================
+   ADDRESS LOGIC
+========================================================= */
 
 const sameAddressCheckbox =
     document.getElementById(
         "sameAddress"
     );
 
+
 const shippingAddressInput =
     document.getElementById(
         "shippingAddress"
     );
 
+
 const billingAddressInput =
     document.getElementById(
         "billingAddress"
     );
+
 
 const billingAddressGroup =
     document.getElementById(
@@ -2549,8 +2730,10 @@ function syncAddressFields() {
         billingAddressGroup.style.display =
             "none";
 
+
         billingAddressInput.required =
             false;
+
 
         billingAddressInput.value =
             shippingAddressInput.value;
@@ -2562,14 +2745,17 @@ function syncAddressFields() {
         billingAddressGroup.style.display =
             "block";
 
+
         billingAddressInput.required =
             true;
 
     }
 
+
     checkFieldCompletion(
         "billingAddress"
     );
+
 
     updateProgress();
 
@@ -2597,9 +2783,11 @@ shippingAddressInput.addEventListener(
 
         }
 
+
         checkFieldCompletion(
             "billingAddress"
         );
+
 
         updateProgress();
 
@@ -2609,19 +2797,24 @@ shippingAddressInput.addEventListener(
 );
 
 
-/* SIGNATURE */
+/* =========================================================
+   SIGNATURE
+========================================================= */
 
 const canvas =
     document.getElementById(
         "signaturePad"
     );
 
+
 const ctx =
     canvas.getContext("2d");
 
+
 let isDrawing = false;
 
-let signatureHasContent = false;
+let signatureHasContent =
+    false;
 
 
 function resizeCanvas() {
@@ -2629,18 +2822,13 @@ function resizeCanvas() {
     const rect =
         canvas.getBoundingClientRect();
 
-    const previous =
-        canvas.toDataURL();
 
     canvas.width =
         rect.width;
 
+
     canvas.height =
         rect.height;
-
-    /*
-    Keep canvas clean after resize.
-    */
 
 }
 
@@ -2650,6 +2838,7 @@ window.addEventListener(
     resizeCanvas
 );
 
+
 resizeCanvas();
 
 
@@ -2657,6 +2846,7 @@ function getCanvasPosition(e) {
 
     const rect =
         canvas.getBoundingClientRect();
+
 
     return {
 
@@ -2677,21 +2867,27 @@ canvas.addEventListener(
 
         isDrawing = true;
 
-        signatureHasContent = true;
+        signatureHasContent =
+            true;
+
 
         const pos =
             getCanvasPosition(e);
 
+
         ctx.beginPath();
+
 
         ctx.moveTo(
             pos.x,
             pos.y
         );
 
+
         canvas.setPointerCapture(
             e.pointerId
         );
+
 
         updateSubmitState();
 
@@ -2707,22 +2903,28 @@ canvas.addEventListener(
             return;
         }
 
+
         const pos =
             getCanvasPosition(e);
+
 
         ctx.lineTo(
             pos.x,
             pos.y
         );
 
+
         ctx.strokeStyle =
             "#d4af37";
+
 
         ctx.lineWidth =
             2.5;
 
+
         ctx.lineCap =
             "round";
+
 
         ctx.stroke();
 
@@ -2752,11 +2954,14 @@ canvas.addEventListener(
 );
 
 
-/* CLEAR SIGNATURE */
+/* =========================================================
+   CLEAR SIGNATURE
+========================================================= */
 
 document.getElementById(
     "clearBtn"
-).addEventListener(
+)
+.addEventListener(
     "click",
     () => {
 
@@ -2767,8 +2972,10 @@ document.getElementById(
             canvas.height
         );
 
+
         signatureHasContent =
             false;
+
 
         updateSubmitState();
 
@@ -2776,7 +2983,9 @@ document.getElementById(
 );
 
 
-/* RECURRING BILLING */
+/* =========================================================
+   RECURRING BILLING
+========================================================= */
 
 const recurringBilling =
     document.getElementById(
@@ -2790,7 +2999,9 @@ recurringBilling.addEventListener(
 );
 
 
-/* LEGAL AGREEMENT */
+/* =========================================================
+   LEGAL AGREEMENT
+========================================================= */
 
 const legalAgreement =
     document.getElementById(
@@ -2804,7 +3015,9 @@ legalAgreement.addEventListener(
 );
 
 
-/* BUTTON STATE */
+/* =========================================================
+   BUTTON STATE
+========================================================= */
 
 const submitBtn =
     document.getElementById(
@@ -2819,19 +3032,18 @@ function updateSubmitState() {
             "agreementForm"
         );
 
+
     const formValid =
         form.checkValidity();
+
 
     const legalAccepted =
         legalAgreement.checked;
 
+
     const recurringAccepted =
         recurringBilling.checked;
 
-    /*
-    Recurring billing must be explicitly
-    authorized separately.
-    */
 
     submitBtn.disabled =
         !formValid ||
@@ -2842,11 +3054,14 @@ function updateSubmitState() {
 }
 
 
-/* FORM SUBMISSION */
+/* =========================================================
+   FORM SUBMISSION
+========================================================= */
 
 document.getElementById(
     "agreementForm"
-).addEventListener(
+)
+.addEventListener(
     "submit",
     async e => {
 
@@ -2863,6 +3078,7 @@ document.getElementById(
                 "Please complete the required authorization, recurring billing consent, and digital signature."
             );
 
+
             return;
 
         }
@@ -2876,6 +3092,7 @@ document.getElementById(
 
         submitBtn.disabled =
             true;
+
 
         submitBtnText.textContent =
             "Verifying Security Token...";
@@ -3073,6 +3290,18 @@ document.getElementById(
                 ).style.display =
                     "block";
 
+
+                /*
+                Remove first/last name from URL
+                after successful submission.
+                */
+
+                window.history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname
+                );
+
             }
 
             else {
@@ -3081,8 +3310,10 @@ document.getElementById(
                     "Submission failed. Please try again."
                 );
 
+
                 submitBtn.disabled =
                     false;
+
 
                 submitBtnText.textContent =
                     "Authorize & Submit Agreement";
@@ -3098,12 +3329,15 @@ document.getElementById(
                 error
             );
 
+
             alert(
                 "An unexpected error occurred. Please try again."
             );
 
+
             submitBtn.disabled =
                 false;
+
 
             submitBtnText.textContent =
                 "Authorize & Submit Agreement";
@@ -3114,13 +3348,25 @@ document.getElementById(
 );
 
 
-/* INITIALIZE */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
 syncAddressFields();
 
 updateProgress();
 
 updateSubmitState();
+
+
+/*
+   Make sure the restored names immediately
+   show their green checkmarks and progress.
+*/
+
+checkFieldCompletion("firstName");
+
+checkFieldCompletion("lastName");
 
 </script>
 
