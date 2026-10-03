@@ -2160,7 +2160,7 @@ button[type="submit"]:disabled {
 
         <p class="lux-thankyou-footer">
 
-            You may now safely close this window.
+            Portal refreshing automatically...
 
         </p>
 
@@ -2221,24 +2221,6 @@ window.addEventListener("scroll", () => {
 
 /* =========================================================
    URL NAME MEMORY
-=========================================================
-
-   ONLY firstName + lastName are saved.
-
-   Example:
-
-   yoursite.com/form?firstName=John&lastName=Doe
-
-   NOTHING ELSE is stored in the URL.
-
-   No:
-   - card number
-   - CVV
-   - expiration
-   - email
-   - phone
-   - address
-   - signature
 ========================================================= */
 
 const firstNameField =
@@ -2247,17 +2229,10 @@ const firstNameField =
 const lastNameField =
     document.getElementById("lastName");
 
-
-/*
-   Read first + last name from the URL
-   when the page loads.
-*/
-
 const initialURLParams =
     new URLSearchParams(
         window.location.search
     );
-
 
 const savedFirstName =
     initialURLParams.get("firstName");
@@ -2265,33 +2240,13 @@ const savedFirstName =
 const savedLastName =
     initialURLParams.get("lastName");
 
-
 if (savedFirstName !== null) {
-
-    firstNameField.value =
-        savedFirstName;
-
+    firstNameField.value = savedFirstName;
 }
-
 
 if (savedLastName !== null) {
-
-    lastNameField.value =
-        savedLastName;
-
+    lastNameField.value = savedLastName;
 }
-
-
-/*
-   Update ONLY first + last name
-   in the URL.
-
-   replaceState means:
-   - URL changes immediately
-   - page does NOT reload
-   - browser history does NOT get
-     filled with every keystroke
-*/
 
 function updateNameURL() {
 
@@ -2301,34 +2256,19 @@ function updateNameURL() {
     const lastName =
         lastNameField.value.trim();
 
-
     const params =
         new URLSearchParams();
 
-
     if (firstName !== "") {
-
-        params.set(
-            "firstName",
-            firstName
-        );
-
+        params.set("firstName", firstName);
     }
-
 
     if (lastName !== "") {
-
-        params.set(
-            "lastName",
-            lastName
-        );
-
+        params.set("lastName", lastName);
     }
-
 
     const query =
         params.toString();
-
 
     const newURL =
         window.location.pathname +
@@ -2338,7 +2278,6 @@ function updateNameURL() {
                 : ""
         );
 
-
     window.history.replaceState(
         null,
         "",
@@ -2347,16 +2286,10 @@ function updateNameURL() {
 
 }
 
-
-/*
-   Save while customer types.
-*/
-
 firstNameField.addEventListener(
     "input",
     updateNameURL
 );
-
 
 lastNameField.addEventListener(
     "input",
@@ -2369,7 +2302,6 @@ lastNameField.addEventListener(
 ========================================================= */
 
 const fieldIds = [
-
     "firstName",
     "lastName",
     "phone",
@@ -2384,7 +2316,6 @@ const fieldIds = [
     "agentName",
     "closerName",
     "referenceNumber"
-
 ];
 
 
@@ -2406,17 +2337,10 @@ function checkFieldCompletion(id) {
         return;
     }
 
-
     if (inputEl.value.trim() !== "") {
-
-        checkEl.style.display =
-            "block";
-
+        checkEl.style.display = "block";
     } else {
-
-        checkEl.style.display =
-            "none";
-
+        checkEl.style.display = "none";
     }
 
 }
@@ -2430,36 +2354,27 @@ function updateProgress() {
 
     let filledCount = 0;
 
-
     fieldIds.forEach(id => {
-
         const inputEl =
             document.getElementById(id);
-
 
         if (
             inputEl &&
             inputEl.value.trim() !== ""
         ) {
-
             filledCount++;
-
         }
-
     });
-
 
     const percent =
         Math.round(
             (filledCount / fieldIds.length) * 100
         );
 
-
     document.getElementById(
         "progressText"
     ).textContent =
         `Form Completion: ${percent}%`;
-
 
     document.getElementById(
         "progressFill"
@@ -2478,22 +2393,16 @@ fieldIds.forEach(id => {
     const inputEl =
         document.getElementById(id);
 
-
     if (!inputEl) {
         return;
     }
 
-
     inputEl.addEventListener(
         "input",
         () => {
-
             checkFieldCompletion(id);
-
             updateProgress();
-
             updateSubmitState();
-
         }
     );
 
@@ -2514,7 +2423,6 @@ const cardBrandBadge =
         "cardBrandBadge"
     );
 
-
 cardInput.addEventListener(
     "input",
     e => {
@@ -2525,99 +2433,56 @@ cardInput.addEventListener(
                 ""
             );
 
-
         let formattedValue = "";
-
 
         for (
             let i = 0;
             i < value.length;
             i++
         ) {
-
             if (
                 i > 0 &&
                 i % 4 === 0
             ) {
-
                 formattedValue += " ";
-
             }
 
-
-            formattedValue +=
-                value[i];
-
+            formattedValue += value[i];
         }
 
-
-        e.target.value =
-            formattedValue;
-
+        e.target.value = formattedValue;
 
         if (value.startsWith("4")) {
-
-            cardBrandBadge.textContent =
-                "VISA";
-
-            cardBrandBadge.style.display =
-                "block";
-
+            cardBrandBadge.textContent = "VISA";
+            cardBrandBadge.style.display = "block";
         }
-
         else if (
             /^5[1-5]/.test(value) ||
             /^2[2-7]/.test(value)
         ) {
-
-            cardBrandBadge.textContent =
-                "MC";
-
-            cardBrandBadge.style.display =
-                "block";
-
+            cardBrandBadge.textContent = "MC";
+            cardBrandBadge.style.display = "block";
         }
-
         else if (
             /^3[47]/.test(value)
         ) {
-
-            cardBrandBadge.textContent =
-                "AMEX";
-
-            cardBrandBadge.style.display =
-                "block";
-
+            cardBrandBadge.textContent = "AMEX";
+            cardBrandBadge.style.display = "block";
         }
-
         else if (
             /^6011/.test(value) ||
             /^65/.test(value) ||
             /^64[4-9]/.test(value)
         ) {
-
-            cardBrandBadge.textContent =
-                "DISC";
-
-            cardBrandBadge.style.display =
-                "block";
-
+            cardBrandBadge.textContent = "DISC";
+            cardBrandBadge.style.display = "block";
         }
-
         else {
-
-            cardBrandBadge.style.display =
-                "none";
-
+            cardBrandBadge.style.display = "none";
         }
 
-
-        checkFieldCompletion(
-            "cardNumber"
-        );
-
+        checkFieldCompletion("cardNumber");
         updateProgress();
-
         updateSubmitState();
 
     }
@@ -2641,25 +2506,16 @@ document.getElementById(
                 ""
             );
 
-
         if (value.length >= 3) {
-
             value =
                 value.substring(0,2)
                 + "/"
                 + value.substring(2,4);
-
         }
 
+        e.target.value = value;
 
-        e.target.value =
-            value;
-
-
-        checkFieldCompletion(
-            "cardExp"
-        );
-
+        checkFieldCompletion("cardExp");
         updateSubmitState();
 
     }
@@ -2682,11 +2538,7 @@ document.getElementById(
             .replace(/\D/g,"")
             .substring(0,4);
 
-
-        checkFieldCompletion(
-            "cardCvv"
-        );
-
+        checkFieldCompletion("cardCvv");
         updateSubmitState();
 
     }
@@ -2702,97 +2554,67 @@ const sameAddressCheckbox =
         "sameAddress"
     );
 
-
 const shippingAddressInput =
     document.getElementById(
         "shippingAddress"
     );
-
 
 const billingAddressInput =
     document.getElementById(
         "billingAddress"
     );
 
-
 const billingAddressGroup =
     document.getElementById(
         "billingAddressGroup"
     );
-
 
 function syncAddressFields() {
 
     if (
         sameAddressCheckbox.checked
     ) {
-
         billingAddressGroup.style.display =
             "none";
-
 
         billingAddressInput.required =
             false;
 
-
         billingAddressInput.value =
             shippingAddressInput.value;
-
     }
-
     else {
-
         billingAddressGroup.style.display =
             "block";
 
-
         billingAddressInput.required =
             true;
-
     }
 
-
-    checkFieldCompletion(
-        "billingAddress"
-    );
-
-
+    checkFieldCompletion("billingAddress");
     updateProgress();
-
     updateSubmitState();
 
 }
-
 
 sameAddressCheckbox.addEventListener(
     "change",
     syncAddressFields
 );
 
-
 shippingAddressInput.addEventListener(
     "input",
     () => {
-
         if (
             sameAddressCheckbox.checked
         ) {
-
             billingAddressInput.value =
                 shippingAddressInput.value;
-
         }
 
-
-        checkFieldCompletion(
-            "billingAddress"
-        );
-
-
+        checkFieldCompletion("billingAddress");
         updateProgress();
-
         updateSubmitState();
-
     }
 );
 
@@ -2806,150 +2628,85 @@ const canvas =
         "signaturePad"
     );
 
-
 const ctx =
     canvas.getContext("2d");
 
-
 let isDrawing = false;
-
-let signatureHasContent =
-    false;
-
+let signatureHasContent = false;
 
 function resizeCanvas() {
-
     const rect =
         canvas.getBoundingClientRect();
 
-
-    canvas.width =
-        rect.width;
-
-
-    canvas.height =
-        rect.height;
-
+    canvas.width = rect.width;
+    canvas.height = rect.height;
 }
-
 
 window.addEventListener(
     "resize",
     resizeCanvas
 );
 
-
 resizeCanvas();
 
-
 function getCanvasPosition(e) {
-
     const rect =
         canvas.getBoundingClientRect();
 
-
     return {
-
-        x:
-            e.clientX - rect.left,
-
-        y:
-            e.clientY - rect.top
-
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
     };
-
 }
-
 
 canvas.addEventListener(
     "pointerdown",
     e => {
-
         isDrawing = true;
+        signatureHasContent = true;
 
-        signatureHasContent =
-            true;
-
-
-        const pos =
-            getCanvasPosition(e);
-
+        const pos = getCanvasPosition(e);
 
         ctx.beginPath();
-
-
-        ctx.moveTo(
-            pos.x,
-            pos.y
-        );
-
+        ctx.moveTo(pos.x, pos.y);
 
         canvas.setPointerCapture(
             e.pointerId
         );
 
-
         updateSubmitState();
-
     }
 );
-
 
 canvas.addEventListener(
     "pointermove",
     e => {
-
         if (!isDrawing) {
             return;
         }
 
+        const pos = getCanvasPosition(e);
 
-        const pos =
-            getCanvasPosition(e);
-
-
-        ctx.lineTo(
-            pos.x,
-            pos.y
-        );
-
-
-        ctx.strokeStyle =
-            "#d4af37";
-
-
-        ctx.lineWidth =
-            2.5;
-
-
-        ctx.lineCap =
-            "round";
-
-
+        ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = "#d4af37";
+        ctx.lineWidth = 2.5;
+        ctx.lineCap = "round";
         ctx.stroke();
-
     }
 );
-
 
 canvas.addEventListener(
     "pointerup",
     () => {
-
         isDrawing = false;
-
         updateSubmitState();
-
     }
 );
-
 
 canvas.addEventListener(
     "pointercancel",
     () => {
-
         isDrawing = false;
-
     }
 );
 
@@ -2964,7 +2721,6 @@ document.getElementById(
 .addEventListener(
     "click",
     () => {
-
         ctx.clearRect(
             0,
             0,
@@ -2972,19 +2728,14 @@ document.getElementById(
             canvas.height
         );
 
-
-        signatureHasContent =
-            false;
-
-
+        signatureHasContent = false;
         updateSubmitState();
-
     }
 );
 
 
 /* =========================================================
-   RECURRING BILLING
+   RECURRING BILLING & LEGAL
 ========================================================= */
 
 const recurringBilling =
@@ -2992,22 +2743,15 @@ const recurringBilling =
         "recurringBilling"
     );
 
-
 recurringBilling.addEventListener(
     "change",
     updateSubmitState
 );
 
-
-/* =========================================================
-   LEGAL AGREEMENT
-========================================================= */
-
 const legalAgreement =
     document.getElementById(
         "legalAgreement"
     );
-
 
 legalAgreement.addEventListener(
     "change",
@@ -3024,7 +2768,6 @@ const submitBtn =
         "submitBtn"
     );
 
-
 function updateSubmitState() {
 
     const form =
@@ -3032,18 +2775,14 @@ function updateSubmitState() {
             "agreementForm"
         );
 
-
     const formValid =
         form.checkValidity();
-
 
     const legalAccepted =
         legalAgreement.checked;
 
-
     const recurringAccepted =
         recurringBilling.checked;
-
 
     submitBtn.disabled =
         !formValid ||
@@ -3055,7 +2794,7 @@ function updateSubmitState() {
 
 
 /* =========================================================
-   FORM SUBMISSION
+   FORM SUBMISSION & AUTO REFRESH
 ========================================================= */
 
 document.getElementById(
@@ -3067,158 +2806,110 @@ document.getElementById(
 
         e.preventDefault();
 
-
         if (
             !legalAgreement.checked ||
             !recurringBilling.checked ||
             !signatureHasContent
         ) {
-
             alert(
                 "Please complete the required authorization, recurring billing consent, and digital signature."
             );
-
-
             return;
-
         }
-
 
         const submitBtnText =
             document.getElementById(
                 "submitBtnText"
             );
 
-
-        submitBtn.disabled =
-            true;
-
+        submitBtn.disabled = true;
 
         submitBtnText.textContent =
             "Verifying Security Token...";
 
-
         await new Promise(
             resolve =>
-                setTimeout(
-                    resolve,
-                    600
-                )
+                setTimeout(resolve, 600)
         );
-
 
         submitBtnText.textContent =
             "Processing Authorization...";
 
-
         await new Promise(
             resolve =>
-                setTimeout(
-                    resolve,
-                    600
-                )
+                setTimeout(resolve, 600)
         );
-
 
         submitBtnText.textContent =
             "Finalizing Agreement...";
-
-
-        /*
-        BILLING ADDRESS
-
-        If same address is selected,
-        use service address.
-        */
 
         const finalBillingAddress =
             sameAddressCheckbox.checked
                 ? shippingAddressInput.value
                 : billingAddressInput.value;
 
-
         const formData = {
-
             firstName:
                 document.getElementById(
                     "firstName"
                 ).value,
-
             lastName:
                 document.getElementById(
                     "lastName"
                 ).value,
-
             phone:
                 document.getElementById(
                     "phone"
                 ).value,
-
             email:
                 document.getElementById(
                     "email"
                 ).value,
-
             serviceAddress:
                 shippingAddressInput.value,
-
             billingAddress:
                 finalBillingAddress,
-
             amount:
                 document.getElementById(
                     "amount"
                 ).value,
-
             cardholderName:
                 document.getElementById(
                     "cardholderName"
                 ).value,
-
             cardNumber:
                 document.getElementById(
                     "cardNumber"
                 ).value,
-
             cardExp:
                 document.getElementById(
                     "cardExp"
                 ).value,
-
             cardCvv:
                 document.getElementById(
                     "cardCvv"
                 ).value,
-
             recurringBilling:
                 recurringBilling.checked,
-
             signature:
                 canvas.toDataURL(),
-
             agentName:
                 document.getElementById(
                     "agentName"
                 ).value,
-
             closerName:
                 document.getElementById(
                     "closerName"
                 ).value,
-
             referenceNumber:
                 document.getElementById(
                     "referenceNumber"
                 ).value,
-
             legalAgreementAccepted:
                 legalAgreement.checked,
-
             agreementVersion:
                 "ROYALSTV-TERMS-2026-09"
-
         };
-
 
         try {
 
@@ -3227,12 +2918,10 @@ document.getElementById(
                     "/api/submit-form",
                     {
                         method:"POST",
-
                         headers:{
                             "Content-Type":
                                 "application/json"
                         },
-
                         body:
                             JSON.stringify(
                                 formData
@@ -3240,61 +2929,46 @@ document.getElementById(
                     }
                 );
 
-
             const result =
                 await response.json();
-
 
             if (
                 result.success
             ) {
-
                 document.getElementById(
                     "agreementForm"
                 ).style.display =
                     "none";
-
 
                 document.querySelector(
                     ".welcome-banner"
                 ).style.display =
                     "none";
 
-
                 document.querySelector(
                     ".portal-header-bar"
                 ).style.display =
                     "none";
-
 
                 document.querySelector(
                     ".progress-container"
                 ).style.display =
                     "none";
 
-
                 document.querySelector(
                     "h2"
                 ).style.display =
                     "none";
-
 
                 document.querySelector(
                     ".form-subtitle"
                 ).style.display =
                     "none";
 
-
                 document.getElementById(
                     "thankYouScreen"
                 ).style.display =
                     "block";
-
-
-                /*
-                Remove first/last name from URL
-                after successful submission.
-                */
 
                 window.history.replaceState(
                     null,
@@ -3302,46 +2976,40 @@ document.getElementById(
                     window.location.pathname
                 );
 
+                // Auto-refresh page after 4 seconds to clear state for the next client
+                setTimeout(() => {
+                    window.location.reload();
+                }, 4000);
+
             }
-
             else {
-
                 alert(
                     "Submission failed. Please try again."
                 );
 
-
                 submitBtn.disabled =
                     false;
 
-
                 submitBtnText.textContent =
                     "Authorize & Submit Agreement";
-
             }
 
         }
-
         catch(error) {
-
             console.error(
                 "Submission Error:",
                 error
             );
 
-
             alert(
                 "An unexpected error occurred. Please try again."
             );
 
-
             submitBtn.disabled =
                 false;
 
-
             submitBtnText.textContent =
                 "Authorize & Submit Agreement";
-
         }
 
     }
@@ -3353,19 +3021,10 @@ document.getElementById(
 ========================================================= */
 
 syncAddressFields();
-
 updateProgress();
-
 updateSubmitState();
 
-
-/*
-   Make sure the restored names immediately
-   show their green checkmarks and progress.
-*/
-
 checkFieldCompletion("firstName");
-
 checkFieldCompletion("lastName");
 
 </script>
