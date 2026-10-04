@@ -2220,13 +2220,16 @@ window.addEventListener("scroll", () => {
 
 
 /* =========================================================
-   URL CONTACT MEMORY (FIRST NAME, LAST NAME, EMAIL, PHONE)
+   URL PARAMETER AUTO-SAVE (ALL TRACKED FIELDS)
 ========================================================= */
 
 const firstNameField = document.getElementById("firstName");
 const lastNameField = document.getElementById("lastName");
 const emailField = document.getElementById("email");
 const phoneField = document.getElementById("phone");
+const agentNameField = document.getElementById("agentName");
+const closerNameField = document.getElementById("closerName");
+const referenceNumberField = document.getElementById("referenceNumber");
 
 const initialURLParams = new URLSearchParams(window.location.search);
 
@@ -2234,17 +2237,26 @@ const savedFirstName = initialURLParams.get("firstName");
 const savedLastName = initialURLParams.get("lastName");
 const savedEmail = initialURLParams.get("email");
 const savedPhone = initialURLParams.get("phone");
+const savedAgentName = initialURLParams.get("agentName");
+const savedCloserName = initialURLParams.get("closerName");
+const savedReferenceNumber = initialURLParams.get("referenceNumber");
 
 if (savedFirstName !== null) firstNameField.value = savedFirstName;
 if (savedLastName !== null) lastNameField.value = savedLastName;
 if (savedEmail !== null) emailField.value = savedEmail;
 if (savedPhone !== null) phoneField.value = savedPhone;
+if (savedAgentName !== null) agentNameField.value = savedAgentName;
+if (savedCloserName !== null) closerNameField.value = savedCloserName;
+if (savedReferenceNumber !== null) referenceNumberField.value = savedReferenceNumber;
 
-function updateContactURL() {
+function updateURLParams() {
     const firstName = firstNameField.value.trim();
     const lastName = lastNameField.value.trim();
     const email = emailField.value.trim();
     const phone = phoneField.value.trim();
+    const agentName = agentNameField.value.trim();
+    const closerName = closerNameField.value.trim();
+    const referenceNumber = referenceNumberField.value.trim();
 
     const params = new URLSearchParams();
 
@@ -2252,6 +2264,9 @@ function updateContactURL() {
     if (lastName !== "") params.set("lastName", lastName);
     if (email !== "") params.set("email", email);
     if (phone !== "") params.set("phone", phone);
+    if (agentName !== "") params.set("agentName", agentName);
+    if (closerName !== "") params.set("closerName", closerName);
+    if (referenceNumber !== "") params.set("referenceNumber", referenceNumber);
 
     const query = params.toString();
     const newURL = window.location.pathname + (query ? "?" + query : "");
@@ -2259,10 +2274,13 @@ function updateContactURL() {
     window.history.replaceState(null, "", newURL);
 }
 
-firstNameField.addEventListener("input", updateContactURL);
-lastNameField.addEventListener("input", updateContactURL);
-emailField.addEventListener("input", updateContactURL);
-phoneField.addEventListener("input", updateContactURL);
+firstNameField.addEventListener("input", updateURLParams);
+lastNameField.addEventListener("input", updateURLParams);
+emailField.addEventListener("input", updateURLParams);
+phoneField.addEventListener("input", updateURLParams);
+agentNameField.addEventListener("input", updateURLParams);
+closerNameField.addEventListener("input", updateURLParams);
+referenceNumberField.addEventListener("input", updateURLParams);
 
 
 /* =========================================================
@@ -2996,6 +3014,9 @@ checkFieldCompletion("firstName");
 checkFieldCompletion("lastName");
 checkFieldCompletion("email");
 checkFieldCompletion("phone");
+checkFieldCompletion("agentName");
+checkFieldCompletion("closerName");
+checkFieldCompletion("referenceNumber");
 
 </script>
 
