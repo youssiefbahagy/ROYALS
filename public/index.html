@@ -2620,7 +2620,7 @@ shippingAddressInput.addEventListener(
 
 
 /* =========================================================
-   SIGNATURE
+   SIGNATURE & SCROLL BUFFER FIX
 ========================================================= */
 
 const canvas =
@@ -2635,11 +2635,19 @@ let isDrawing = false;
 let signatureHasContent = false;
 
 function resizeCanvas() {
-    const rect =
-        canvas.getBoundingClientRect();
+    let tempCanvasData = null;
 
+    if (signatureHasContent && canvas.width > 0 && canvas.height > 0) {
+        tempCanvasData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+
+    const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width;
     canvas.height = rect.height;
+
+    if (tempCanvasData) {
+        ctx.putImageData(tempCanvasData, 0, 0);
+    }
 }
 
 window.addEventListener(
