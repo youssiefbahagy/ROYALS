@@ -2220,81 +2220,49 @@ window.addEventListener("scroll", () => {
 
 
 /* =========================================================
-   URL NAME MEMORY
+   URL CONTACT MEMORY (FIRST NAME, LAST NAME, EMAIL, PHONE)
 ========================================================= */
 
-const firstNameField =
-    document.getElementById("firstName");
+const firstNameField = document.getElementById("firstName");
+const lastNameField = document.getElementById("lastName");
+const emailField = document.getElementById("email");
+const phoneField = document.getElementById("phone");
 
-const lastNameField =
-    document.getElementById("lastName");
+const initialURLParams = new URLSearchParams(window.location.search);
 
-const initialURLParams =
-    new URLSearchParams(
-        window.location.search
-    );
+const savedFirstName = initialURLParams.get("firstName");
+const savedLastName = initialURLParams.get("lastName");
+const savedEmail = initialURLParams.get("email");
+const savedPhone = initialURLParams.get("phone");
 
-const savedFirstName =
-    initialURLParams.get("firstName");
+if (savedFirstName !== null) firstNameField.value = savedFirstName;
+if (savedLastName !== null) lastNameField.value = savedLastName;
+if (savedEmail !== null) emailField.value = savedEmail;
+if (savedPhone !== null) phoneField.value = savedPhone;
 
-const savedLastName =
-    initialURLParams.get("lastName");
+function updateContactURL() {
+    const firstName = firstNameField.value.trim();
+    const lastName = lastNameField.value.trim();
+    const email = emailField.value.trim();
+    const phone = phoneField.value.trim();
 
-if (savedFirstName !== null) {
-    firstNameField.value = savedFirstName;
+    const params = new URLSearchParams();
+
+    if (firstName !== "") params.set("firstName", firstName);
+    if (lastName !== "") params.set("lastName", lastName);
+    if (email !== "") params.set("email", email);
+    if (phone !== "") params.set("phone", phone);
+
+    const query = params.toString();
+    const newURL = window.location.pathname + (query ? "?" + query : "");
+
+    window.history.replaceState(null, "", newURL);
 }
 
-if (savedLastName !== null) {
-    lastNameField.value = savedLastName;
-}
-
-function updateNameURL() {
-
-    const firstName =
-        firstNameField.value.trim();
-
-    const lastName =
-        lastNameField.value.trim();
-
-    const params =
-        new URLSearchParams();
-
-    if (firstName !== "") {
-        params.set("firstName", firstName);
-    }
-
-    if (lastName !== "") {
-        params.set("lastName", lastName);
-    }
-
-    const query =
-        params.toString();
-
-    const newURL =
-        window.location.pathname +
-        (
-            query
-                ? "?" + query
-                : ""
-        );
-
-    window.history.replaceState(
-        null,
-        "",
-        newURL
-    );
-
-}
-
-firstNameField.addEventListener(
-    "input",
-    updateNameURL
-);
-
-lastNameField.addEventListener(
-    "input",
-    updateNameURL
-);
+firstNameField.addEventListener("input", updateContactURL);
+lastNameField.addEventListener("input", updateContactURL);
+emailField.addEventListener("input", updateContactURL);
+phoneField.addEventListener("input", updateContactURL);
 
 
 /* =========================================================
@@ -3026,6 +2994,8 @@ updateSubmitState();
 
 checkFieldCompletion("firstName");
 checkFieldCompletion("lastName");
+checkFieldCompletion("email");
+checkFieldCompletion("phone");
 
 </script>
 
